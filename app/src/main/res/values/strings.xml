@@ -13,4 +13,6 @@
     <string name="welcome">Welcome Guest</string>
     <string name="classic">Classic</string>
     <string name="custom">Custom</string>
+    <string name="timer">0</string>
+    <string name="session">session</string>
 </resources>
