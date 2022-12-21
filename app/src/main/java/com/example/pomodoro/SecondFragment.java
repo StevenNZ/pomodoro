@@ -5,8 +5,6 @@ import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -43,7 +41,6 @@ public class SecondFragment extends Fragment {
         binding.buttonPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println("clicky");
                 if (isRunning) {
                     pauseTimer();
                 } else {
