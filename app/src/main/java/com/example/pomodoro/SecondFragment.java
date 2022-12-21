@@ -16,9 +16,13 @@ import java.util.Locale;
 
 public class SecondFragment extends Fragment {
 
-    private static long initialTime = 600000;
+    private static final long initialTime = 6000;
+    private static final long shortBreakTime = 2000;
+    private static final long longBreakTime = 4000;
 
     private boolean isRunning = false;
+    private boolean isBreak = false;
+    private int breakCount = 0;
     private long remainingTime = initialTime;
 
     private CountDownTimer timer;
@@ -78,7 +82,23 @@ public class SecondFragment extends Fragment {
 
             @Override
             public void onFinish() {
-                // TODO: 20/12/22
+                isRunning = false;
+
+                if (isBreak) {
+                    remainingTime = initialTime;
+                    isBreak = false;
+                    updateTimer();
+                } else if (breakCount == 4) {
+                    remainingTime = longBreakTime;
+                    isBreak = true;
+                    breakCount = 0;
+                    updateTimer();
+                } else {
+                    remainingTime = shortBreakTime;
+                    isBreak = true;
+                    breakCount++;
+                    updateTimer();
+                }
             }
         }.start();
 
