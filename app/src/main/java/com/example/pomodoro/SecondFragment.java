@@ -24,6 +24,7 @@ public class SecondFragment extends Fragment {
     private boolean isBreak = false;
     private int breakCount = 0;
     private long remainingTime = initialTime;
+    private String workSession = "Study Session";
 
     private CountDownTimer timer;
     private FragmentSecondBinding binding;
@@ -70,6 +71,7 @@ public class SecondFragment extends Fragment {
 
         String remainingTimeText = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
         binding.textTimer.setText(remainingTimeText);
+        binding.textSession.setText(workSession);
     }
 
     private void startTimer() {
@@ -84,17 +86,21 @@ public class SecondFragment extends Fragment {
             public void onFinish() {
                 isRunning = false;
 
-                if (isBreak) {
+                if (isBreak) {// Break -> Work
                     remainingTime = initialTime;
+                    workSession = "Study Session";
                     isBreak = false;
                     updateTimer();
-                } else if (breakCount == 4) {
+                } else if (breakCount == 4) {// Work -> Long break
                     remainingTime = longBreakTime;
+                    workSession = "Long Break";
                     isBreak = true;
                     breakCount = 0;
                     updateTimer();
-                } else {
+                } else {// Work -> Short Break
                     remainingTime = shortBreakTime;
+                    breakCount++;
+                    workSession = "Short Break " + breakCount;
                     isBreak = true;
                     breakCount++;
                     updateTimer();
