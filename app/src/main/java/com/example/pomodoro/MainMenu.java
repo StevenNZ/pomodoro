@@ -9,11 +9,11 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
-import com.example.pomodoro.databinding.FragmentFirstBinding;
+import com.example.pomodoro.databinding.MainMenuBinding;
 
-public class FirstFragment extends Fragment {
+public class MainMenu extends Fragment {
 
-    private FragmentFirstBinding binding;
+    private MainMenuBinding binding;
 
     @Override
     public View onCreateView(
@@ -21,7 +21,7 @@ public class FirstFragment extends Fragment {
             Bundle savedInstanceState
     ) {
 
-        binding = FragmentFirstBinding.inflate(inflater, container, false);
+        binding = MainMenuBinding.inflate(inflater, container, false);
         return binding.getRoot();
 
     }
@@ -32,7 +32,7 @@ public class FirstFragment extends Fragment {
         binding.buttonFirst.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NavHostFragment.findNavController(FirstFragment.this)
+                NavHostFragment.findNavController(MainMenu.this)
                         .navigate(R.id.action_FirstFragment_to_SecondFragment);
             }
         });

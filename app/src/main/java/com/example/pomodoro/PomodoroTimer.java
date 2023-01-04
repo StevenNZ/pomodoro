@@ -10,11 +10,11 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
-import com.example.pomodoro.databinding.FragmentSecondBinding;
+import com.example.pomodoro.databinding.PomodoroTimerBinding;
 
 import java.util.Locale;
 
-public class SecondFragment extends Fragment {
+public class PomodoroTimer extends Fragment {
 
     private static final long initialTime = 6000;
     private static final long shortBreakTime = 2000;
@@ -27,7 +27,7 @@ public class SecondFragment extends Fragment {
     private String workSession = "Study Session";
 
     private CountDownTimer timer;
-    private FragmentSecondBinding binding;
+    private PomodoroTimerBinding binding;
 
     @Override
     public View onCreateView(
@@ -35,7 +35,7 @@ public class SecondFragment extends Fragment {
             Bundle savedInstanceState
     ) {
 
-        binding = FragmentSecondBinding.inflate(inflater, container, false);
+        binding = PomodoroTimerBinding.inflate(inflater, container, false);
         return binding.getRoot();
 
     }
@@ -59,7 +59,7 @@ public class SecondFragment extends Fragment {
         binding.buttonStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NavHostFragment.findNavController(SecondFragment.this)
+                NavHostFragment.findNavController(PomodoroTimer.this)
                         .navigate(R.id.action_SecondFragment_to_FirstFragment);
             }
         });
