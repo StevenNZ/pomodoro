@@ -32,6 +32,8 @@ public class CustomSetting extends Fragment {
         binding.saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                updateCustomTimes();
+
                 NavHostFragment.findNavController(CustomSetting.this)
                         .navigate(R.id.action_customSetting_to_pomodoro);
             }
@@ -75,6 +77,14 @@ public class CustomSetting extends Fragment {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {}
         });
+    }
+
+    private void updateCustomTimes() {
+        long workTime = Integer.parseInt(binding.workText.getText().toString());
+        long shortBreakTime = Integer.parseInt(binding.shortBreakText.getText().toString());
+        long longBreakTime = Integer.parseInt(binding.longBreakText.getText().toString());
+
+        PomodoroTimer.updateTimerSettings(workTime, shortBreakTime, longBreakTime);
     }
 
     @Override

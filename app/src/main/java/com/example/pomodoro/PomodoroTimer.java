@@ -16,9 +16,9 @@ import java.util.Locale;
 
 public class PomodoroTimer extends Fragment {
 
-    private static final long initialTime = 6000;
-    private static final long shortBreakTime = 2000;
-    private static final long longBreakTime = 4000;
+    private static long initialTime = 6000;
+    private static long shortBreakTime = 2000;
+    private static long longBreakTime = 4000;
 
     private boolean isRunning = false;
     private boolean isBreak = false;
@@ -28,6 +28,12 @@ public class PomodoroTimer extends Fragment {
 
     private CountDownTimer timer;
     private PomodoroTimerBinding binding;
+
+    public static void updateTimerSettings(long workTime, long shortTime, long longTime) {
+        initialTime = workTime*60*1000;
+        shortBreakTime = shortTime*60*1000;
+        longBreakTime = longTime*60*1000;
+    }
 
     @Override
     public View onCreateView(
