@@ -53,4 +53,63 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textSession" />
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="183dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textSession">
+
+        <ImageView
+            android:id="@+id/tomatoInitial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/tomato_initial2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/tomatoOne"
+            android:layout_width="46dp"
+            android:layout_height="39dp"
+            android:layout_marginStart="10dp"
+            android:src="@drawable/tomato_filled"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="@+id/tomatoInitial"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/tomatoFour"
+            android:layout_width="46dp"
+            android:layout_height="39dp"
+            android:layout_marginStart="127dp"
+            android:src="@drawable/tomato_filled"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="@+id/tomatoInitial"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/tomatoThree"
+            android:layout_width="46dp"
+            android:layout_height="39dp"
+            android:layout_marginStart="88dp"
+            android:src="@drawable/tomato_filled"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="@+id/tomatoInitial"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/tomatoTwo"
+            android:layout_width="46dp"
+            android:layout_height="39dp"
+            android:layout_marginStart="49dp"
+            android:src="@drawable/tomato_filled"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="@+id/tomatoInitial"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
