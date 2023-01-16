@@ -30,9 +30,9 @@ public class PomodoroTimer extends Fragment {
     private PomodoroTimerBinding binding;
 
     public static void updateTimerSettings(long workTime, long shortTime, long longTime) {
-        initialTime = workTime*60*1000;
-        shortBreakTime = shortTime*60*1000;
-        longBreakTime = longTime*60*1000;
+//        initialTime = workTime*60*1000;
+//        shortBreakTime = shortTime*60*1000;
+//        longBreakTime = longTime*60*1000;
     }
 
     @Override
@@ -108,13 +108,30 @@ public class PomodoroTimer extends Fragment {
                     breakCount++;
                     workSession = "Short Break " + breakCount;
                     isBreak = true;
-                    breakCount++;
+                    updateShortBreaks();
                     updateTimer();
                 }
             }
         }.start();
 
         isRunning = true;
+    }
+
+    private void updateShortBreaks() {
+        switch(breakCount) {
+            case 1:
+                binding.tomatoOne.setVisibility(View.VISIBLE);
+                break;
+            case 2:
+                binding.tomatoTwo.setVisibility(View.VISIBLE);
+                break;
+            case 3:
+                binding.tomatoThree.setVisibility(View.VISIBLE);
+                break;
+            case 4:
+                binding.tomatoFour.setVisibility(View.VISIBLE);
+                break;
+        }
     }
 
     private void pauseTimer() {
