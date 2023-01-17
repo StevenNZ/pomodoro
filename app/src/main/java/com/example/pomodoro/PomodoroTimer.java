@@ -69,6 +69,26 @@ public class PomodoroTimer extends Fragment {
                         .navigate(R.id.action_SecondFragment_to_FirstFragment);
             }
         });
+
+        binding.buttonNewGame.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                binding.buttonPlay.setVisibility(View.VISIBLE);
+                binding.buttonNewGame.setVisibility(View.INVISIBLE);
+                remainingTime = initialTime;
+                workSession = "Study Session";
+                isBreak = false;
+                updateTimer();
+                resetShortBreaks();
+            }
+        });
+    }
+
+    private void resetShortBreaks() {
+        binding.tomatoOne.setVisibility(View.INVISIBLE);
+        binding.tomatoTwo.setVisibility(View.INVISIBLE);
+        binding.tomatoThree.setVisibility(View.INVISIBLE);
+        binding.tomatoFour.setVisibility(View.INVISIBLE);
     }
 
     private void updateTimer() {
@@ -92,7 +112,10 @@ public class PomodoroTimer extends Fragment {
             public void onFinish() {
                 isRunning = false;
 
-                if (isBreak) {// Break -> Work
+                if (isBreak && breakCount == 0) {
+                    binding.buttonPlay.setVisibility(View.INVISIBLE);
+                    binding.buttonNewGame.setVisibility(View.VISIBLE);
+                } else if (isBreak) {// Break -> Work
                     remainingTime = initialTime;
                     workSession = "Study Session";
                     isBreak = false;
