@@ -16,15 +16,16 @@ import java.util.Locale;
 
 public class PomodoroTimer extends Fragment {
 
-    private static long initialTime = 6000;
+    private static long workTime = 10000;
     private static long shortBreakTime = 2000;
     private static long longBreakTime = 4000;
 
     private boolean isRunning = false;
     private boolean isBreak = false;
     private int breakCount = 0;
-    private long remainingTime = initialTime;
+    private long remainingTime = workTime;
     private String workSession = "Study Session";
+    private long initialTime = workTime;
 
     private CountDownTimer timer;
     private PomodoroTimerBinding binding;
@@ -75,7 +76,7 @@ public class PomodoroTimer extends Fragment {
             public void onClick(View view) {
                 binding.buttonPlay.setVisibility(View.VISIBLE);
                 binding.buttonNewGame.setVisibility(View.INVISIBLE);
-                remainingTime = initialTime;
+                remainingTime = workTime;
                 workSession = "Study Session";
                 isBreak = false;
                 updateTimer();
@@ -92,12 +93,16 @@ public class PomodoroTimer extends Fragment {
     }
 
     private void updateTimer() {
-        int minutes = (int) (remainingTime/1000) / 60;
-        int seconds = (int) (remainingTime/1000) % 60;
+        int minutes = (int) (remainingTime / 1000) / 60;
+        int seconds = (int) (remainingTime / 1000) % 60;
 
         String remainingTimeText = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
         binding.textTimer.setText(remainingTimeText);
         binding.textSession.setText(workSession);
+        binding.progressBarTimer.setProgress((int) ((double)(remainingTime) / (double) (initialTime)*100));
+        System.out.println((double)(remainingTime) / (double) (initialTime));
+        System.out.println(remainingTime);
+        System.out.println(initialTime);
     }
 
     private void startTimer() {
@@ -115,23 +120,24 @@ public class PomodoroTimer extends Fragment {
                 if (isBreak && breakCount == 0) {
                     binding.buttonPlay.setVisibility(View.INVISIBLE);
                     binding.buttonNewGame.setVisibility(View.VISIBLE);
-                } else if (isBreak) {// Break -> Work
-                    remainingTime = initialTime;
-                    workSession = "Study Session";
-                    isBreak = false;
-                    updateTimer();
-                } else if (breakCount == 4) {// Work -> Long break
-                    remainingTime = longBreakTime;
-                    workSession = "Long Break";
-                    isBreak = true;
-                    breakCount = 0;
-                    updateTimer();
-                } else {// Work -> Short Break
-                    remainingTime = shortBreakTime;
-                    breakCount++;
-                    workSession = "Short Break " + breakCount;
-                    isBreak = true;
-                    updateShortBreaks();
+                } else {
+                    if (isBreak) {// Break -> Work
+                        remainingTime = workTime;
+                        workSession = "Study Session";
+                        isBreak = false;
+                    } else if (breakCount == 4) {// Work -> Long break
+                        remainingTime = longBreakTime;
+                        workSession = "Long Break";
+                        isBreak = true;
+                        breakCount = 0;
+                    } else {// Work -> Short Break
+                        remainingTime = shortBreakTime;
+                        breakCount++;
+                        workSession = "Short Break " + breakCount;
+                        isBreak = true;
+                        updateShortBreaks();
+                    }
+                    initialTime = remainingTime;
                     updateTimer();
                 }
             }
@@ -141,7 +147,7 @@ public class PomodoroTimer extends Fragment {
     }
 
     private void updateShortBreaks() {
-        switch(breakCount) {
+        switch (breakCount) {
             case 1:
                 binding.tomatoOne.setVisibility(View.VISIBLE);
                 break;

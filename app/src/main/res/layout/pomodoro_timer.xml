@@ -44,14 +44,28 @@
         app:layout_constraintTop_toBottomOf="@+id/textTimer"
         app:layout_constraintVertical_bias="0.333" />
 
+    <ProgressBar
+        android:id="@+id/progressBarTimer"
+        android:layout_width="260dp"
+        android:layout_height="260dp"
+        android:indeterminateOnly="false"
+        android:progressDrawable="@drawable/circle_progress"
+        android:progress="100"
+        android:layoutDirection="ltr"
+        app:layout_constraintBottom_toTopOf="@+id/buttonPlay"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
     <TextView
         android:id="@+id/textTimer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="180dp"
+        android:layout_marginTop="160dp"
         android:text="00:00"
-        android:textSize="70sp"
+        android:textSize="65sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textSession" />
 
@@ -67,6 +81,7 @@
         app:layout_constraintTop_toBottomOf="@+id/buttonPlay" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="183dp"
         android:layout_height="39dp"
         android:layout_marginTop="25dp"
