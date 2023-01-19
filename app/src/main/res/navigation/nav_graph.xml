@@ -28,7 +28,7 @@
     <fragment
         android:id="@+id/customSetting"
         android:name="com.example.pomodoro.CustomSetting"
-        android:label="custom_setting"
+        android:label="Customize your settings"
         tools:layout="@layout/custom_setting" >
         <action
             android:id="@+id/action_customSetting_to_pomodoro"
