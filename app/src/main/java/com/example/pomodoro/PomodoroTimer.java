@@ -16,7 +16,7 @@ import java.util.Locale;
 
 public class PomodoroTimer extends Fragment {
 
-    private static long workTime = 10000;
+    private static long workTime = 6000;
     private static long shortBreakTime = 2000;
     private static long longBreakTime = 4000;
 
@@ -31,9 +31,9 @@ public class PomodoroTimer extends Fragment {
     private PomodoroTimerBinding binding;
 
     public static void updateTimerSettings(long workTime, long shortTime, long longTime) {
-//        initialTime = workTime*60*1000;
-//        shortBreakTime = shortTime*60*1000;
-//        longBreakTime = longTime*60*1000;
+        PomodoroTimer.workTime = workTime*60*1000;
+        shortBreakTime = shortTime*60*1000;
+        longBreakTime = longTime*60*1000;
     }
 
     @Override
@@ -55,15 +55,17 @@ public class PomodoroTimer extends Fragment {
             public void onClick(View view) {
                 if (isRunning) {
                     pauseTimer();
+                    binding.buttonBack.setVisibility(View.VISIBLE);
                 } else {
                     startTimer();
+                    binding.buttonBack.setVisibility(View.INVISIBLE);
                 }
             }
         });
 
         updateTimer();
 
-        binding.buttonStart.setOnClickListener(new View.OnClickListener() {
+        binding.buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 NavHostFragment.findNavController(PomodoroTimer.this)
