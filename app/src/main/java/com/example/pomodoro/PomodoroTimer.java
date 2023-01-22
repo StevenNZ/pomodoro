@@ -16,7 +16,7 @@ import java.util.Locale;
 
 public class PomodoroTimer extends Fragment {
 
-    private static long workTime = 6000;
+    private static long workTime = 4000;
     private static long shortBreakTime = 2000;
     private static long longBreakTime = 4000;
 
@@ -31,9 +31,9 @@ public class PomodoroTimer extends Fragment {
     private PomodoroTimerBinding binding;
 
     public static void updateTimerSettings(long workTime, long shortTime, long longTime) {
-        PomodoroTimer.workTime = workTime*60*1000;
-        shortBreakTime = shortTime*60*1000;
-        longBreakTime = longTime*60*1000;
+//        PomodoroTimer.workTime = workTime*60*1000;
+//        shortBreakTime = shortTime*60*1000;
+//        longBreakTime = longTime*60*1000;
     }
 
     @Override
@@ -79,6 +79,7 @@ public class PomodoroTimer extends Fragment {
                 binding.buttonPlay.setVisibility(View.VISIBLE);
                 binding.buttonNewGame.setVisibility(View.INVISIBLE);
                 remainingTime = workTime;
+                initialTime = workTime;
                 workSession = "Study Session";
                 isBreak = false;
                 updateTimer();
@@ -102,9 +103,6 @@ public class PomodoroTimer extends Fragment {
         binding.textTimer.setText(remainingTimeText);
         binding.textSession.setText(workSession);
         binding.progressBarTimer.setProgress((int) ((double)(remainingTime) / (double) (initialTime)*100));
-        System.out.println((double)(remainingTime) / (double) (initialTime));
-        System.out.println(remainingTime);
-        System.out.println(initialTime);
     }
 
     private void startTimer() {
