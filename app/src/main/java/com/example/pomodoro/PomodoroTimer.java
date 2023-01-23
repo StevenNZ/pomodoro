@@ -16,7 +16,7 @@ import java.util.Locale;
 
 public class PomodoroTimer extends Fragment {
 
-    private static long workTime = 4000;
+    private static long workTime = 6000;
     private static long shortBreakTime = 2000;
     private static long longBreakTime = 4000;
 
@@ -24,8 +24,10 @@ public class PomodoroTimer extends Fragment {
     private boolean isBreak = false;
     private int timeline = 0;
     private long remainingTime = workTime;
-    private String workSession = "Study Session";
     private long initialTime = workTime;
+    private long totalProgressTime = workTime*5 + shortBreakTime*4;
+    private double cumulativeProgress = 0;
+    private String workSession = "Study Session";
 
     private CountDownTimer timer;
     private PomodoroTimerBinding binding;
@@ -84,12 +86,12 @@ public class PomodoroTimer extends Fragment {
                 workSession = "Study Session";
                 isBreak = false;
                 updateTimer();
-                resetShortBreaks();
+                resetTimeline();
             }
         });
     }
 
-    private void resetShortBreaks() {
+    private void resetTimeline() {
         binding.workOne.setVisibility(View.INVISIBLE);
         binding.workTwo.setVisibility(View.INVISIBLE);
         binding.workThree.setVisibility(View.INVISIBLE);
@@ -100,7 +102,9 @@ public class PomodoroTimer extends Fragment {
         binding.breakThree.setVisibility(View.INVISIBLE);
         binding.breakFour.setVisibility(View.INVISIBLE);
         binding.breakLong.setVisibility(View.INVISIBLE);
+        binding.timelineProgress.setProgress(0);
 
+        cumulativeProgress = 0;
     }
 
     private void updateTimer() {
@@ -119,6 +123,7 @@ public class PomodoroTimer extends Fragment {
             public void onTick(long timeUntilFinish) {
                 remainingTime = timeUntilFinish;
                 updateTimer();
+                updateTimelineProgress();
             }
 
             @Override
@@ -146,9 +151,8 @@ public class PomodoroTimer extends Fragment {
                         timeline++;
                     }
                     initialTime = remainingTime;
-                    updateTimeline();
+                    updateTimelineIcons();
                     updateTimer();
-                    System.out.println(timeline);
                 }
             }
         }.start();
@@ -156,7 +160,14 @@ public class PomodoroTimer extends Fragment {
         isRunning = true;
     }
 
-    private void updateTimeline() {
+    private void updateTimelineProgress() {
+        double progressTotal = (double) initialTime/ (double) totalProgressTime;
+        double progressPerSecond = progressTotal / ((double) initialTime / 1000.00);
+        cumulativeProgress+=progressPerSecond;
+        binding.timelineProgress.setProgress((int) (cumulativeProgress*100));
+    }
+
+    private void updateTimelineIcons() {
         switch (timeline) {
             case 1:
                 binding.breakOne.setVisibility(View.VISIBLE);

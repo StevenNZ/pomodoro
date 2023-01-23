@@ -89,6 +89,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textSession">
 
+        <ProgressBar
+            android:id="@+id/timelineProgress"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="379dp"
+            android:layout_height="41dp"
+            android:scaleY="2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/workOne"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <ImageView
             android:id="@+id/breakThree"
             android:layout_width="25dp"
@@ -295,16 +305,6 @@
             android:src="@drawable/work_initial"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/breakTwoInitial"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ProgressBar
-            android:id="@+id/timelineProgress"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="379dp"
-            android:layout_height="41dp"
-            android:scaleY="2"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/workOne"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
