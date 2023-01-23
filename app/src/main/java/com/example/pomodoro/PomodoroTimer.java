@@ -22,7 +22,7 @@ public class PomodoroTimer extends Fragment {
 
     private boolean isRunning = false;
     private boolean isBreak = false;
-    private int breakCount = 0;
+    private int timeline = 0;
     private long remainingTime = workTime;
     private String workSession = "Study Session";
     private long initialTime = workTime;
@@ -59,6 +59,7 @@ public class PomodoroTimer extends Fragment {
                 } else {
                     startTimer();
                     binding.buttonBack.setVisibility(View.INVISIBLE);
+                    binding.workOne.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -89,10 +90,17 @@ public class PomodoroTimer extends Fragment {
     }
 
     private void resetShortBreaks() {
-        binding.tomatoOne.setVisibility(View.INVISIBLE);
-        binding.tomatoTwo.setVisibility(View.INVISIBLE);
-        binding.tomatoThree.setVisibility(View.INVISIBLE);
-        binding.tomatoFour.setVisibility(View.INVISIBLE);
+        binding.workOne.setVisibility(View.INVISIBLE);
+        binding.workTwo.setVisibility(View.INVISIBLE);
+        binding.workThree.setVisibility(View.INVISIBLE);
+        binding.workFour.setVisibility(View.INVISIBLE);
+        binding.workFive.setVisibility(View.INVISIBLE);
+        binding.breakOne.setVisibility(View.INVISIBLE);
+        binding.breakTwo.setVisibility(View.INVISIBLE);
+        binding.breakThree.setVisibility(View.INVISIBLE);
+        binding.breakFour.setVisibility(View.INVISIBLE);
+        binding.breakLong.setVisibility(View.INVISIBLE);
+
     }
 
     private void updateTimer() {
@@ -117,7 +125,7 @@ public class PomodoroTimer extends Fragment {
             public void onFinish() {
                 isRunning = false;
 
-                if (isBreak && breakCount == 0) {
+                if (isBreak && timeline == 0) {
                     binding.buttonPlay.setVisibility(View.INVISIBLE);
                     binding.buttonNewGame.setVisibility(View.VISIBLE);
                 } else {
@@ -125,20 +133,22 @@ public class PomodoroTimer extends Fragment {
                         remainingTime = workTime;
                         workSession = "Study Session";
                         isBreak = false;
-                    } else if (breakCount == 4) {// Work -> Long break
+                        timeline++;
+                    } else if (timeline == 8) {// Work -> Long break
                         remainingTime = longBreakTime;
                         workSession = "Long Break";
                         isBreak = true;
-                        breakCount = 0;
+                        timeline = 0;
                     } else {// Work -> Short Break
                         remainingTime = shortBreakTime;
-                        breakCount++;
-                        workSession = "Short Break " + breakCount;
+                        workSession = "Short Break";
                         isBreak = true;
-                        updateShortBreaks();
+                        timeline++;
                     }
                     initialTime = remainingTime;
+                    updateTimeline();
                     updateTimer();
+                    System.out.println(timeline);
                 }
             }
         }.start();
@@ -146,19 +156,34 @@ public class PomodoroTimer extends Fragment {
         isRunning = true;
     }
 
-    private void updateShortBreaks() {
-        switch (breakCount) {
+    private void updateTimeline() {
+        switch (timeline) {
             case 1:
-                binding.tomatoOne.setVisibility(View.VISIBLE);
+                binding.breakOne.setVisibility(View.VISIBLE);
                 break;
             case 2:
-                binding.tomatoTwo.setVisibility(View.VISIBLE);
+                binding.workTwo.setVisibility(View.VISIBLE);
                 break;
             case 3:
-                binding.tomatoThree.setVisibility(View.VISIBLE);
+                binding.breakTwo.setVisibility(View.VISIBLE);
                 break;
             case 4:
-                binding.tomatoFour.setVisibility(View.VISIBLE);
+                binding.workThree.setVisibility(View.VISIBLE);
+                break;
+            case 5:
+                binding.breakThree.setVisibility(View.VISIBLE);
+                break;
+            case 6:
+                binding.workFour.setVisibility(View.VISIBLE);
+                break;
+            case 7:
+                binding.breakFour.setVisibility(View.VISIBLE);
+                break;
+            case 8:
+                binding.workFive.setVisibility(View.VISIBLE);
+                break;
+            case 0:
+                binding.breakLong.setVisibility(View.VISIBLE);
                 break;
         }
     }
