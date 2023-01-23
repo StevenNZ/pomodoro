@@ -1,5 +1,6 @@
 package com.example.pomodoro;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.LayoutInflater;
@@ -114,7 +115,9 @@ public class PomodoroTimer extends Fragment {
         String remainingTimeText = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
         binding.textTimer.setText(remainingTimeText);
         binding.textSession.setText(workSession);
-        binding.progressBarTimer.setProgress((int) ((double)(remainingTime) / (double) (initialTime)*100));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            binding.progressBarTimer.setProgress((int) ((double)(remainingTime) / (double) (initialTime)*100), true);
+        }
     }
 
     private void startTimer() {
@@ -164,7 +167,9 @@ public class PomodoroTimer extends Fragment {
         double progressTotal = (double) initialTime/ (double) totalProgressTime;
         double progressPerSecond = progressTotal / ((double) initialTime / 1000.00);
         cumulativeProgress+=progressPerSecond;
-        binding.timelineProgress.setProgress((int) (cumulativeProgress*100));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            binding.timelineProgress.setProgress((int) (cumulativeProgress*100), true);
+        }
     }
 
     private void updateTimelineIcons() {
