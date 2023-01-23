@@ -8,21 +8,21 @@
 
     <Button
         android:id="@+id/buttonBack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="76dp"
+        android:layout_height="50dp"
         android:text="@string/previous"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.049"
+        app:layout_constraintHorizontal_bias="0.02"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.023" />
+        app:layout_constraintVertical_bias="0.011" />
 
     <TextView
         android:id="@+id/textSession"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="24dp"
         android:text="session"
         android:textAlignment="center"
         android:textSize="36sp"
@@ -31,113 +31,282 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ProgressBar
+        android:id="@+id/progressBarTimer"
+        android:layout_width="370dp"
+        android:layout_height="370dp"
+        android:layout_marginTop="20dp"
+        android:indeterminateOnly="false"
+        android:layoutDirection="ltr"
+        android:progress="100"
+        android:progressDrawable="@drawable/circle_progress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
     <ImageButton
         android:id="@+id/buttonPlay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
         android:contentDescription="@string/playPause"
         android:src="@android:drawable/ic_media_play"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textTimer"
-        app:layout_constraintVertical_bias="0.333" />
-
-    <ProgressBar
-        android:id="@+id/progressBarTimer"
-        android:layout_width="260dp"
-        android:layout_height="260dp"
-        android:indeterminateOnly="false"
-        android:progressDrawable="@drawable/circle_progress"
-        android:progress="100"
-        android:layoutDirection="ltr"
-        app:layout_constraintBottom_toTopOf="@+id/buttonPlay"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/progressBarTimer" />
 
     <TextView
         android:id="@+id/textTimer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="160dp"
         android:text="00:00"
         android:textSize="65sp"
+        app:layout_constraintBottom_toBottomOf="@+id/progressBarTimer"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textSession" />
+        app:layout_constraintTop_toTopOf="@+id/progressBarTimer" />
 
     <Button
         android:id="@+id/buttonNewGame"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="30dp"
         android:text="New Pomodoro"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonPlay" />
+        app:layout_constraintTop_toBottomOf="@+id/progressBarTimer" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
-        android:layout_width="183dp"
-        android:layout_height="39dp"
-        android:layout_marginTop="25dp"
+        android:layout_width="379dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textSession">
 
-        <ImageView
-            android:id="@+id/tomatoInitial"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/tomato_initial2"
+        <ProgressBar
+            android:id="@+id/timelineProgress"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="379dp"
+            android:layout_height="41dp"
+            android:scaleY="2"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/workOne"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/breakThree"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="14dp"
+            android:visibility="invisible"
+            android:src="@drawable/break_fill"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/workThreeInitial"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/breakOne"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="14dp"
+            android:visibility="invisible"
+            android:src="@drawable/break_fill"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/workOneInitial"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/workFive"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="14dp"
+            android:visibility="invisible"
+            android:src="@drawable/work_fill"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/breakFourInitial"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/workTwo"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="14dp"
+            android:visibility="invisible"
+            android:src="@drawable/work_fill"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/breakOneInitial"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/breakFour"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="14dp"
+            android:visibility="invisible"
+            android:src="@drawable/break_fill"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/workFourInitial"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/workOne"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:visibility="invisible"
+            android:src="@drawable/work_fill"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/tomatoOne"
-            android:layout_width="46dp"
-            android:layout_height="39dp"
-            android:layout_marginStart="10dp"
-            android:src="@drawable/tomato_filled"
+            android:id="@+id/workFour"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="14dp"
             android:visibility="invisible"
-            app:layout_constraintStart_toStartOf="@+id/tomatoInitial"
+            android:src="@drawable/work_fill"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/breakThreeInitial"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/tomatoFour"
-            android:layout_width="46dp"
-            android:layout_height="39dp"
-            android:layout_marginStart="127dp"
-            android:src="@drawable/tomato_filled"
+            android:id="@+id/breakLong"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="14dp"
             android:visibility="invisible"
-            app:layout_constraintStart_toStartOf="@+id/tomatoInitial"
+            android:src="@drawable/long_break_fill"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/workFiveInitial"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/tomatoThree"
-            android:layout_width="46dp"
-            android:layout_height="39dp"
-            android:layout_marginStart="88dp"
-            android:src="@drawable/tomato_filled"
+            android:id="@+id/breakTwo"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="14dp"
             android:visibility="invisible"
-            app:layout_constraintStart_toStartOf="@+id/tomatoInitial"
+            android:src="@drawable/break_fill"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/workTwoInitial"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/tomatoTwo"
-            android:layout_width="46dp"
-            android:layout_height="39dp"
-            android:layout_marginStart="49dp"
-            android:src="@drawable/tomato_filled"
+            android:id="@+id/workThree"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="14dp"
             android:visibility="invisible"
-            app:layout_constraintStart_toStartOf="@+id/tomatoInitial"
+            android:src="@drawable/work_fill"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/breakTwoInitial"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/breakThreeInitial"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="14dp"
+            android:src="@drawable/break_initial"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/workThreeInitial"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/breakOneInitial"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="14dp"
+            android:src="@drawable/break_initial"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/workOneInitial"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/workFiveInitial"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="14dp"
+            android:src="@drawable/work_initial"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/breakFourInitial"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/workTwoInitial"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="14dp"
+            android:src="@drawable/work_initial"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/breakOneInitial"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/breakFourInitial"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="14dp"
+            android:src="@drawable/break_initial"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/workFourInitial"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/workOneInitial"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/work_initial"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/workFourInitial"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="14dp"
+            android:src="@drawable/work_initial"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/breakThreeInitial"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/breakLongInitial"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="14dp"
+            android:src="@drawable/long_break_initial"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/workFiveInitial"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/breakTwoInitial"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="14dp"
+            android:src="@drawable/break_initial"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/workTwoInitial"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/workThreeInitial"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="14dp"
+            android:src="@drawable/work_initial"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/breakTwoInitial"
+            app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
