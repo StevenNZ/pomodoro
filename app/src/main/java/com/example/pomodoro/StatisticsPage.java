@@ -12,9 +12,9 @@ import com.example.pomodoro.databinding.StatisticsPageBinding;
 
 public class StatisticsPage extends Fragment {
 
-    private static int pomodoroTotal;
-    private static int workTotal;
-    private static int breakTotal;
+    protected static int pomodoroTotal;
+    protected static int workTotal;
+    protected static int breakTotal;
 
     private StatisticsPageBinding binding;
 
@@ -32,8 +32,11 @@ public class StatisticsPage extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        String workTotalString = String.valueOf(workTotal) + "s";
+        String breakTotalString = String.valueOf(breakTotal) + "s";
+
         binding.pomodoroTotal.setText(String.valueOf(pomodoroTotal));
-        binding.workTotal.setText(String.valueOf(workTotal));
-        binding.breakTotal.setText(String.valueOf(breakTotal));
+        binding.workTotal.setText(workTotalString);
+        binding.breakTotal.setText(breakTotalString);
     }
 }
