@@ -19,6 +19,12 @@
                 android:innerRadiusRatio="2.5"
                 android:useLevel="true">
                 <solid android:color="@color/ring" />
+                <gradient
+                    android:endColor="@color/ring"
+                    android:startColor="#EC5C5C"
+                    android:angle="270"
+                    android:useLevel="false"
+                    android:type="sweep"/>
             </shape>
         </rotate>
     </item>

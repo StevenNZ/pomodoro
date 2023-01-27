@@ -38,6 +38,7 @@
         android:layout_marginTop="20dp"
         android:indeterminateOnly="false"
         android:layoutDirection="ltr"
+        android:rotationY="180"
         android:progress="100"
         android:progressDrawable="@drawable/circle_progress"
         app:layout_constraintEnd_toEndOf="parent"
