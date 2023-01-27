@@ -14,6 +14,9 @@
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
             app:destination="@id/customSetting" />
+        <action
+            android:id="@+id/action_mainMenu_to_statisticsPage"
+            app:destination="@id/statisticsPage" />
     </fragment>
     <fragment
         android:id="@+id/pomodoro"
@@ -33,5 +36,13 @@
         <action
             android:id="@+id/action_customSetting_to_pomodoro"
             app:destination="@id/pomodoro" />
+    </fragment>
+    <fragment
+        android:id="@+id/statisticsPage"
+        android:name="com.example.pomodoro.StatisticsPage"
+        android:label="Statistics" >
+        <action
+            android:id="@+id/action_statisticsPage_to_mainMenu"
+            app:destination="@id/mainMenu" />
     </fragment>
 </navigation>
