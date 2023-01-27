@@ -22,7 +22,7 @@ public class StatisticsPage extends Fragment {
 
     @Override
     public View onCreateView(
-            LayoutInflater inflater, ViewGroup container,
+            @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
 
@@ -36,7 +36,14 @@ public class StatisticsPage extends Fragment {
 
         updateStats();
         updateBadges();
+        showToolTips();
+    }
 
+    private void showToolTips() {
+        binding.badgeOneInitial.setTooltipText("Complete one pomodoro cycle");
+        binding.badgeTwoInitial.setTooltipText("Complete two pomodoro cycle");
+        binding.badgeThreeInitial.setTooltipText("Complete three pomodoro cycle");
+        binding.badgeFourInitial.setTooltipText("Create an account!");
     }
 
     private void updateBadges() {
@@ -50,8 +57,8 @@ public class StatisticsPage extends Fragment {
     }
 
     private void updateStats() {
-        String workTotalString = String.valueOf(workTotal) + "s";
-        String breakTotalString = String.valueOf(breakTotal) + "s";
+        String workTotalString = workTotal + "s";
+        String breakTotalString = breakTotal + "s";
 
         binding.pomodoroTotal.setText(String.valueOf(pomodoroTotal));
         binding.workTotal.setText(workTotalString);
