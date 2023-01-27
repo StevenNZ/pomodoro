@@ -134,8 +134,10 @@ public class PomodoroTimer extends Fragment {
                 isRunning = false;
 
                 if (isBreak && timeline == 0) {
+                    StatisticsPage.pomodoroCycles++;
                     binding.buttonPlay.setVisibility(View.INVISIBLE);
                     binding.buttonNewGame.setVisibility(View.VISIBLE);
+                    binding.buttonBack.setVisibility(View.VISIBLE);
                 } else {
                     if (isBreak) {// Break -> Work
                         remainingTime = workTime;
