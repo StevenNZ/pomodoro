@@ -12,7 +12,8 @@
         android:layout_marginBottom="40dp"
         android:text="Sign Up"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="158dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/passwordSIgnUpText"
