@@ -9,9 +9,10 @@
         android:id="@+id/btnSignUpRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
         android:text="Sign Up"
-        tools:layout_editor_absoluteX="158dp"
-        tools:layout_editor_absoluteY="635dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="158dp" />
 
     <EditText
         android:id="@+id/passwordSIgnUpText"
