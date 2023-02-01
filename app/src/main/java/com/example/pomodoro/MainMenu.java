@@ -44,6 +44,13 @@ public class MainMenu extends Fragment {
                         .navigate(R.id.action_mainMenu_to_statisticsPage);
             }
         });
+
+        binding.userIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavHostFragment.findNavController(MainMenu.this).navigate(R.id.action_mainMenu_to_loginPage);
+            }
+        });
     }
 
     @Override
