@@ -2,26 +2,35 @@ package com.example.pomodoro;
 
 public class UserAccount {
 
-    private String emailAddress;
-    private String username;
-    private String password;
+    protected static String emailAddress;
+    protected static String username;
+    protected static String password;
 
-    public UserAccount(String emailAddress, String username, String password) {
-        this.emailAddress = emailAddress;
-        this.username = username;
-        this.password = password;
-    }
-
-
-    public String getEmailAddress() {
+    public static String getEmailAddress() {
         return emailAddress;
     }
 
-    public String getUsername() {
+    public static String getUsername() {
         return username;
     }
 
-    public String getPassword() {
+    public static String getPassword() {
         return password;
+    }
+
+    public static void setEmailAddress(String emailAddress) {
+        UserAccount.emailAddress = emailAddress;
+    }
+
+    public static void setUsername(String username) {
+        UserAccount.username = username;
+    }
+
+    public static void setPassword(String password) {
+        UserAccount.password = password;
+    }
+
+    public UserAccount() {
+        throw new UnsupportedOperationException();
     }
 }
