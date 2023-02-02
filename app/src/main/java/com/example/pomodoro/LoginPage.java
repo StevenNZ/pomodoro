@@ -88,6 +88,10 @@ public class LoginPage extends Fragment {
                         UserAccount.setEmailAddress(String.valueOf(dataSnapshot.child("Email Address").getValue()));
                         UserAccount.setUsername(String.valueOf(dataSnapshot.child("Username").getValue()));
                         UserAccount.setPassword(String.valueOf(dataSnapshot.child("Password").getValue()));
+
+                        Bundle result = new Bundle();
+                        result.putString("lpUsername", UserAccount.getUsername());
+                        getParentFragmentManager().setFragmentResult("dataFromLP", result);
                     }
                 });
             }

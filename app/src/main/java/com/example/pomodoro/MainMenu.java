@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentResultListener;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.pomodoro.databinding.MainMenuBinding;
@@ -14,6 +15,7 @@ import com.example.pomodoro.databinding.MainMenuBinding;
 public class MainMenu extends Fragment {
 
     private MainMenuBinding binding;
+    private boolean isUser;
 
     @Override
     public View onCreateView(
@@ -51,6 +53,23 @@ public class MainMenu extends Fragment {
                 NavHostFragment.findNavController(MainMenu.this).navigate(R.id.action_mainMenu_to_loginPage);
             }
         });
+
+        getParentFragmentManager().setFragmentResultListener("dataFromLP", this, new FragmentResultListener() {
+            @Override
+            public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
+                isUser = true;
+                String data = result.getString("lpUsername");
+                updateUsername(data);
+            }
+        });
+
+        if (isUser) {
+            updateUsername(UserAccount.getUsername());
+        }
+    }
+
+    private void updateUsername(String username) {
+        binding.usernameText.setText(username);
     }
 
     @Override
