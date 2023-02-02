@@ -6,10 +6,13 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.pomodoro.databinding.LoginPageBinding;
@@ -19,6 +22,9 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.w3c.dom.Text;
 
@@ -27,6 +33,8 @@ public class LoginPage extends Fragment {
     private LoginPageBinding binding;
 
     private FirebaseAuth auth;
+
+    private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://pomodoro-2bd96-default-rtdb.firebaseio.com/");
 
     @Override
     public View onCreateView(
@@ -70,6 +78,18 @@ public class LoginPage extends Fragment {
             @Override
             public void onSuccess(AuthResult authResult) {
                 Toast.makeText(requireContext(), "Login successful", Toast.LENGTH_SHORT).show();
+
+                String uid = authResult.getUser().getUid();
+                DatabaseReference databaseUsers = databaseReference.child("Users").child(uid);
+                databaseUsers.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                        DataSnapshot dataSnapshot = task.getResult();
+                        UserAccount.setEmailAddress(String.valueOf(dataSnapshot.child("Email Address").getValue()));
+                        UserAccount.setUsername(String.valueOf(dataSnapshot.child("Username").getValue()));
+                        UserAccount.setPassword(String.valueOf(dataSnapshot.child("Password").getValue()));
+                    }
+                });
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
