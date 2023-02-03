@@ -92,6 +92,8 @@ public class LoginPage extends Fragment {
                         Bundle result = new Bundle();
                         result.putString("lpUsername", UserAccount.getUsername());
                         getParentFragmentManager().setFragmentResult("dataFromLP", result);
+
+                        requireActivity().onBackPressed();
                     }
                 });
             }
