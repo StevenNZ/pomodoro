@@ -73,13 +73,12 @@ public class RegisterPage extends Fragment {
                     // create object of DatabaseReference class which gives access to firebase realtime database
                     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Users");
 
-                    // grabbing the user's UID
+                    // grabbing the user's UID as our unique identity
                     String uid = auth.getCurrentUser().getUid();
 
-                    // using user's UID as our unique identity
-                    databaseReference.child(uid).child("Email Address").setValue(emailAddress);
-                    databaseReference.child(uid).child("Username").setValue(username);
-                    databaseReference.child(uid).child("Password").setValue(password);
+                    // sending to the database
+                    updateDatabase(databaseReference.child(uid), emailAddress, username, password);
+
 
                     requireActivity().onBackPressed();
                 } else {
@@ -87,6 +86,18 @@ public class RegisterPage extends Fragment {
                 }
             }
         });
+    }
+
+    private void updateDatabase(DatabaseReference databaseReference, String emailAddress, String username, String password) {
+        String statPath = "Statistics";
+
+        databaseReference.child("Email Address").setValue(emailAddress);
+        databaseReference.child("Username").setValue(username);
+        databaseReference.child("Password").setValue(password);
+        databaseReference.child(statPath).child("Work Total").setValue(0);
+        databaseReference.child(statPath).child("Break Total").setValue(0);
+        databaseReference.child(statPath).child("Pomodoro Total").setValue(0);
+        databaseReference.child(statPath).child("Pomodoro Cycle Total").setValue(0);
     }
 
     private boolean checkIfEmpty(String emailAddress, String username, String password) {
