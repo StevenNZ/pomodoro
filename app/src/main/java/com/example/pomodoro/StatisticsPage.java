@@ -6,6 +6,7 @@ import static com.example.pomodoro.UserAccount.pomodoroTotal;
 import static com.example.pomodoro.UserAccount.workTotal;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.pomodoro.databinding.StatisticsPageBinding;
+
+import org.w3c.dom.Text;
 
 public class StatisticsPage extends Fragment {
 
@@ -56,6 +59,10 @@ public class StatisticsPage extends Fragment {
 
         if (pomodoroCycles >= 1) {
             binding.badgeOneInitial.setAlpha((float) 1.00);
+        }
+
+        if (!TextUtils.isEmpty(UserAccount.uid)) {
+            binding.badgeFourInitial.setAlpha((float) 1.00);
         }
     }
 
