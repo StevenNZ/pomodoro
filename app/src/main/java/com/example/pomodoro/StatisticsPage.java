@@ -12,11 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.TooltipCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.pomodoro.databinding.StatisticsPageBinding;
-
-import org.w3c.dom.Text;
 
 public class StatisticsPage extends Fragment {
 
@@ -42,10 +41,10 @@ public class StatisticsPage extends Fragment {
     }
 
     private void showToolTips() {
-        binding.badgeOneInitial.setTooltipText("Complete one pomodoro cycle");
-        binding.badgeTwoInitial.setTooltipText("Complete two pomodoro cycle");
-        binding.badgeThreeInitial.setTooltipText("Complete three pomodoro cycle");
-        binding.badgeFourInitial.setTooltipText("Create an account!");
+        TooltipCompat.setTooltipText(binding.badgeOneInitial, "Complete one pomodoro cycle");
+        TooltipCompat.setTooltipText(binding.badgeTwoInitial, "Complete two pomodoro cycle");
+        TooltipCompat.setTooltipText(binding.badgeTwoInitial, "Complete three pomodoro cycle");
+        TooltipCompat.setTooltipText(binding.badgeFourInitial, "Create an account!");
     }
 
     private void updateBadges() {
