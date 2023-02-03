@@ -10,12 +10,15 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.pomodoro.databinding.RegisterPageBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class RegisterPage extends Fragment {
 
@@ -63,6 +66,19 @@ public class RegisterPage extends Fragment {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     Toast.makeText(requireContext(), "Your user has been registered", Toast.LENGTH_SHORT).show();
+
+                    // create object of DatabaseReference class which gives access to firebase realtime database
+                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Users");
+
+                    // grabbing the user's UID
+                    String uid = auth.getCurrentUser().getUid();
+
+                    // using user's UID as our unique identity
+                    databaseReference.child(uid).child("Email Address").setValue(emailAddress);
+                    databaseReference.child(uid).child("Username").setValue(username);
+                    databaseReference.child(uid).child("Password").setValue(password);
+
+                    NavHostFragment.findNavController(RegisterPage.this).navigate(R.id.action_registerPage_to_loginPage);
                 } else {
                     Toast.makeText(requireContext(), "Registration failed", Toast.LENGTH_SHORT).show();
                 }
