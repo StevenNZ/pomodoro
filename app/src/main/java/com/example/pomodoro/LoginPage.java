@@ -34,7 +34,7 @@ public class LoginPage extends Fragment {
 
     private FirebaseAuth auth;
 
-    private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://pomodoro-2bd96-default-rtdb.firebaseio.com/");
+    protected static DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://pomodoro-2bd96-default-rtdb.firebaseio.com/");
 
     @Override
     public View onCreateView(
@@ -88,6 +88,7 @@ public class LoginPage extends Fragment {
                         UserAccount.setEmailAddress(String.valueOf(dataSnapshot.child("Email Address").getValue()));
                         UserAccount.setUsername(String.valueOf(dataSnapshot.child("Username").getValue()));
                         UserAccount.setPassword(String.valueOf(dataSnapshot.child("Password").getValue()));
+                        UserAccount.setUID(uid);
 
                         Bundle result = new Bundle();
                         result.putString("lpUsername", UserAccount.getUsername());

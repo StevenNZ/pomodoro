@@ -1,15 +1,17 @@
 package com.example.pomodoro;
 
+import static com.example.pomodoro.LoginPage.databaseReference;
+
 public class UserAccount {
 
     protected static String emailAddress;
     protected static String username;
     protected static String password;
+    protected static String uid;
 
     protected static int pomodoroTotal;
     protected static int workTotal;
     protected static int breakTotal;
-
     protected static int pomodoroCycles = 0;
 
     public static String getEmailAddress() {
@@ -34,6 +36,10 @@ public class UserAccount {
 
     public static void setPassword(String password) {
         UserAccount.password = password;
+    }
+
+    public static void setUID(String uid) {
+        UserAccount.uid = uid;
     }
 
     public static void increaseWorkTotal(long workTime) {
