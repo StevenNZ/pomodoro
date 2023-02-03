@@ -78,7 +78,7 @@ public class RegisterPage extends Fragment {
                     databaseReference.child(uid).child("Username").setValue(username);
                     databaseReference.child(uid).child("Password").setValue(password);
 
-                    NavHostFragment.findNavController(RegisterPage.this).navigate(R.id.action_registerPage_to_loginPage);
+                    requireActivity().onBackPressed();
                 } else {
                     Toast.makeText(requireContext(), "Registration failed", Toast.LENGTH_SHORT).show();
                 }
