@@ -6,6 +6,12 @@ public class UserAccount {
     protected static String username;
     protected static String password;
 
+    protected static int pomodoroTotal;
+    protected static int workTotal;
+    protected static int breakTotal;
+
+    protected static int pomodoroCycles = 0;
+
     public static String getEmailAddress() {
         return emailAddress;
     }
@@ -28,6 +34,22 @@ public class UserAccount {
 
     public static void setPassword(String password) {
         UserAccount.password = password;
+    }
+
+    public static void increaseWorkTotal(long workTime) {
+        workTotal+=workTime;
+    }
+
+    public static void increaseBreakTotal(long breakTime) {
+        breakTotal+=breakTime;
+    }
+
+    public static void incrementPomodoro() {
+        pomodoroTotal++;
+    }
+
+    public static void incrementCycles() {
+        pomodoroCycles++;
     }
 
     public UserAccount() {

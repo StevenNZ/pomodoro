@@ -134,7 +134,7 @@ public class PomodoroTimer extends Fragment {
                 isRunning = false;
 
                 if (isBreak && timeline == 0) {
-                    StatisticsPage.pomodoroCycles++;
+                    UserAccount.incrementCycles();
                     binding.buttonPlay.setVisibility(View.INVISIBLE);
                     binding.buttonNewGame.setVisibility(View.VISIBLE);
                     binding.buttonBack.setVisibility(View.VISIBLE);
@@ -144,7 +144,7 @@ public class PomodoroTimer extends Fragment {
                         workSession = "Study Session";
                         isBreak = false;
                         timeline++;
-                        StatisticsPage.breakTotal+=initialTime/1000;
+                        UserAccount.increaseBreakTotal(initialTime/1000);
                     } else if (timeline == 8) {// Work -> Long break
                         remainingTime = longBreakTime;
                         workSession = "Long Break";
@@ -169,8 +169,8 @@ public class PomodoroTimer extends Fragment {
     }
 
     private void updateStats() {
-        StatisticsPage.pomodoroTotal++;
-        StatisticsPage.workTotal+=workTime/1000;
+        UserAccount.increaseWorkTotal(workTime/1000);
+        UserAccount.incrementPomodoro();
     }
 
     private void updateTimelineProgress() {
