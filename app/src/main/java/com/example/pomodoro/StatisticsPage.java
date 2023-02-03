@@ -48,9 +48,13 @@ public class StatisticsPage extends Fragment {
     private void updateBadges() {
         if (pomodoroCycles >= 10) {
             binding.badgeThreeInitial.setAlpha((float) 1.00);
-        } else if (pomodoroCycles >= 5) {
+        }
+
+        if (pomodoroCycles >= 5) {
             binding.badgeTwoInitial.setAlpha((float) 1.00);
-        } else if (pomodoroCycles >= 1) {
+        }
+
+        if (pomodoroCycles >= 1) {
             binding.badgeOneInitial.setAlpha((float) 1.00);
         }
     }
