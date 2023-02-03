@@ -47,11 +47,14 @@ public class RegisterPage extends Fragment {
                 String emailAddress = binding.emailText.getText().toString();
                 String username = binding.usernameSignUpText.getText().toString();
                 String password = binding.passwordSIgnUpText.getText().toString();
+                String passwordTwo = binding.passwordTwoSIgnUpText.getText().toString();
 
                 if (checkIfEmpty(emailAddress, username, password)) {
                     Toast.makeText(requireContext(), "Make sure fields are not empty", Toast.LENGTH_SHORT).show();
                 } else if (password.length() <= 3) {
                     Toast.makeText(requireContext(), "Password too short", Toast.LENGTH_SHORT).show();
+                } else if (!checkIfMatch(password, passwordTwo)) {
+                    Toast.makeText(requireContext(), "Password does not match", Toast.LENGTH_SHORT).show();
                 } else {
                     registerUser(emailAddress, username, password);
                 }
@@ -88,5 +91,9 @@ public class RegisterPage extends Fragment {
 
     private boolean checkIfEmpty(String emailAddress, String username, String password) {
         return TextUtils.isEmpty(emailAddress) || TextUtils.isEmpty(username) || TextUtils.isEmpty(password);
+    }
+
+    private boolean checkIfMatch(String password, String passwordTwo) {
+        return password.equals(passwordTwo);
     }
 }
