@@ -40,6 +40,22 @@ public class UserAccount {
         UserAccount.password = password;
     }
 
+    public static void setPomodoroTotal(int pomodoroTotal) {
+        UserAccount.pomodoroTotal = pomodoroTotal;
+    }
+
+    public static void setWorkTotal(int workTotal) {
+        UserAccount.workTotal = workTotal;
+    }
+
+    public static void setBreakTotal(int breakTotal) {
+        UserAccount.breakTotal = breakTotal;
+    }
+
+    public static void setPomodoroCycles(int pomodoroCycles) {
+        UserAccount.pomodoroCycles = pomodoroCycles;
+    }
+
     public static void setUID(String uid) {
         UserAccount.uid = uid;
     }

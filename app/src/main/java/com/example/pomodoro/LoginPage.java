@@ -1,18 +1,14 @@
 package com.example.pomodoro;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.pomodoro.databinding.LoginPageBinding;
@@ -25,8 +21,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import org.w3c.dom.Text;
 
 public class LoginPage extends Fragment {
 
@@ -84,17 +78,20 @@ public class LoginPage extends Fragment {
                 databaseUsers.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DataSnapshot> task) {
-                        DataSnapshot dataSnapshot = task.getResult();
-                        UserAccount.setEmailAddress(String.valueOf(dataSnapshot.child("Email Address").getValue()));
-                        UserAccount.setUsername(String.valueOf(dataSnapshot.child("Username").getValue()));
-                        UserAccount.setPassword(String.valueOf(dataSnapshot.child("Password").getValue()));
-                        UserAccount.setUID(uid);
+                        // retrieve data from firebase
+                        retrieveData(task);
 
-                        Bundle result = new Bundle();
-                        result.putString("lpUsername", UserAccount.getUsername());
-                        getParentFragmentManager().setFragmentResult("dataFromLP", result);
+                        updateMainMenu();
 
                         requireActivity().onBackPressed();
+                    }
+
+                    private void retrieveData(Task<DataSnapshot> task) {
+                        DataSnapshot dataSnapshot = task.getResult();
+
+                        UserAccount.setUID(uid);
+                        retrieveUserInfo(dataSnapshot);
+                        retrieveUserStats(dataSnapshot);
                     }
                 });
             }
@@ -104,5 +101,31 @@ public class LoginPage extends Fragment {
                 Toast.makeText(requireContext(), "Login failed", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void retrieveUserStats(DataSnapshot dataSnapshot) {
+        DataSnapshot statsSnapshot = dataSnapshot.child("Statistics");
+
+        int pomodoroTotal = Integer.parseInt(String.valueOf(statsSnapshot.child("Pomodoro Total").getValue()));
+        int workTotal = Integer.parseInt(String.valueOf(statsSnapshot.child("Work Total").getValue()));
+        int breakTotal = Integer.parseInt(String.valueOf(statsSnapshot.child("Break Total").getValue()));
+        int cycleTotal = Integer.parseInt(String.valueOf(statsSnapshot.child("Pomodoro Cycle Total").getValue()));
+
+        UserAccount.setPomodoroTotal(pomodoroTotal);
+        UserAccount.setWorkTotal(workTotal);
+        UserAccount.setBreakTotal(breakTotal);
+        UserAccount.setPomodoroCycles(cycleTotal);
+    }
+
+    private void retrieveUserInfo(DataSnapshot dataSnapshot) {
+        UserAccount.setEmailAddress(String.valueOf(dataSnapshot.child("Email Address").getValue()));
+        UserAccount.setUsername(String.valueOf(dataSnapshot.child("Username").getValue()));
+        UserAccount.setPassword(String.valueOf(dataSnapshot.child("Password").getValue()));
+    }
+
+    private void updateMainMenu() {
+        Bundle result = new Bundle();
+        result.putString("lpUsername", UserAccount.getUsername());
+        getParentFragmentManager().setFragmentResult("dataFromLP", result);
     }
 }
