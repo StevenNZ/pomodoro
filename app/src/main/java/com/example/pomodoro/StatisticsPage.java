@@ -1,5 +1,10 @@
 package com.example.pomodoro;
 
+import static com.example.pomodoro.UserAccount.breakTotal;
+import static com.example.pomodoro.UserAccount.pomodoroCycles;
+import static com.example.pomodoro.UserAccount.pomodoroTotal;
+import static com.example.pomodoro.UserAccount.workTotal;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,12 +16,6 @@ import androidx.fragment.app.Fragment;
 import com.example.pomodoro.databinding.StatisticsPageBinding;
 
 public class StatisticsPage extends Fragment {
-
-    protected static int pomodoroTotal;
-    protected static int workTotal;
-    protected static int breakTotal;
-
-    protected static int pomodoroCycles = 0;
 
     private StatisticsPageBinding binding;
 
