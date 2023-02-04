@@ -10,13 +10,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
 import com.example.pomodoro.databinding.CustomSettingBinding;
+
+import org.w3c.dom.Text;
 
 
 public class CustomSetting extends Fragment {
 
     private CustomSettingBinding binding;
+    private TextView currentTimeText;
+
+    private long workTime;
+    private long shortBreakTime;
+    private long longBreakTime;
+
+    private boolean isEditing;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -34,8 +44,14 @@ public class CustomSetting extends Fragment {
             public void onClick(View view) {
                 updateCustomTimes();
 
-                NavHostFragment.findNavController(CustomSetting.this)
-                        .navigate(R.id.action_customSetting_to_pomodoro);
+                if (!isEditing) {
+                    updatePomodoro();
+
+                    NavHostFragment.findNavController(CustomSetting.this)
+                            .navigate(R.id.action_customSetting_to_pomodoro);
+                } else {
+                    saveCustomTimes();
+                }
             }
         });
 
@@ -77,14 +93,54 @@ public class CustomSetting extends Fragment {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {}
         });
+
+        binding.editButtonOne.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onEditMode(binding.timeTextOne);
+            }
+        });
+
+        binding.editButtonTwo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onEditMode(binding.timeTextTwo);
+            }
+        });
+    }
+
+    private void saveCustomTimes() {
+        String timeText = workTime + "\n" + shortBreakTime + "\n" + longBreakTime;
+        currentTimeText.setText(timeText);
+        toggleEditMode();
+    }
+
+    private void onEditMode(TextView textView) {
+        toggleEditMode();
+        currentTimeText = textView;
+    }
+
+    private void toggleEditMode() {
+        String textButton;
+
+        if (isEditing) {
+            isEditing = false;
+            textButton = "Start";
+        } else {
+            isEditing = true;
+            textButton = "Save";
+        }
+        binding.saveButton.setText(textButton);
+    }
+
+    private void updatePomodoro() {
+        PomodoroTimer.updateTimerSettings(workTime, shortBreakTime, longBreakTime);
     }
 
     private void updateCustomTimes() {
-        long workTime = Integer.parseInt(binding.workText.getText().toString());
-        long shortBreakTime = Integer.parseInt(binding.shortBreakText.getText().toString());
-        long longBreakTime = Integer.parseInt(binding.longBreakText.getText().toString());
-
-        PomodoroTimer.updateTimerSettings(workTime, shortBreakTime, longBreakTime);
+        workTime = Integer.parseInt(binding.workText.getText().toString());
+        shortBreakTime = Integer.parseInt(binding.shortBreakText.getText().toString());
+        longBreakTime = Integer.parseInt(binding.longBreakText.getText().toString());
     }
 
     @Override
