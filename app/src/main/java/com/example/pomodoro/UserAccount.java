@@ -16,6 +16,14 @@ public class UserAccount {
     protected static int breakTotal;
     protected static int pomodoroCycles = 0;
 
+    protected static int customWorkOne = 25;
+    protected static int customWorkTwo;
+    protected static int customShortOne = 5;
+    protected static int customShortTwo;
+    protected static int customLongOne = 15;
+    protected static int customLongTwo;
+
+
     public static String getEmailAddress() {
         return emailAddress;
     }
@@ -93,7 +101,55 @@ public class UserAccount {
         databaseStats.child(key).setValue(value);
     }
 
-    public UserAccount() {
+    public static int getCustomWorkOne() {
+        return customWorkOne;
+    }
+
+    public static void setCustomWorkOne(int customWorkOne) {
+        UserAccount.customWorkOne = customWorkOne;
+    }
+
+    public static int getCustomWorkTwo() {
+        return customWorkTwo;
+    }
+
+    public static void setCustomWorkTwo(int customWorkTwo) {
+        UserAccount.customWorkTwo = customWorkTwo;
+    }
+
+    public static int getCustomShortOne() {
+        return customShortOne;
+    }
+
+    public static void setCustomShortOne(int customShortOne) {
+        UserAccount.customShortOne = customShortOne;
+    }
+
+    public static int getCustomShortTwo() {
+        return customShortTwo;
+    }
+
+    public static void setCustomShortTwo(int customShortTwo) {
+        UserAccount.customShortTwo = customShortTwo;
+    }
+
+    public static int getCustomLongOne() {
+        return customLongOne;
+    }
+
+    public static void setCustomLongOne(int customLongOne) {
+        UserAccount.customLongOne = customLongOne;
+    }
+
+    public static int getCustomLongTwo() {
+        return customLongTwo;
+    }
+
+    public static void setCustomLongTwo(int customLongTwo) {
+        UserAccount.customLongTwo = customLongTwo;
+    }
+
+    private UserAccount() {
         throw new UnsupportedOperationException();
     }
 }
