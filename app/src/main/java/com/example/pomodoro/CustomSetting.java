@@ -9,18 +9,18 @@ import androidx.navigation.fragment.NavHostFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.example.pomodoro.databinding.CustomSettingBinding;
 
-import org.w3c.dom.Text;
-
-
 public class CustomSetting extends Fragment {
 
     private CustomSettingBinding binding;
     private TextView currentTimeText;
+    private EditText currentTitleText;
 
     private long workTime;
     private long shortBreakTime;
@@ -97,14 +97,14 @@ public class CustomSetting extends Fragment {
         binding.editButtonOne.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onEditMode(binding.timeTextOne);
+                onEditMode(binding.timeTextOne, binding.userCustomTitleOne);
             }
         });
 
         binding.editButtonTwo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onEditMode(binding.timeTextTwo);
+                onEditMode(binding.timeTextTwo, binding.userCustomTitleTwo);
             }
         });
     }
@@ -115,9 +115,11 @@ public class CustomSetting extends Fragment {
         toggleEditMode();
     }
 
-    private void onEditMode(TextView textView) {
+    private void onEditMode(TextView timeTextView, EditText titleEditText) {
+        currentTimeText = timeTextView;
+        currentTitleText = titleEditText;
+
         toggleEditMode();
-        currentTimeText = textView;
     }
 
     private void toggleEditMode() {
@@ -130,6 +132,9 @@ public class CustomSetting extends Fragment {
             isEditing = true;
             textButton = "Save";
         }
+        currentTitleText.setFocusableInTouchMode(isEditing);
+        currentTitleText.setCursorVisible(isEditing);
+        currentTitleText.setFocusable(isEditing);
         binding.saveButton.setText(textButton);
     }
 
