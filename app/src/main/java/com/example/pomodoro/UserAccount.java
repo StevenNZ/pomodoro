@@ -16,6 +16,8 @@ public class UserAccount {
     protected static int breakTotal;
     protected static int pomodoroCycles = 0;
 
+    protected static String customTitleOne = "Pomodoro";
+    protected static String customTitleTwo = "Title";
     protected static int customWorkOne = 25;
     protected static int customWorkTwo;
     protected static int customShortOne = 5;
@@ -147,6 +149,22 @@ public class UserAccount {
 
     public static void setCustomLongTwo(int customLongTwo) {
         UserAccount.customLongTwo = customLongTwo;
+    }
+
+    public static String getCustomTitleOne() {
+        return customTitleOne;
+    }
+
+    public static void setCustomTitleOne(String customTitleOne) {
+        UserAccount.customTitleOne = customTitleOne;
+    }
+
+    public static String getCustomTitleTwo() {
+        return customTitleTwo;
+    }
+
+    public static void setCustomTitleTwo(String customTitleTwo) {
+        UserAccount.customTitleTwo = customTitleTwo;
     }
 
     private UserAccount() {
