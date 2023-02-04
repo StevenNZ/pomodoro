@@ -41,7 +41,7 @@ public class CustomSetting extends Fragment {
         binding.saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                updateCustomTimes();
+                getCustomTimes();
 
                 if (!isEditing) {
                     updatePomodoro();
@@ -111,9 +111,7 @@ public class CustomSetting extends Fragment {
             @Override
             public void onClick(View v) {
                 if (UserAccount.getCustomWorkOne() != 0) {
-                    workTime = UserAccount.getCustomWorkOne();
-                    shortBreakTime = UserAccount.getCustomShortOne();
-                    longBreakTime = UserAccount.getCustomLongOne();
+                    retrieveCustomOne();
                     updateSeekBars();
                 }
             }
@@ -123,13 +121,39 @@ public class CustomSetting extends Fragment {
             @Override
             public void onClick(View v) {
                 if (UserAccount.getCustomWorkTwo() != 0) {
-                    workTime = UserAccount.getCustomWorkTwo();
-                    shortBreakTime = UserAccount.getCustomShortTwo();
-                    longBreakTime = UserAccount.getCustomLongTwo();
+                    retrieveCustomTwo();
                     updateSeekBars();
                 }
             }
         });
+
+        if (UserAccount.getCustomWorkOne() != 0) {
+            currentTimeText = binding.timeTextOne;
+
+            retrieveCustomOne();
+            updateCustomTimes();
+            binding.userCustomTitleOne.setText(UserAccount.getCustomTitleOne());
+        }
+
+        if (UserAccount.getCustomWorkTwo() != 0) {
+            currentTimeText = binding.timeTextTwo;
+
+            retrieveCustomTwo();
+            updateCustomTimes();
+            binding.userCustomTitleTwo.setText(UserAccount.getCustomTitleTwo());
+        }
+    }
+
+    private void retrieveCustomTwo() {
+        workTime = UserAccount.getCustomWorkTwo();
+        shortBreakTime = UserAccount.getCustomShortTwo();
+        longBreakTime = UserAccount.getCustomLongTwo();
+    }
+
+    private void retrieveCustomOne() {
+        workTime = UserAccount.getCustomWorkOne();
+        shortBreakTime = UserAccount.getCustomShortOne();
+        longBreakTime = UserAccount.getCustomLongOne();
     }
 
     private void updateSeekBars() {
@@ -143,11 +167,14 @@ public class CustomSetting extends Fragment {
     }
 
     private void saveCustomTimes() {
-        String timeText = workTime + "\n" + shortBreakTime + "\n" + longBreakTime;
-        currentTimeText.setText(timeText);
-
+        updateCustomTimes();
         updateUserAccount();
         toggleEditMode();
+    }
+
+    private void updateCustomTimes() {
+        String timeText = workTime + "\n" + shortBreakTime + "\n" + longBreakTime;
+        currentTimeText.setText(timeText);
     }
 
     private void updateUserAccount() {
@@ -160,7 +187,7 @@ public class CustomSetting extends Fragment {
             UserAccount.setCustomWorkTwo((int) workTime);
             UserAccount.setCustomShortTwo((int) shortBreakTime);
             UserAccount.setCustomLongTwo((int) longBreakTime);
-            UserAccount.setCustomTitleTwo(binding.userCustomTitleOne.getText().toString());
+            UserAccount.setCustomTitleTwo(binding.userCustomTitleTwo.getText().toString());
         }
     }
 
@@ -191,7 +218,7 @@ public class CustomSetting extends Fragment {
         PomodoroTimer.updateTimerSettings(workTime, shortBreakTime, longBreakTime);
     }
 
-    private void updateCustomTimes() {
+    private void getCustomTimes() {
         workTime = Integer.parseInt(binding.workText.getText().toString());
         shortBreakTime = Integer.parseInt(binding.shortBreakText.getText().toString());
         longBreakTime = Integer.parseInt(binding.longBreakText.getText().toString());
