@@ -96,14 +96,22 @@ public class CustomSetting extends Fragment {
         binding.editButtonOne.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onEditMode(binding.timeTextOne, binding.userCustomTitleOne);
+                if (isEditing) {
+                    binding.saveButton.callOnClick();
+                } else {
+                    onEditMode(binding.timeTextOne, binding.userCustomTitleOne);
+                }
             }
         });
 
         binding.editButtonTwo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onEditMode(binding.timeTextTwo, binding.userCustomTitleTwo);
+                if (isEditing) {
+                    binding.saveButton.callOnClick();
+                } else {
+                    onEditMode(binding.timeTextTwo, binding.userCustomTitleTwo);
+                }
             }
         });
 
