@@ -11,7 +11,7 @@
         android:id="@+id/saveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="40dp"
         android:text="Start"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -20,16 +20,16 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout5"
-        android:layout_width="350dp"
+        android:layout_width="370dp"
         android:layout_height="80dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="40dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout4">
 
         <SeekBar
             android:id="@+id/shortBreakBar"
-            android:layout_width="342dp"
+            android:layout_width="360dp"
             android:layout_height="71dp"
             android:max="10"
             android:progress="5"
@@ -59,16 +59,17 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout4"
-        android:layout_width="350dp"
+        android:layout_width="370dp"
         android:layout_height="80dp"
+        android:layout_marginTop="40dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="170dp">
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout10">
 
         <SeekBar
             android:id="@+id/workBar"
-            android:layout_width="342dp"
+            android:layout_width="360dp"
             android:layout_height="71dp"
             android:max="50"
             android:progress="25"
@@ -94,13 +95,14 @@
             app:layout_constraintEnd_toEndOf="@+id/workBar"
             app:layout_constraintStart_toStartOf="@+id/workBar"
             app:layout_constraintTop_toTopOf="@+id/workBar" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout6"
-        android:layout_width="350dp"
+        android:layout_width="370dp"
         android:layout_height="80dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="40dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
@@ -108,7 +110,7 @@
 
         <SeekBar
             android:id="@+id/longBreakBar"
-            android:layout_width="342dp"
+            android:layout_width="360dp"
             android:layout_height="71dp"
             android:max="30"
             android:progress="15"
@@ -134,6 +136,126 @@
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@+id/longBreakBar"
             app:layout_constraintTop_toTopOf="@+id/longBreakBar" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout10"
+        android:layout_width="370dp"
+        android:layout_height="154dp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout8"
+            android:layout_width="175dp"
+            android:layout_height="140dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/userCustomTitleTwo"
+                android:layout_width="123dp"
+                android:layout_height="29dp"
+                android:layout_marginTop="5dp"
+                android:text="Title"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toStartOf="@+id/editButtonTwo"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/editButtonTwo"
+                android:layout_width="37dp"
+                android:layout_height="37dp"
+                android:src="@drawable/work_fill"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView16"
+                android:layout_width="100dp"
+                android:layout_height="80dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="10dp"
+                android:lineSpacingExtra="7dp"
+                android:text="Work: \nShort Break:\nLong Break:"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/timeTextTwo"
+                android:layout_width="39dp"
+                android:layout_height="80dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:lineSpacingExtra="7dp"
+                android:text=""
+                android:textAlignment="center"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout9"
+            android:layout_width="175dp"
+            android:layout_height="140dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/editButtonOne"
+                android:layout_width="37dp"
+                android:layout_height="37dp"
+                android:src="@drawable/work_fill"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/userCustomTitleOne"
+                android:layout_width="123dp"
+                android:layout_height="29dp"
+                android:layout_marginTop="5dp"
+                android:text="Title"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toStartOf="@+id/editButtonOne"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="100dp"
+                android:layout_height="80dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="10dp"
+                android:lineSpacingExtra="7dp"
+                android:text="Work: \nShort Break:\nLong Break:"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/timeTextOne"
+                android:layout_width="39dp"
+                android:layout_height="80dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:lineSpacingExtra="7dp"
+                android:text=""
+                android:textAlignment="center"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
