@@ -9,7 +9,6 @@ import androidx.navigation.fragment.NavHostFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -107,12 +106,62 @@ public class CustomSetting extends Fragment {
                 onEditMode(binding.timeTextTwo, binding.userCustomTitleTwo);
             }
         });
+
+        binding.constraintBoxOne.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (UserAccount.getCustomWorkOne() != 0) {
+                    workTime = UserAccount.getCustomWorkOne();
+                    shortBreakTime = UserAccount.getCustomShortOne();
+                    longBreakTime = UserAccount.getCustomLongOne();
+                    updateSeekBars();
+                }
+            }
+        });
+
+        binding.constraintBoxTwo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (UserAccount.getCustomWorkTwo() != 0) {
+                    workTime = UserAccount.getCustomWorkTwo();
+                    shortBreakTime = UserAccount.getCustomShortTwo();
+                    longBreakTime = UserAccount.getCustomLongTwo();
+                    updateSeekBars();
+                }
+            }
+        });
+    }
+
+    private void updateSeekBars() {
+        binding.workBar.setProgress((int) workTime);
+        binding.shortBreakBar.setProgress((int) shortBreakTime);
+        binding.longBreakBar.setProgress((int) longBreakTime);
+
+        binding.workText.setText(String.valueOf(workTime));
+        binding.shortBreakText.setText(String.valueOf(shortBreakTime));
+        binding.longBreakText.setText(String.valueOf(longBreakTime));
     }
 
     private void saveCustomTimes() {
         String timeText = workTime + "\n" + shortBreakTime + "\n" + longBreakTime;
         currentTimeText.setText(timeText);
+
+        updateUserAccount();
         toggleEditMode();
+    }
+
+    private void updateUserAccount() {
+        if (currentTimeText.equals(binding.timeTextOne)) {
+            UserAccount.setCustomWorkOne((int) workTime);
+            UserAccount.setCustomShortOne((int) shortBreakTime);
+            UserAccount.setCustomLongOne((int) longBreakTime);
+            UserAccount.setCustomTitleOne(binding.userCustomTitleOne.getText().toString());
+        } else {
+            UserAccount.setCustomWorkTwo((int) workTime);
+            UserAccount.setCustomShortTwo((int) shortBreakTime);
+            UserAccount.setCustomLongTwo((int) longBreakTime);
+            UserAccount.setCustomTitleTwo(binding.userCustomTitleOne.getText().toString());
+        }
     }
 
     private void onEditMode(TextView timeTextView, EditText titleEditText) {
