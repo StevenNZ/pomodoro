@@ -74,34 +74,34 @@ public class UserAccount {
         workTotal+=workTime;
 
         String key = "Work Total";
-        updateDatabase(key, workTotal);
+        updateDatabase("Statistics", key, workTotal);
     }
 
     public static void increaseBreakTotal(long breakTime) {
         breakTotal+=breakTime;
 
         String key = "Break Total";
-        updateDatabase(key, breakTotal);
+        updateDatabase("Statistics", key, breakTotal);
     }
 
     public static void incrementPomodoro() {
         pomodoroTotal++;
 
         String key = "Pomodoro Total";
-        updateDatabase(key, pomodoroTotal);
+        updateDatabase("Statistics", key, pomodoroTotal);
     }
 
     public static void incrementCycles() {
         pomodoroCycles++;
 
         String key = "Pomodoro Cycle Total";
-        updateDatabase(key, pomodoroCycles);
+        updateDatabase("Statistics", key, pomodoroCycles);
     }
 
-    private static void updateDatabase(String key, int value) {
+    protected static void updateDatabase(String path, String key, Object value) {
         if (!uid.isEmpty()) {
-            DatabaseReference databaseStats = databaseReference.child("Users").child(uid).child("Statistics");
-            databaseStats.child(key).setValue(value);
+            DatabaseReference databasePath = databaseReference.child("Users").child(uid).child(path);
+            databasePath.child(key).setValue(value);
         }
     }
 

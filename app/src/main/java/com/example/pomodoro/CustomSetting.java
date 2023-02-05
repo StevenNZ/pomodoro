@@ -186,16 +186,32 @@ public class CustomSetting extends Fragment {
     }
 
     private void updateUserAccount() {
+        String path = "Custom";
+
         if (currentTimeText.equals(binding.timeTextOne)) {
             UserAccount.setCustomWorkOne((int) workTime);
             UserAccount.setCustomShortOne((int) shortBreakTime);
             UserAccount.setCustomLongOne((int) longBreakTime);
             UserAccount.setCustomTitleOne(binding.userCustomTitleOne.getText().toString());
+
+            if (!UserAccount.uid.isEmpty()) {
+                UserAccount.updateDatabase(path, "Work One", workTime);
+                UserAccount.updateDatabase(path, "Short One", shortBreakTime);
+                UserAccount.updateDatabase(path, "Long One", longBreakTime);
+                UserAccount.updateDatabase(path, "Title One", UserAccount.getCustomTitleOne());
+            }
         } else {
             UserAccount.setCustomWorkTwo((int) workTime);
             UserAccount.setCustomShortTwo((int) shortBreakTime);
             UserAccount.setCustomLongTwo((int) longBreakTime);
             UserAccount.setCustomTitleTwo(binding.userCustomTitleTwo.getText().toString());
+
+            if (!UserAccount.uid.isEmpty()) {
+                UserAccount.updateDatabase(path, "Work Two", workTime);
+                UserAccount.updateDatabase(path, "Short Two", shortBreakTime);
+                UserAccount.updateDatabase(path, "Long Two", longBreakTime);
+                UserAccount.updateDatabase(path, "Title Two", UserAccount.getCustomTitleTwo());
+            }
         }
     }
 
