@@ -9,7 +9,7 @@ public class UserAccount {
     protected static String emailAddress;
     protected static String username;
     protected static String password;
-    protected static String uid;
+    protected static String uid = "";
 
     protected static int pomodoroTotal;
     protected static int workTotal;
@@ -99,8 +99,10 @@ public class UserAccount {
     }
 
     private static void updateDatabase(String key, int value) {
-        DatabaseReference databaseStats = databaseReference.child("Users").child(uid).child("Statistics");
-        databaseStats.child(key).setValue(value);
+        if (!uid.isEmpty()) {
+            DatabaseReference databaseStats = databaseReference.child("Users").child(uid).child("Statistics");
+            databaseStats.child(key).setValue(value);
+        }
     }
 
     public static int getCustomWorkOne() {
