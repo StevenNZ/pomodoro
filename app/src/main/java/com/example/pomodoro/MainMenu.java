@@ -15,7 +15,7 @@ import com.example.pomodoro.databinding.MainMenuBinding;
 public class MainMenu extends Fragment {
 
     private MainMenuBinding binding;
-    private boolean isUser;
+    private static boolean isUser;
 
     @Override
     public View onCreateView(

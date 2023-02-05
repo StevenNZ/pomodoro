@@ -9,12 +9,22 @@ public class UserAccount {
     protected static String emailAddress;
     protected static String username;
     protected static String password;
-    protected static String uid;
+    protected static String uid = "";
 
     protected static int pomodoroTotal;
     protected static int workTotal;
     protected static int breakTotal;
     protected static int pomodoroCycles = 0;
+
+    protected static String customTitleOne = "Pomodoro";
+    protected static String customTitleTwo = "Title";
+    protected static int customWorkOne = 25;
+    protected static int customWorkTwo;
+    protected static int customShortOne = 5;
+    protected static int customShortTwo;
+    protected static int customLongOne = 15;
+    protected static int customLongTwo;
+
 
     public static String getEmailAddress() {
         return emailAddress;
@@ -64,36 +74,102 @@ public class UserAccount {
         workTotal+=workTime;
 
         String key = "Work Total";
-        updateDatabase(key, workTotal);
+        updateDatabase("Statistics", key, workTotal);
     }
 
     public static void increaseBreakTotal(long breakTime) {
         breakTotal+=breakTime;
 
         String key = "Break Total";
-        updateDatabase(key, breakTotal);
+        updateDatabase("Statistics", key, breakTotal);
     }
 
     public static void incrementPomodoro() {
         pomodoroTotal++;
 
         String key = "Pomodoro Total";
-        updateDatabase(key, pomodoroTotal);
+        updateDatabase("Statistics", key, pomodoroTotal);
     }
 
     public static void incrementCycles() {
         pomodoroCycles++;
 
         String key = "Pomodoro Cycle Total";
-        updateDatabase(key, pomodoroCycles);
+        updateDatabase("Statistics", key, pomodoroCycles);
     }
 
-    private static void updateDatabase(String key, int value) {
-        DatabaseReference databaseStats = databaseReference.child("Users").child(uid).child("Statistics");
-        databaseStats.child(key).setValue(value);
+    protected static void updateDatabase(String path, String key, Object value) {
+        if (!uid.isEmpty()) {
+            DatabaseReference databasePath = databaseReference.child("Users").child(uid).child(path);
+            databasePath.child(key).setValue(value);
+        }
     }
 
-    public UserAccount() {
+    public static int getCustomWorkOne() {
+        return customWorkOne;
+    }
+
+    public static void setCustomWorkOne(int customWorkOne) {
+        UserAccount.customWorkOne = customWorkOne;
+    }
+
+    public static int getCustomWorkTwo() {
+        return customWorkTwo;
+    }
+
+    public static void setCustomWorkTwo(int customWorkTwo) {
+        UserAccount.customWorkTwo = customWorkTwo;
+    }
+
+    public static int getCustomShortOne() {
+        return customShortOne;
+    }
+
+    public static void setCustomShortOne(int customShortOne) {
+        UserAccount.customShortOne = customShortOne;
+    }
+
+    public static int getCustomShortTwo() {
+        return customShortTwo;
+    }
+
+    public static void setCustomShortTwo(int customShortTwo) {
+        UserAccount.customShortTwo = customShortTwo;
+    }
+
+    public static int getCustomLongOne() {
+        return customLongOne;
+    }
+
+    public static void setCustomLongOne(int customLongOne) {
+        UserAccount.customLongOne = customLongOne;
+    }
+
+    public static int getCustomLongTwo() {
+        return customLongTwo;
+    }
+
+    public static void setCustomLongTwo(int customLongTwo) {
+        UserAccount.customLongTwo = customLongTwo;
+    }
+
+    public static String getCustomTitleOne() {
+        return customTitleOne;
+    }
+
+    public static void setCustomTitleOne(String customTitleOne) {
+        UserAccount.customTitleOne = customTitleOne;
+    }
+
+    public static String getCustomTitleTwo() {
+        return customTitleTwo;
+    }
+
+    public static void setCustomTitleTwo(String customTitleTwo) {
+        UserAccount.customTitleTwo = customTitleTwo;
+    }
+
+    private UserAccount() {
         throw new UnsupportedOperationException();
     }
 }
