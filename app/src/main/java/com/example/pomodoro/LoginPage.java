@@ -1,6 +1,7 @@
 package com.example.pomodoro;
 
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -92,6 +93,7 @@ public class LoginPage extends Fragment {
                         UserAccount.setUID(uid);
                         retrieveUserInfo(dataSnapshot);
                         retrieveUserStats(dataSnapshot);
+                        retrieveUserCustom(dataSnapshot);
                     }
                 });
             }
@@ -101,6 +103,28 @@ public class LoginPage extends Fragment {
                 Toast.makeText(requireContext(), "Login failed", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void retrieveUserCustom(DataSnapshot dataSnapshot) {
+        DataSnapshot customSnapshot = dataSnapshot.child("Custom");
+
+        String titleOne = (String) customSnapshot.child("Title One").getValue();
+        String titleTwo = (String) customSnapshot.child("Title Two").getValue();
+        int workOne = Integer.parseInt(String.valueOf(customSnapshot.child("Work One").getValue()));
+        int workTwo = Integer.parseInt(String.valueOf(customSnapshot.child("Work Two").getValue()));
+        int shortOne = Integer.parseInt(String.valueOf(customSnapshot.child("Short One").getValue()));
+        int shortTwo = Integer.parseInt(String.valueOf(customSnapshot.child("Short Two").getValue()));
+        int longOne = Integer.parseInt(String.valueOf(customSnapshot.child("Long One").getValue()));
+        int longTwo = Integer.parseInt(String.valueOf(customSnapshot.child("Long Two").getValue()));
+
+        UserAccount.setCustomTitleOne(titleOne);
+        UserAccount.setCustomTitleTwo(titleTwo);
+        UserAccount.setCustomWorkOne(workOne);
+        UserAccount.setCustomWorkTwo(workTwo);
+        UserAccount.setCustomShortOne(shortOne);
+        UserAccount.setCustomShortTwo(shortTwo);
+        UserAccount.setCustomLongOne(longOne);
+        UserAccount.setCustomLongTwo(longTwo);
     }
 
     private void retrieveUserStats(DataSnapshot dataSnapshot) {

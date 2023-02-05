@@ -90,14 +90,32 @@ public class RegisterPage extends Fragment {
 
     private void updateDatabase(DatabaseReference databaseReference, String emailAddress, String username, String password) {
         String statPath = "Statistics";
+        String customPath = "Custom";
 
         databaseReference.child("Email Address").setValue(emailAddress);
         databaseReference.child("Username").setValue(username);
         databaseReference.child("Password").setValue(password);
-        databaseReference.child(statPath).child("Work Total").setValue(0);
-        databaseReference.child(statPath).child("Break Total").setValue(0);
-        databaseReference.child(statPath).child("Pomodoro Total").setValue(0);
-        databaseReference.child(statPath).child("Pomodoro Cycle Total").setValue(0);
+
+        updateStatsDatabase(databaseReference.child(statPath));
+        updateCustomDatabase(databaseReference.child(customPath));
+    }
+
+    private void updateCustomDatabase(DatabaseReference databaseReference) {
+        databaseReference.child("Title One").setValue("Pomodoro");
+        databaseReference.child("Title Two").setValue("Title");
+        databaseReference.child("Work One").setValue(25);
+        databaseReference.child("Work Two").setValue(0);
+        databaseReference.child("Short One").setValue(5);
+        databaseReference.child("Short Two").setValue(0);
+        databaseReference.child("Long One").setValue(15);
+        databaseReference.child("Long Two").setValue(0);
+    }
+
+    private void updateStatsDatabase(DatabaseReference databaseReference) {
+        databaseReference.child("Work Total").setValue(0);
+        databaseReference.child("Break Total").setValue(0);
+        databaseReference.child("Pomodoro Total").setValue(0);
+        databaseReference.child("Pomodoro Cycle Total").setValue(0);
     }
 
     private boolean checkIfEmpty(String emailAddress, String username, String password) {
