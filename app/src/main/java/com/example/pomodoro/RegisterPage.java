@@ -79,7 +79,7 @@ public class RegisterPage extends Fragment {
 
                     sendVerifyEmail();
                 } else {
-                    Toast.makeText(requireContext(), "Registration failed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
