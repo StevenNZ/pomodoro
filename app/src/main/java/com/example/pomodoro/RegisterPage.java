@@ -68,8 +68,6 @@ public class RegisterPage extends Fragment {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    Toast.makeText(requireContext(), "Your user has been registered", Toast.LENGTH_SHORT).show();
-
                     // create object of DatabaseReference class which gives access to firebase realtime database
                     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Users");
 
@@ -79,11 +77,25 @@ public class RegisterPage extends Fragment {
                     // sending to the database
                     updateDatabase(databaseReference.child(uid), emailAddress, username, password);
 
-
-                    requireActivity().onBackPressed();
+                    sendVerifyEmail();
                 } else {
-                    Toast.makeText(requireContext(), "Registration failed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+    }
+
+    private void sendVerifyEmail() {
+        auth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(getContext(), "Registered Successfully! Please check your email for verification", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getContext(), task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                }
+
+                requireActivity().onBackPressed();
             }
         });
     }

@@ -72,35 +72,39 @@ public class LoginPage extends Fragment {
         auth.signInWithEmailAndPassword(email, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
             @Override
             public void onSuccess(AuthResult authResult) {
-                Toast.makeText(requireContext(), "Login successful", Toast.LENGTH_SHORT).show();
+                if (auth.getCurrentUser().isEmailVerified()) {
+                    Toast.makeText(requireContext(), "Login successful", Toast.LENGTH_SHORT).show();
 
-                String uid = authResult.getUser().getUid();
-                DatabaseReference databaseUsers = databaseReference.child("Users").child(uid);
-                databaseUsers.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DataSnapshot> task) {
-                        // retrieve data from firebase
-                        retrieveData(task);
+                    String uid = authResult.getUser().getUid();
+                    DatabaseReference databaseUsers = databaseReference.child("Users").child(uid);
+                    databaseUsers.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DataSnapshot> task) {
+                            // retrieve data from firebase
+                            retrieveData(task);
 
-                        updateMainMenu();
+                            updateMainMenu();
 
-                        requireActivity().onBackPressed();
-                    }
+                            requireActivity().onBackPressed();
+                        }
 
-                    private void retrieveData(Task<DataSnapshot> task) {
-                        DataSnapshot dataSnapshot = task.getResult();
+                        private void retrieveData(Task<DataSnapshot> task) {
+                            DataSnapshot dataSnapshot = task.getResult();
 
-                        UserAccount.setUID(uid);
-                        retrieveUserInfo(dataSnapshot);
-                        retrieveUserStats(dataSnapshot);
-                        retrieveUserCustom(dataSnapshot);
-                    }
-                });
+                            UserAccount.setUID(uid);
+                            retrieveUserInfo(dataSnapshot);
+                            retrieveUserStats(dataSnapshot);
+                            retrieveUserCustom(dataSnapshot);
+                        }
+                    });
+                } else {
+                    Toast.makeText(requireContext(), "Please verify your email", Toast.LENGTH_SHORT).show();
+                }
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(requireContext(), "Login failed", Toast.LENGTH_SHORT).show();
+            public void onFailure(@NonNull Exception exception) {
+                Toast.makeText(requireContext(), exception.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
