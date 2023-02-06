@@ -103,8 +103,8 @@ public class LoginPage extends Fragment {
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(requireContext(), "Login failed", Toast.LENGTH_SHORT).show();
+            public void onFailure(@NonNull Exception exception) {
+                Toast.makeText(requireContext(), exception.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
