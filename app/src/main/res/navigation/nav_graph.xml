@@ -58,6 +58,9 @@
         <action
             android:id="@+id/action_loginPage_to_mainMenu"
             app:destination="@id/mainMenu" />
+        <action
+            android:id="@+id/action_loginPage_to_forgotPassword"
+            app:destination="@id/forgotPassword" />
     </fragment>
     <fragment
         android:id="@+id/registerPage"
@@ -67,4 +70,8 @@
             android:id="@+id/action_registerPage_to_loginPage"
             app:destination="@id/loginPage" />
     </fragment>
+    <fragment
+        android:id="@+id/forgotPassword"
+        android:name="com.example.pomodoro.ForgotPassword"
+        android:label="ForgotPassword" />
 </navigation>
