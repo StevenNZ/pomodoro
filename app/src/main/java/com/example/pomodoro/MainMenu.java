@@ -67,8 +67,10 @@ public class MainMenu extends Fragment {
         if (auth.getCurrentUser() != null) {
             if (UserAccount.emailAddress == null) {
                 LoginPage.updateUserAccount();
+                binding.usernameText.setText(auth.getCurrentUser().getDisplayName());
+            } else {
+                updateUsername(UserAccount.getUsername());
             }
-            updateUsername(UserAccount.getUsername());
         }
     }
 
