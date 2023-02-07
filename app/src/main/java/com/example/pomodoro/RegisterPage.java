@@ -94,7 +94,7 @@ public class RegisterPage extends Fragment {
                 } else {
                     Toast.makeText(getContext(), task.getException().getMessage(), Toast.LENGTH_LONG).show();
                 }
-
+                auth.signOut();
                 requireActivity().onBackPressed();
             }
         });
