@@ -66,6 +66,13 @@ public class LoginPage extends Fragment {
                 }
             }
         });
+
+        binding.forgotPasswordButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavHostFragment.findNavController(LoginPage.this).navigate(R.id.action_loginPage_to_forgotPassword);
+            }
+        });
     }
 
     private void loginUser(String email, String password) {
