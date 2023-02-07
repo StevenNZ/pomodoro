@@ -10,13 +10,14 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.pomodoro.databinding.RegisterPageBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -24,7 +25,7 @@ public class RegisterPage extends Fragment {
 
     private RegisterPageBinding binding;
 
-    private FirebaseAuth auth;
+    private FirebaseAuth auth = FirebaseAuth.getInstance();
 
     @Override
     public View onCreateView(
@@ -38,8 +39,6 @@ public class RegisterPage extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        auth = FirebaseAuth.getInstance();
 
         binding.btnSignUpRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,7 +71,12 @@ public class RegisterPage extends Fragment {
                     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Users");
 
                     // grabbing the user's UID as our unique identity
-                    String uid = auth.getCurrentUser().getUid();
+                    FirebaseUser user = auth.getCurrentUser();
+                    String uid = user.getUid();
+
+                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName(username).build();
+
+                    user.updateProfile(profileUpdates);
 
                     // sending to the database
                     updateDatabase(databaseReference.child(uid), emailAddress, username, password);
@@ -94,7 +98,7 @@ public class RegisterPage extends Fragment {
                 } else {
                     Toast.makeText(getContext(), task.getException().getMessage(), Toast.LENGTH_LONG).show();
                 }
-
+                auth.signOut();
                 requireActivity().onBackPressed();
             }
         });
