@@ -16,7 +16,7 @@
             app:destination="@id/customSetting" />
         <action
             android:id="@+id/action_mainMenu_to_statisticsPage"
-            app:destination="@id/statisticsPage" />
+            app:destination="@id/profilePage" />
         <action
             android:id="@+id/action_mainMenu_to_loginPage"
             app:destination="@id/loginPage" />
@@ -41,9 +41,9 @@
             app:destination="@id/pomodoro" />
     </fragment>
     <fragment
-        android:id="@+id/statisticsPage"
-        android:name="com.example.pomodoro.StatisticsPage"
-        android:label="Statistics" >
+        android:id="@+id/profilePage"
+        android:name="com.example.pomodoro.ProfilePage"
+        android:label="Profile">
         <action
             android:id="@+id/action_statisticsPage_to_mainMenu"
             app:destination="@id/mainMenu" />

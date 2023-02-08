@@ -15,11 +15,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.fragment.app.Fragment;
 
-import com.example.pomodoro.databinding.StatisticsPageBinding;
+import com.example.pomodoro.databinding.ProfilePageBinding;
 
-public class StatisticsPage extends Fragment {
+public class ProfilePage extends Fragment {
 
-    private StatisticsPageBinding binding;
+    private ProfilePageBinding binding;
 
     @Override
     public View onCreateView(
@@ -27,7 +27,7 @@ public class StatisticsPage extends Fragment {
             Bundle savedInstanceState
     ) {
 
-        binding = StatisticsPageBinding.inflate(inflater, container, false);
+        binding = ProfilePageBinding.inflate(inflater, container, false);
         return binding.getRoot();
 
     }
