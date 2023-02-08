@@ -1,7 +1,6 @@
 package com.example.pomodoro;
 
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,11 +24,26 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class LoginPage extends Fragment {
 
+    protected static DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://pomodoro-2bd96-default-rtdb.firebaseio.com/");
+
     private LoginPageBinding binding;
 
-    private FirebaseAuth auth;
+    private static FirebaseAuth auth = FirebaseAuth.getInstance();
 
-    protected static DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://pomodoro-2bd96-default-rtdb.firebaseio.com/");
+    public static void updateUserAccount() {
+        String uid = auth.getUid();
+        databaseReference.child("Users").child(uid).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                DataSnapshot snapshot = task.getResult();
+
+                UserAccount.setUID(uid);
+                retrieveUserInfo(snapshot);
+                retrieveUserStats(snapshot);
+                retrieveUserCustom(snapshot);
+            }
+        });
+    }
 
     @Override
     public View onCreateView(
@@ -43,8 +57,6 @@ public class LoginPage extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        auth = FirebaseAuth.getInstance();
 
         binding.btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,6 +76,13 @@ public class LoginPage extends Fragment {
                 } else {
                     loginUser(email, password);
                 }
+            }
+        });
+
+        binding.forgotPasswordButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavHostFragment.findNavController(LoginPage.this).navigate(R.id.action_loginPage_to_forgotPassword);
             }
         });
     }
@@ -99,17 +118,19 @@ public class LoginPage extends Fragment {
                     });
                 } else {
                     Toast.makeText(requireContext(), "Please verify your email", Toast.LENGTH_SHORT).show();
+                    auth.signOut();
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {
                 Toast.makeText(requireContext(), exception.getMessage(), Toast.LENGTH_SHORT).show();
+                auth.signOut();
             }
         });
     }
 
-    private void retrieveUserCustom(DataSnapshot dataSnapshot) {
+    private static void retrieveUserCustom(DataSnapshot dataSnapshot) {
         DataSnapshot customSnapshot = dataSnapshot.child("Custom");
 
         String titleOne = (String) customSnapshot.child("Title One").getValue();
@@ -131,7 +152,7 @@ public class LoginPage extends Fragment {
         UserAccount.setCustomLongTwo(longTwo);
     }
 
-    private void retrieveUserStats(DataSnapshot dataSnapshot) {
+    private static void retrieveUserStats(DataSnapshot dataSnapshot) {
         DataSnapshot statsSnapshot = dataSnapshot.child("Statistics");
 
         int pomodoroTotal = Integer.parseInt(String.valueOf(statsSnapshot.child("Pomodoro Total").getValue()));
@@ -145,7 +166,7 @@ public class LoginPage extends Fragment {
         UserAccount.setPomodoroCycles(cycleTotal);
     }
 
-    private void retrieveUserInfo(DataSnapshot dataSnapshot) {
+    private static void retrieveUserInfo(DataSnapshot dataSnapshot) {
         UserAccount.setEmailAddress(String.valueOf(dataSnapshot.child("Email Address").getValue()));
         UserAccount.setUsername(String.valueOf(dataSnapshot.child("Username").getValue()));
         UserAccount.setPassword(String.valueOf(dataSnapshot.child("Password").getValue()));

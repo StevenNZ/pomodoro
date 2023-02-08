@@ -11,11 +11,13 @@ import androidx.fragment.app.FragmentResultListener;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.pomodoro.databinding.MainMenuBinding;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainMenu extends Fragment {
 
     private MainMenuBinding binding;
-    private static boolean isUser;
+
+    private FirebaseAuth auth = FirebaseAuth.getInstance();
 
     @Override
     public View onCreateView(
@@ -57,14 +59,18 @@ public class MainMenu extends Fragment {
         getParentFragmentManager().setFragmentResultListener("dataFromLP", this, new FragmentResultListener() {
             @Override
             public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
-                isUser = true;
                 String data = result.getString("lpUsername");
                 updateUsername(data);
             }
         });
 
-        if (isUser) {
-            updateUsername(UserAccount.getUsername());
+        if (auth.getCurrentUser() != null) {
+            if (UserAccount.emailAddress == null) {
+                LoginPage.updateUserAccount();
+                binding.usernameText.setText(auth.getCurrentUser().getDisplayName());
+            } else {
+                updateUsername(UserAccount.getUsername());
+            }
         }
     }
 
