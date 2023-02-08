@@ -35,9 +35,14 @@ public class ProfilePage extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        updateProfile();
         updateStats();
         updateBadges();
         showToolTips();
+    }
+
+    private void updateProfile() {
+        binding.nameProfileText.setText(UserAccount.getUsername());
     }
 
     private void showToolTips() {

@@ -7,7 +7,7 @@ import com.google.firebase.database.DatabaseReference;
 public class UserAccount {
 
     protected static String emailAddress;
-    protected static String username;
+    protected static String username = "Guest";
     protected static String password;
     protected static String uid = "";
 
