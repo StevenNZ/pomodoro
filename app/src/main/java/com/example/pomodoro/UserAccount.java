@@ -2,6 +2,8 @@ package com.example.pomodoro;
 
 import static com.example.pomodoro.LoginPage.databaseReference;
 
+import android.net.Uri;
+
 import com.google.firebase.database.DatabaseReference;
 
 public class UserAccount {
@@ -10,6 +12,7 @@ public class UserAccount {
     protected static String username = "Guest";
     protected static String password;
     protected static String uid = "";
+    protected static Uri uriImage = Uri.parse("android.resource://com.example.pomodoro/drawable/guest_icon");
 
     protected static int pomodoroTotal;
     protected static int workTotal;
@@ -48,6 +51,14 @@ public class UserAccount {
 
     public static void setPassword(String password) {
         UserAccount.password = password;
+    }
+
+    public static Uri getUriImage() {
+        return uriImage;
+    }
+
+    public static void setUriImage(Uri uriImage) {
+        UserAccount.uriImage = uriImage;
     }
 
     public static void setPomodoroTotal(int pomodoroTotal) {
