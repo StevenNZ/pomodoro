@@ -57,6 +57,19 @@ public class MainMenu extends Fragment {
             }
         });
 
+        binding.mainIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (binding.profileLayout.getVisibility() == View.GONE) {
+                    binding.profileLayout.setVisibility(View.VISIBLE);
+                    binding.userManageLayout.setVisibility(View.VISIBLE);
+                } else {
+                    binding.userManageLayout.setVisibility(View.GONE);
+                    binding.profileLayout.setVisibility(View.GONE);
+                }
+            }
+        });
+
         getParentFragmentManager().setFragmentResultListener("dataFromLP", this, new FragmentResultListener() {
             @Override
             public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
