@@ -74,7 +74,7 @@ public class MainMenu extends Fragment {
 
     private void updateUserProfile() {
         binding.usernameText.setText(auth.getCurrentUser().getDisplayName());
-        binding.userIcon.setImageURI(auth.getCurrentUser().getPhotoUrl());
+        binding.statsIcon.setImageURI(auth.getCurrentUser().getPhotoUrl());
     }
 
     @Override
