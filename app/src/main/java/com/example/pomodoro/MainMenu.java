@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -57,15 +59,23 @@ public class MainMenu extends Fragment {
             }
         });
 
+        Animation showLayout = AnimationUtils.loadAnimation(requireContext(), R.anim.show_layout);
+        Animation hideLayout = AnimationUtils.loadAnimation(requireContext(), R.anim.hide_layout);
         binding.mainIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (binding.profileLayout.getVisibility() == View.GONE) {
                     binding.profileLayout.setVisibility(View.VISIBLE);
                     binding.userManageLayout.setVisibility(View.VISIBLE);
+
+                    binding.profileLayout.startAnimation(showLayout);
+                    binding.userManageLayout.startAnimation(showLayout);
                 } else {
                     binding.userManageLayout.setVisibility(View.GONE);
                     binding.profileLayout.setVisibility(View.GONE);
+
+                    binding.profileLayout.startAnimation(hideLayout);
+                    binding.userManageLayout.startAnimation(hideLayout);
                 }
             }
         });
