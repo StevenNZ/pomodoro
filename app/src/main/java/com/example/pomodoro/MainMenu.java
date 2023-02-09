@@ -60,24 +60,21 @@ public class MainMenu extends Fragment {
         getParentFragmentManager().setFragmentResultListener("dataFromLP", this, new FragmentResultListener() {
             @Override
             public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
-                String data = result.getString("lpUsername");
-                updateUsername(data);
+                updateUserProfile();
             }
         });
 
         if (auth.getCurrentUser() != null) {
             if (UserAccount.emailAddress == null) {
                 LoginPage.updateUserAccount();
-                binding.usernameText.setText(auth.getCurrentUser().getDisplayName());
-                binding.userIcon.setImageURI(auth.getCurrentUser().getPhotoUrl());
-            } else {
-                updateUsername(UserAccount.getUsername());
             }
+            updateUserProfile();
         }
     }
 
-    private void updateUsername(String username) {
-        binding.usernameText.setText(username);
+    private void updateUserProfile() {
+        binding.usernameText.setText(auth.getCurrentUser().getDisplayName());
+        binding.userIcon.setImageURI(auth.getCurrentUser().getPhotoUrl());
     }
 
     @Override
