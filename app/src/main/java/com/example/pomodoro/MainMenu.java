@@ -42,7 +42,7 @@ public class MainMenu extends Fragment {
             }
         });
 
-        binding.statsIcon.setOnClickListener(new View.OnClickListener() {
+        binding.profileIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 NavHostFragment.findNavController(MainMenu.this)
@@ -74,7 +74,7 @@ public class MainMenu extends Fragment {
 
     private void updateUserProfile() {
         binding.usernameText.setText(auth.getCurrentUser().getDisplayName());
-        binding.statsIcon.setImageURI(auth.getCurrentUser().getPhotoUrl());
+        binding.mainIcon.setImageURI(auth.getCurrentUser().getPhotoUrl());
     }
 
     @Override
