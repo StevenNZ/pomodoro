@@ -1,6 +1,7 @@
 package com.example.pomodoro;
 
 import android.app.Activity;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -20,6 +21,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.io.File;
 
 public class RegisterPage extends Fragment {
 
@@ -74,7 +77,8 @@ public class RegisterPage extends Fragment {
                     FirebaseUser user = auth.getCurrentUser();
                     String uid = user.getUid();
 
-                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName(username).build();
+                    Uri uri = Uri.parse("android.resource://com.example.pomodoro/drawable/avatar_icon");
+                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName(username).setPhotoUri(uri).build();
 
                     user.updateProfile(profileUpdates);
 
