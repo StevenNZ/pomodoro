@@ -1,5 +1,6 @@
 package com.example.pomodoro;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -169,11 +170,13 @@ public class LoginPage extends Fragment {
 
     private void updateCurrentUserText() {
         String currentUserText = "Currently no user logged in";
+        Uri photoUrl = Uri.parse("android.resource://com.example.pomodoro/drawable/guest_icon");
         if (auth.getCurrentUser() != null) {
             currentUserText = "Current user is " + auth.getCurrentUser().getDisplayName();
-            binding.mainLoginIcon.setImageURI(auth.getCurrentUser().getPhotoUrl());
+            photoUrl = auth.getCurrentUser().getPhotoUrl();
         }
         binding.userLoginText.setText(currentUserText);
+        binding.mainLoginIcon.setImageURI(photoUrl);
     }
 
     private static void retrieveUserCustom(DataSnapshot dataSnapshot) {
