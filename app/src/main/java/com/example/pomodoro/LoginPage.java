@@ -86,6 +86,15 @@ public class LoginPage extends Fragment {
             }
         });
         updateCurrentUserText();
+
+        binding.signOutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                auth.signOut();
+                updateCurrentUserText();
+                UserAccount.resetGuest();
+            }
+        });
     }
 
     private void loginUser(String email, String password) {
