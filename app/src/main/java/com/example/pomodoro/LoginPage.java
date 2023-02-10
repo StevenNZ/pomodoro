@@ -171,6 +171,7 @@ public class LoginPage extends Fragment {
         String currentUserText = "Currently no user logged in";
         if (auth.getCurrentUser() != null) {
             currentUserText = "Current user is " + auth.getCurrentUser().getDisplayName();
+            binding.mainLoginIcon.setImageURI(auth.getCurrentUser().getPhotoUrl());
         }
         binding.userLoginText.setText(currentUserText);
     }
