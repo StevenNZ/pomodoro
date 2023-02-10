@@ -8,7 +8,7 @@ import com.google.firebase.database.DatabaseReference;
 
 public class UserAccount {
 
-    protected static String emailAddress;
+    protected static String emailAddress = "";
     protected static String username = "Guest";
     protected static String password;
     protected static String uid = "";
@@ -180,7 +180,30 @@ public class UserAccount {
         UserAccount.customTitleTwo = customTitleTwo;
     }
 
+    public static void resetGuest() {
+        emailAddress = "";
+        username = "Guest";
+        uid = "";
+        uriImage = Uri.parse("android.resource://com.example.pomodoro/drawable/guest_icon");
+
+        pomodoroTotal = 0;
+        workTotal = 0;
+        breakTotal = 0;
+        pomodoroCycles = 0;
+
+        customTitleOne = "Pomodoro";
+        customTitleTwo = "Title";
+        customWorkOne = 25;
+        customWorkTwo = 0;
+        customShortOne = 5;
+        customShortTwo = 0;
+        customLongOne = 15;
+        customLongTwo = 0;
+    }
+
     private UserAccount() {
         throw new UnsupportedOperationException();
     }
+
+
 }
