@@ -125,7 +125,6 @@ public class LoginPage extends Fragment {
             @Override
             public void onFailure(@NonNull Exception exception) {
                 Toast.makeText(requireContext(), exception.getMessage(), Toast.LENGTH_SHORT).show();
-                auth.signOut();
             }
         });
     }
