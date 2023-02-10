@@ -88,7 +88,7 @@ public class MainMenu extends Fragment {
         });
 
         if (auth.getCurrentUser() != null) {
-            if (UserAccount.emailAddress == null) {
+            if (UserAccount.emailAddress.isEmpty()) {
                 LoginPage.updateUserAccount();
             }
             updateUserProfile();

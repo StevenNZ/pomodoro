@@ -85,6 +85,16 @@ public class LoginPage extends Fragment {
                 NavHostFragment.findNavController(LoginPage.this).navigate(R.id.action_loginPage_to_forgotPassword);
             }
         });
+        updateCurrentUserText();
+
+        binding.signOutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                auth.signOut();
+                updateCurrentUserText();
+                UserAccount.resetGuest();
+            }
+        });
     }
 
     private void loginUser(String email, String password) {
@@ -125,9 +135,16 @@ public class LoginPage extends Fragment {
             @Override
             public void onFailure(@NonNull Exception exception) {
                 Toast.makeText(requireContext(), exception.getMessage(), Toast.LENGTH_SHORT).show();
-                auth.signOut();
             }
         });
+    }
+
+    private void updateCurrentUserText() {
+        String currentUserText = "Currently no user logged in";
+        if (auth.getCurrentUser() != null) {
+            currentUserText = "Current user is " + auth.getCurrentUser().getDisplayName();
+        }
+        binding.userLoginText.setText(currentUserText);
     }
 
     private static void retrieveUserCustom(DataSnapshot dataSnapshot) {
