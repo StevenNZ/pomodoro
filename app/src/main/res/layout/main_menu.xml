@@ -56,21 +56,21 @@
         android:id="@+id/profileLayout"
         android:layout_width="170dp"
         android:layout_height="70dp"
-        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
         android:layout_marginBottom="15dp"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/userManageLayout"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintEnd_toEndOf="parent">
 
         <TextView
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:text="Profile"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/profileIcon"
+            app:layout_constraintEnd_toStartOf="@+id/profileIcon"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -81,7 +81,7 @@
             android:src="@drawable/user_profile"
             app:fabCustomSize="55dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:maxImageSize="30dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -90,11 +90,11 @@
         android:id="@+id/userManageLayout"
         android:layout_width="170dp"
         android:layout_height="70dp"
-        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
         android:layout_marginBottom="20dp"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/mainIcon"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintEnd_toEndOf="parent">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/userIcon"
@@ -104,7 +104,7 @@
             android:src="@drawable/user_manage_icon"
             app:fabCustomSize="55dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:maxImageSize="30dp" />
 
@@ -112,11 +112,11 @@
             android:id="@+id/textView11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:text="User"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/userIcon"
+            app:layout_constraintEnd_toStartOf="@+id/userIcon"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -124,10 +124,10 @@
         android:id="@+id/mainIcon"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
         android:layout_marginBottom="30dp"
         android:src="@drawable/guest_icon"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

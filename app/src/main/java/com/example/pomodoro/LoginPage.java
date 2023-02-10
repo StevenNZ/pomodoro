@@ -1,10 +1,13 @@
 package com.example.pomodoro;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -58,7 +61,7 @@ public class LoginPage extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.btnSignUp.setOnClickListener(new View.OnClickListener() {
+        binding.signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 NavHostFragment.findNavController(LoginPage.this).navigate(R.id.action_loginPage_to_registerPage);
@@ -93,6 +96,32 @@ public class LoginPage extends Fragment {
                 auth.signOut();
                 updateCurrentUserText();
                 UserAccount.resetGuest();
+            }
+        });
+
+        Animation showLayout = AnimationUtils.loadAnimation(getContext(), R.anim.show_layout);
+        Animation hideLayout = AnimationUtils.loadAnimation(getContext(), R.anim.hide_layout);
+
+        binding.mainLoginIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (binding.registerLayout.getVisibility() == View.GONE) {
+                    binding.registerLayout.setVisibility(View.VISIBLE);
+                    binding.logOutLayout.setVisibility(View.VISIBLE);
+                    binding.passwordLayout.setVisibility(View.VISIBLE);
+
+                    binding.registerLayout.startAnimation(showLayout);
+                    binding.logOutLayout.startAnimation(showLayout);
+                    binding.passwordLayout.startAnimation(showLayout);
+                } else {
+                    binding.registerLayout.setVisibility(View.GONE);
+                    binding.logOutLayout.setVisibility(View.GONE);
+                    binding.passwordLayout.setVisibility(View.GONE);
+
+                    binding.registerLayout.startAnimation(hideLayout);
+                    binding.logOutLayout.startAnimation(hideLayout);
+                    binding.passwordLayout.startAnimation(hideLayout);
+                }
             }
         });
     }
@@ -141,10 +170,13 @@ public class LoginPage extends Fragment {
 
     private void updateCurrentUserText() {
         String currentUserText = "Currently no user logged in";
+        Uri photoUrl = Uri.parse("android.resource://com.example.pomodoro/drawable/guest_icon");
         if (auth.getCurrentUser() != null) {
             currentUserText = "Current user is " + auth.getCurrentUser().getDisplayName();
+            photoUrl = auth.getCurrentUser().getPhotoUrl();
         }
         binding.userLoginText.setText(currentUserText);
+        binding.mainLoginIcon.setImageURI(photoUrl);
     }
 
     private static void retrieveUserCustom(DataSnapshot dataSnapshot) {
