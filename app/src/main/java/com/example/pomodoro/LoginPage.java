@@ -85,6 +85,7 @@ public class LoginPage extends Fragment {
                 NavHostFragment.findNavController(LoginPage.this).navigate(R.id.action_loginPage_to_forgotPassword);
             }
         });
+        updateCurrentUserText();
     }
 
     private void loginUser(String email, String password) {
@@ -127,6 +128,14 @@ public class LoginPage extends Fragment {
                 Toast.makeText(requireContext(), exception.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void updateCurrentUserText() {
+        String currentUserText = "Currently no user logged in";
+        if (auth.getCurrentUser() != null) {
+            currentUserText = "Current user is " + auth.getCurrentUser().getDisplayName();
+        }
+        binding.userLoginText.setText(currentUserText);
     }
 
     private static void retrieveUserCustom(DataSnapshot dataSnapshot) {
