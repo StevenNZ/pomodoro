@@ -58,7 +58,7 @@ public class LoginPage extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.btnSignUp.setOnClickListener(new View.OnClickListener() {
+        binding.signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 NavHostFragment.findNavController(LoginPage.this).navigate(R.id.action_loginPage_to_registerPage);
