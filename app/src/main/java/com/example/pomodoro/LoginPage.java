@@ -5,6 +5,8 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -93,6 +95,32 @@ public class LoginPage extends Fragment {
                 auth.signOut();
                 updateCurrentUserText();
                 UserAccount.resetGuest();
+            }
+        });
+
+        Animation showLayout = AnimationUtils.loadAnimation(getContext(), R.anim.show_layout);
+        Animation hideLayout = AnimationUtils.loadAnimation(getContext(), R.anim.hide_layout);
+
+        binding.mainLoginIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (binding.registerLayout.getVisibility() == View.GONE) {
+                    binding.registerLayout.setVisibility(View.VISIBLE);
+                    binding.logOutLayout.setVisibility(View.VISIBLE);
+                    binding.passwordLayout.setVisibility(View.VISIBLE);
+
+                    binding.registerLayout.startAnimation(showLayout);
+                    binding.logOutLayout.startAnimation(showLayout);
+                    binding.passwordLayout.startAnimation(showLayout);
+                } else {
+                    binding.registerLayout.setVisibility(View.GONE);
+                    binding.logOutLayout.setVisibility(View.GONE);
+                    binding.passwordLayout.setVisibility(View.GONE);
+
+                    binding.registerLayout.startAnimation(hideLayout);
+                    binding.logOutLayout.startAnimation(hideLayout);
+                    binding.passwordLayout.startAnimation(hideLayout);
+                }
             }
         });
     }
