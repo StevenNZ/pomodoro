@@ -146,6 +146,7 @@ public class RegisterPage extends Fragment {
         databaseReference.child("Email Address").setValue(emailAddress);
         databaseReference.child("Username").setValue(username);
         databaseReference.child("Password").setValue(password);
+        databaseReference.child("Tomatoes").setValue(0);
 
         updateStatsDatabase(databaseReference.child(statPath));
         updateCustomDatabase(databaseReference.child(customPath));

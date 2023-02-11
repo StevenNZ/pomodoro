@@ -13,7 +13,7 @@ public class UserAccount {
     protected static String password;
     protected static String uid = "";
     protected static Uri uriImage = Uri.parse("android.resource://com.example.pomodoro/drawable/guest_icon");
-    protected static int tomatoes = 0;
+    protected static int tomatoesCurrency = 0;
 
     protected static int pomodoroTotal;
     protected static int workTotal;
@@ -111,11 +111,11 @@ public class UserAccount {
     }
 
     public static int getTomatoes() {
-        return tomatoes;
+        return tomatoesCurrency;
     }
 
     public static void setTomatoes(int tomatoes) {
-        UserAccount.tomatoes = tomatoes;
+        UserAccount.tomatoesCurrency = tomatoes;
     }
 
     protected static void updateDatabase(String path, String key, Object value) {
@@ -194,7 +194,7 @@ public class UserAccount {
         username = "Guest";
         uid = "";
         uriImage = Uri.parse("android.resource://com.example.pomodoro/drawable/guest_icon");
-        tomatoes = 0;
+        tomatoesCurrency = 0;
 
         pomodoroTotal = 0;
         workTotal = 0;
