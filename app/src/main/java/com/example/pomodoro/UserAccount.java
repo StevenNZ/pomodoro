@@ -13,6 +13,7 @@ public class UserAccount {
     protected static String password;
     protected static String uid = "";
     protected static Uri uriImage = Uri.parse("android.resource://com.example.pomodoro/drawable/guest_icon");
+    protected static int tomatoes = 0;
 
     protected static int pomodoroTotal;
     protected static int workTotal;
@@ -109,6 +110,14 @@ public class UserAccount {
         updateDatabase("Statistics", key, pomodoroCycles);
     }
 
+    public static int getTomatoes() {
+        return tomatoes;
+    }
+
+    public static void setTomatoes(int tomatoes) {
+        UserAccount.tomatoes = tomatoes;
+    }
+
     protected static void updateDatabase(String path, String key, Object value) {
         if (!uid.isEmpty()) {
             DatabaseReference databasePath = databaseReference.child("Users").child(uid).child(path);
@@ -185,6 +194,7 @@ public class UserAccount {
         username = "Guest";
         uid = "";
         uriImage = Uri.parse("android.resource://com.example.pomodoro/drawable/guest_icon");
+        tomatoes = 0;
 
         pomodoroTotal = 0;
         workTotal = 0;
