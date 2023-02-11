@@ -22,13 +22,13 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.io.File;
-
 public class RegisterPage extends Fragment {
 
     private RegisterPageBinding binding;
 
     private FirebaseAuth auth = FirebaseAuth.getInstance();
+
+    private int avatarSelected = 0;
 
     @Override
     public View onCreateView(
@@ -51,7 +51,9 @@ public class RegisterPage extends Fragment {
                 String password = binding.passwordSIgnUpText.getText().toString();
                 String passwordTwo = binding.passwordTwoSIgnUpText.getText().toString();
 
-                if (checkIfEmpty(emailAddress, username, password)) {
+                if (avatarSelected == 0) {
+                    Toast.makeText(requireContext(), "Make sure to select an avatar", Toast.LENGTH_SHORT).show();
+                } else if (checkIfEmpty(emailAddress, username, password)) {
                     Toast.makeText(requireContext(), "Make sure fields are not empty", Toast.LENGTH_SHORT).show();
                 } else if (password.length() <= 3) {
                     Toast.makeText(requireContext(), "Password too short", Toast.LENGTH_SHORT).show();
