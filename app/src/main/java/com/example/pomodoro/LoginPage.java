@@ -220,6 +220,7 @@ public class LoginPage extends Fragment {
         UserAccount.setUsername(String.valueOf(dataSnapshot.child("Username").getValue()));
         UserAccount.setPassword(String.valueOf(dataSnapshot.child("Password").getValue()));
         UserAccount.setUriImage(auth.getCurrentUser().getPhotoUrl());
+        UserAccount.setTomatoes(Integer.parseInt(String.valueOf(dataSnapshot.child("Tomatoes").getValue())));
     }
 
     private void updateMainMenu() {
