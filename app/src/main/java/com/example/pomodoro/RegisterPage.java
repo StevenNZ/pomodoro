@@ -22,13 +22,13 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.io.File;
-
 public class RegisterPage extends Fragment {
 
     private RegisterPageBinding binding;
 
     private FirebaseAuth auth = FirebaseAuth.getInstance();
+
+    private int avatarSelected = 0;
 
     @Override
     public View onCreateView(
@@ -51,7 +51,9 @@ public class RegisterPage extends Fragment {
                 String password = binding.passwordSIgnUpText.getText().toString();
                 String passwordTwo = binding.passwordTwoSIgnUpText.getText().toString();
 
-                if (checkIfEmpty(emailAddress, username, password)) {
+                if (avatarSelected == 0) {
+                    Toast.makeText(requireContext(), "Make sure to select an avatar", Toast.LENGTH_SHORT).show();
+                } else if (checkIfEmpty(emailAddress, username, password)) {
                     Toast.makeText(requireContext(), "Make sure fields are not empty", Toast.LENGTH_SHORT).show();
                 } else if (password.length() <= 3) {
                     Toast.makeText(requireContext(), "Password too short", Toast.LENGTH_SHORT).show();
@@ -60,6 +62,24 @@ public class RegisterPage extends Fragment {
                 } else {
                     registerUser(emailAddress, username, password);
                 }
+            }
+        });
+
+        binding.avatarOneImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                avatarSelected = 1;
+                binding.avatarOneImage.setAlpha((float) 1.00);
+                binding.avatarTwoImage.setAlpha((float) 0.5);
+            }
+        });
+
+        binding.avatarTwoImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                avatarSelected = 2;
+                binding.avatarOneImage.setAlpha((float) 0.5);
+                binding.avatarTwoImage.setAlpha((float) 1.00);
             }
         });
     }
@@ -77,10 +97,7 @@ public class RegisterPage extends Fragment {
                     FirebaseUser user = auth.getCurrentUser();
                     String uid = user.getUid();
 
-                    Uri uri = Uri.parse("android.resource://com.example.pomodoro/drawable/avatar_icon");
-                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName(username).setPhotoUri(uri).build();
-
-                    user.updateProfile(profileUpdates);
+                    updateUserInfo(user, username);
 
                     // sending to the database
                     updateDatabase(databaseReference.child(uid), emailAddress, username, password);
@@ -91,6 +108,20 @@ public class RegisterPage extends Fragment {
                 }
             }
         });
+    }
+
+    private void updateUserInfo(FirebaseUser user, String username) {
+        String uriString = "android.resource://com.example.pomodoro/drawable/";
+
+        if (avatarSelected == 1) {
+            uriString = uriString + "start_avatar_one";
+        } else {
+            uriString = uriString + "start_avatar_two";
+        }
+        Uri uri = Uri.parse(uriString);
+        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName(username).setPhotoUri(uri).build();
+
+        user.updateProfile(profileUpdates);
     }
 
     private void sendVerifyEmail() {
