@@ -64,6 +64,24 @@ public class RegisterPage extends Fragment {
                 }
             }
         });
+
+        binding.avatarOneImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                avatarSelected = 1;
+                binding.avatarOneImage.setAlpha((float) 1.00);
+                binding.avatarTwoImage.setAlpha((float) 0.5);
+            }
+        });
+
+        binding.avatarTwoImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                avatarSelected = 2;
+                binding.avatarOneImage.setAlpha((float) 0.5);
+                binding.avatarTwoImage.setAlpha((float) 1.00);
+            }
+        });
     }
 
     private void registerUser(String emailAddress, String username, String password) {
