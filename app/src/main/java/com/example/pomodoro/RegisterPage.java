@@ -97,10 +97,7 @@ public class RegisterPage extends Fragment {
                     FirebaseUser user = auth.getCurrentUser();
                     String uid = user.getUid();
 
-                    Uri uri = Uri.parse("android.resource://com.example.pomodoro/drawable/avatar_icon");
-                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName(username).setPhotoUri(uri).build();
-
-                    user.updateProfile(profileUpdates);
+                    updateUserInfo(user, username);
 
                     // sending to the database
                     updateDatabase(databaseReference.child(uid), emailAddress, username, password);
@@ -111,6 +108,20 @@ public class RegisterPage extends Fragment {
                 }
             }
         });
+    }
+
+    private void updateUserInfo(FirebaseUser user, String username) {
+        String uriString = "android.resource://com.example.pomodoro/drawable/";
+
+        if (avatarSelected == 1) {
+            uriString = uriString + "start_avatar_one";
+        } else {
+            uriString = uriString + "start_avatar_two";
+        }
+        Uri uri = Uri.parse(uriString);
+        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName(username).setPhotoUri(uri).build();
+
+        user.updateProfile(profileUpdates);
     }
 
     private void sendVerifyEmail() {
