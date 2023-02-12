@@ -111,6 +111,7 @@ public class MainMenu extends Fragment {
                 LoginPage.retrieveUserInfo(snapshot);
                 LoginPage.retrieveUserStats(snapshot);
                 LoginPage.retrieveUserCustom(snapshot);
+                LoginPage.retrieveUserInventory(snapshot);
             }
         });
     }
