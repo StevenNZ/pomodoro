@@ -170,8 +170,10 @@ public class PomodoroTimer extends Fragment {
     }
 
     private void updateTomatoes() {
-        UserAccount.incrementTomatoes((int) initialTime/10);
-        binding.tomatoesPomoText.setText(UserAccount.getTomatoes());
+        UserAccount.incrementTomatoes((int) initialTime/100);
+
+        String tomatoes = String.valueOf(UserAccount.getTomatoes());
+        binding.tomatoesPomoText.setText(tomatoes);
     }
 
     private void updateStats() {
