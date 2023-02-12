@@ -166,7 +166,7 @@ public class LoginPage extends Fragment {
     }
 
 
-    protected void retrieveUserInventory(DataSnapshot dataSnapshot) {
+    protected static void retrieveUserInventory(DataSnapshot dataSnapshot) {
         DataSnapshot inventorySnapShot = dataSnapshot.child("Inventory");
 
         int tomatoes = Integer.parseInt(String.valueOf(inventorySnapShot.child("Tomatoes").getValue()));
