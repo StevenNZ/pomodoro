@@ -18,9 +18,9 @@ import java.util.Locale;
 
 public class PomodoroTimer extends Fragment {
 
-    private static long workTime = 60000;
-    private static long shortBreakTime = 20000;
-    private static long longBreakTime = 40000;
+    private static long workTime = 6000;
+    private static long shortBreakTime = 2000;
+    private static long longBreakTime = 4000;
 
     private boolean isRunning = false;
     private boolean isBreak = false;
@@ -190,9 +190,9 @@ public class PomodoroTimer extends Fragment {
         double progressTotal = (double) initialTime/ (double) totalProgressTime;
         double progressPerSecond = progressTotal / ((double) initialTime / 1000.00);
         cumulativeProgress+=progressPerSecond;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            binding.timelineProgress.setProgress((int) (cumulativeProgress*100), true);
-        }
+        ObjectAnimator.ofInt(binding.timelineProgress, "progress", (int) (cumulativeProgress*100))
+                .setDuration(1000)
+                .start();
     }
 
     private void updateTimelineIcons() {
