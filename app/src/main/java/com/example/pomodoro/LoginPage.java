@@ -153,6 +153,7 @@ public class LoginPage extends Fragment {
                             retrieveUserInfo(dataSnapshot);
                             retrieveUserStats(dataSnapshot);
                             retrieveUserCustom(dataSnapshot);
+                            retrieveUserInventory(dataSnapshot);
                         }
                     });
                 } else {
@@ -177,6 +178,15 @@ public class LoginPage extends Fragment {
         }
         binding.userLoginText.setText(currentUserText);
         binding.mainLoginIcon.setImageURI(photoUrl);
+    }
+
+
+    private void retrieveUserInventory(DataSnapshot dataSnapshot) {
+        DataSnapshot inventorySnapShot = dataSnapshot.child("Inventory");
+
+        int tomatoes = Integer.parseInt(String.valueOf(inventorySnapShot.child("Tomatoes").getValue()));
+
+        UserAccount.setTomatoes(tomatoes);
     }
 
     private static void retrieveUserCustom(DataSnapshot dataSnapshot) {
@@ -220,7 +230,6 @@ public class LoginPage extends Fragment {
         UserAccount.setUsername(String.valueOf(dataSnapshot.child("Username").getValue()));
         UserAccount.setPassword(String.valueOf(dataSnapshot.child("Password").getValue()));
         UserAccount.setUriImage(auth.getCurrentUser().getPhotoUrl());
-        UserAccount.setTomatoes(Integer.parseInt(String.valueOf(dataSnapshot.child("Tomatoes").getValue())));
     }
 
     private void updateMainMenu() {

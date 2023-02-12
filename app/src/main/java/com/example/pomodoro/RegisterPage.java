@@ -142,14 +142,19 @@ public class RegisterPage extends Fragment {
     private void updateDatabase(DatabaseReference databaseReference, String emailAddress, String username, String password) {
         String statPath = "Statistics";
         String customPath = "Custom";
+        String inventoryPath = "Inventory";
 
         databaseReference.child("Email Address").setValue(emailAddress);
         databaseReference.child("Username").setValue(username);
         databaseReference.child("Password").setValue(password);
-        databaseReference.child("Tomatoes").setValue(0);
 
         updateStatsDatabase(databaseReference.child(statPath));
         updateCustomDatabase(databaseReference.child(customPath));
+        updateInventoryDatabase(databaseReference.child(inventoryPath));
+    }
+
+    private void updateInventoryDatabase(DatabaseReference databaseReference) {
+        databaseReference.child("Tomatoes").setValue(0);
     }
 
     private void updateCustomDatabase(DatabaseReference databaseReference) {
