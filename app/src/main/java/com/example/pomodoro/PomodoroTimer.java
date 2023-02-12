@@ -1,5 +1,6 @@
 package com.example.pomodoro;
 
+import android.animation.ObjectAnimator;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -92,6 +93,7 @@ public class PomodoroTimer extends Fragment {
         });
 
         binding.tomatoesPomoText.setText(String.valueOf(UserAccount.getTomatoes()));
+        binding.progressBarTimer.setMax(10000);
     }
 
     private void resetTimeline() {
@@ -117,9 +119,10 @@ public class PomodoroTimer extends Fragment {
         String remainingTimeText = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
         binding.textTimer.setText(remainingTimeText);
         binding.textSession.setText(workSession);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            binding.progressBarTimer.setProgress((int) ((double)(remainingTime) / (double) (initialTime)*100), true);
-        }
+
+        ObjectAnimator.ofInt(binding.progressBarTimer, "progress", (int) ((double) remainingTime*10000 / (double) initialTime))
+                .setDuration(1000)
+                .start();
     }
 
     private void startTimer() {
@@ -187,9 +190,9 @@ public class PomodoroTimer extends Fragment {
         double progressTotal = (double) initialTime/ (double) totalProgressTime;
         double progressPerSecond = progressTotal / ((double) initialTime / 1000.00);
         cumulativeProgress+=progressPerSecond;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            binding.timelineProgress.setProgress((int) (cumulativeProgress*100), true);
-        }
+        ObjectAnimator.ofInt(binding.timelineProgress, "progress", (int) (cumulativeProgress*100))
+                .setDuration(1000)
+                .start();
     }
 
     private void updateTimelineIcons() {
