@@ -112,6 +112,8 @@ public class MainMenu extends Fragment {
                 LoginPage.retrieveUserStats(snapshot);
                 LoginPage.retrieveUserCustom(snapshot);
                 LoginPage.retrieveUserInventory(snapshot);
+
+                binding.tomatoesMenuText.setText(String.valueOf(UserAccount.getTomatoes()));
             }
         });
     }
@@ -119,6 +121,7 @@ public class MainMenu extends Fragment {
     private void updateUserProfile() {
         binding.usernameText.setText(auth.getCurrentUser().getDisplayName());
         binding.mainIcon.setImageURI(auth.getCurrentUser().getPhotoUrl());
+        binding.tomatoesMenuText.setText(String.valueOf(UserAccount.getTomatoes()));
     }
 
     @Override

@@ -90,6 +90,8 @@ public class PomodoroTimer extends Fragment {
                 resetTimeline();
             }
         });
+
+        binding.tomatoesPomoText.setText(String.valueOf(UserAccount.getTomatoes()));
     }
 
     private void resetTimeline() {
