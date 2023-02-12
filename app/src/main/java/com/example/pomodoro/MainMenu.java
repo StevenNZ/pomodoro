@@ -1,5 +1,7 @@
 package com.example.pomodoro;
 
+import static com.example.pomodoro.LoginPage.databaseReference;
+
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,7 +16,10 @@ import androidx.fragment.app.FragmentResultListener;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.pomodoro.databinding.MainMenuBinding;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
 
 public class MainMenu extends Fragment {
 
@@ -89,15 +94,34 @@ public class MainMenu extends Fragment {
 
         if (auth.getCurrentUser() != null) {
             if (UserAccount.emailAddress.isEmpty()) {
-                LoginPage.updateUserAccount();
+                updateUserAccount();
             }
             updateUserProfile();
         }
     }
 
+    private void updateUserAccount() {
+        String uid = auth.getUid();
+        databaseReference.child("Users").child(uid).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                DataSnapshot snapshot = task.getResult();
+
+                UserAccount.setUID(uid);
+                LoginPage.retrieveUserInfo(snapshot);
+                LoginPage.retrieveUserStats(snapshot);
+                LoginPage.retrieveUserCustom(snapshot);
+                LoginPage.retrieveUserInventory(snapshot);
+
+                binding.tomatoesMenuText.setText(String.valueOf(UserAccount.getTomatoes()));
+            }
+        });
+    }
+
     private void updateUserProfile() {
         binding.usernameText.setText(auth.getCurrentUser().getDisplayName());
         binding.mainIcon.setImageURI(auth.getCurrentUser().getPhotoUrl());
+        binding.tomatoesMenuText.setText(String.valueOf(UserAccount.getTomatoes()));
     }
 
     @Override

@@ -44,6 +44,7 @@ public class ProfilePage extends Fragment {
     private void updateProfile() {
         binding.iconProfileImage.setImageURI(UserAccount.getUriImage());
         binding.nameProfileText.setText(UserAccount.getUsername());
+        binding.tomatoesUserText.setText(String.valueOf(UserAccount.getTomatoes()));
     }
 
     private void showToolTips() {

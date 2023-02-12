@@ -90,6 +90,8 @@ public class PomodoroTimer extends Fragment {
                 resetTimeline();
             }
         });
+
+        binding.tomatoesPomoText.setText(String.valueOf(UserAccount.getTomatoes()));
     }
 
     private void resetTimeline() {
@@ -132,6 +134,7 @@ public class PomodoroTimer extends Fragment {
             @Override
             public void onFinish() {
                 isRunning = false;
+                updateTomatoes();
 
                 if (isBreak && timeline == 0) {
                     UserAccount.incrementCycles();
@@ -166,6 +169,13 @@ public class PomodoroTimer extends Fragment {
         }.start();
 
         isRunning = true;
+    }
+
+    private void updateTomatoes() {
+        UserAccount.incrementTomatoes((int) initialTime/100);
+
+        String tomatoes = String.valueOf(UserAccount.getTomatoes());
+        binding.tomatoesPomoText.setText(tomatoes);
     }
 
     private void updateStats() {
