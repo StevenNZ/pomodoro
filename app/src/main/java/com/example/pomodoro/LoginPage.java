@@ -33,21 +33,6 @@ public class LoginPage extends Fragment {
 
     private static FirebaseAuth auth = FirebaseAuth.getInstance();
 
-    public static void updateUserAccount() {
-        String uid = auth.getUid();
-        databaseReference.child("Users").child(uid).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                DataSnapshot snapshot = task.getResult();
-
-                UserAccount.setUID(uid);
-                retrieveUserInfo(snapshot);
-                retrieveUserStats(snapshot);
-                retrieveUserCustom(snapshot);
-            }
-        });
-    }
-
     @Override
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container,
@@ -181,7 +166,7 @@ public class LoginPage extends Fragment {
     }
 
 
-    private void retrieveUserInventory(DataSnapshot dataSnapshot) {
+    protected void retrieveUserInventory(DataSnapshot dataSnapshot) {
         DataSnapshot inventorySnapShot = dataSnapshot.child("Inventory");
 
         int tomatoes = Integer.parseInt(String.valueOf(inventorySnapShot.child("Tomatoes").getValue()));
@@ -189,7 +174,7 @@ public class LoginPage extends Fragment {
         UserAccount.setTomatoes(tomatoes);
     }
 
-    private static void retrieveUserCustom(DataSnapshot dataSnapshot) {
+    protected static void retrieveUserCustom(DataSnapshot dataSnapshot) {
         DataSnapshot customSnapshot = dataSnapshot.child("Custom");
 
         String titleOne = (String) customSnapshot.child("Title One").getValue();
@@ -211,7 +196,7 @@ public class LoginPage extends Fragment {
         UserAccount.setCustomLongTwo(longTwo);
     }
 
-    private static void retrieveUserStats(DataSnapshot dataSnapshot) {
+    protected static void retrieveUserStats(DataSnapshot dataSnapshot) {
         DataSnapshot statsSnapshot = dataSnapshot.child("Statistics");
 
         int pomodoroTotal = Integer.parseInt(String.valueOf(statsSnapshot.child("Pomodoro Total").getValue()));
@@ -225,7 +210,7 @@ public class LoginPage extends Fragment {
         UserAccount.setPomodoroCycles(cycleTotal);
     }
 
-    private static void retrieveUserInfo(DataSnapshot dataSnapshot) {
+    protected static void retrieveUserInfo(DataSnapshot dataSnapshot) {
         UserAccount.setEmailAddress(String.valueOf(dataSnapshot.child("Email Address").getValue()));
         UserAccount.setUsername(String.valueOf(dataSnapshot.child("Username").getValue()));
         UserAccount.setPassword(String.valueOf(dataSnapshot.child("Password").getValue()));
