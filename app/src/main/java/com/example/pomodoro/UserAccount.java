@@ -115,7 +115,14 @@ public class UserAccount {
     }
 
     public static void setTomatoes(int tomatoes) {
-        UserAccount.tomatoesCurrency = tomatoes;
+        tomatoesCurrency = tomatoes;
+    }
+
+    public static void incrementTomatoes(int tomatoes) {
+        tomatoesCurrency+=tomatoes;
+
+        String key = "Tomatoes";
+        updateDatabase("Inventory", key, tomatoesCurrency);
     }
 
     protected static void updateDatabase(String path, String key, Object value) {
