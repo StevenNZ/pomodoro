@@ -11,7 +11,7 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="pomodoro">Pomodoro</string>
     <string name="welcome">Welcome</string>
-    <string name="classic">Start a session!</string>
+    <string name="classic">Start!</string>
     <string name="custom">Custom</string>
     <string name="timer">0</string>
     <string name="session">session</string>
