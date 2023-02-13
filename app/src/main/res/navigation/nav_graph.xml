@@ -20,6 +20,9 @@
         <action
             android:id="@+id/action_mainMenu_to_loginPage"
             app:destination="@id/loginPage" />
+        <action
+            android:id="@+id/action_mainMenu_to_shop"
+            app:destination="@id/shop" />
     </fragment>
     <fragment
         android:id="@+id/pomodoro"
@@ -43,11 +46,7 @@
     <fragment
         android:id="@+id/profilePage"
         android:name="com.example.pomodoro.ProfilePage"
-        android:label="Profile">
-        <action
-            android:id="@+id/action_statisticsPage_to_mainMenu"
-            app:destination="@id/mainMenu" />
-    </fragment>
+        android:label="Profile"/>
     <fragment
         android:id="@+id/loginPage"
         android:name="com.example.pomodoro.LoginPage"
@@ -74,4 +73,9 @@
         android:id="@+id/forgotPassword"
         android:name="com.example.pomodoro.ForgotPassword"
         android:label="ForgotPassword" />
+    <fragment
+        android:id="@+id/shop"
+        android:name="com.example.pomodoro.Shop"
+        android:label="fragment_shop"
+        tools:layout="@layout/fragment_shop" />
 </navigation>
