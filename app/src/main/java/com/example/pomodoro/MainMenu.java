@@ -79,15 +79,19 @@ public class MainMenu extends Fragment {
                 if (binding.profileLayout.getVisibility() == View.GONE) {
                     binding.profileLayout.setVisibility(View.VISIBLE);
                     binding.userManageLayout.setVisibility(View.VISIBLE);
+                    binding.shopLayout.setVisibility(View.VISIBLE);
 
                     binding.profileLayout.startAnimation(showLayout);
                     binding.userManageLayout.startAnimation(showLayout);
+                    binding.shopLayout.startAnimation(showLayout);
                 } else {
                     binding.userManageLayout.setVisibility(View.GONE);
                     binding.profileLayout.setVisibility(View.GONE);
+                    binding.shopLayout.setVisibility(View.GONE);
 
                     binding.profileLayout.startAnimation(hideLayout);
                     binding.userManageLayout.startAnimation(hideLayout);
+                    binding.shopLayout.startAnimation(hideLayout);
                 }
             }
         });
