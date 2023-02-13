@@ -64,6 +64,13 @@ public class MainMenu extends Fragment {
             }
         });
 
+        binding.shopIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavHostFragment.findNavController(MainMenu.this).navigate(R.id.action_mainMenu_to_shop);
+            }
+        });
+
         Animation showLayout = AnimationUtils.loadAnimation(requireContext(), R.anim.show_layout);
         Animation hideLayout = AnimationUtils.loadAnimation(requireContext(), R.anim.hide_layout);
         binding.mainIcon.setOnClickListener(new View.OnClickListener() {
