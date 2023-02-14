@@ -51,6 +51,9 @@ public class Shop extends Fragment {
         final Drawable drawable = ContextCompat.getDrawable(getContext(), R.drawable.tomatoes_currency);
         drawableShape = new Shape.DrawableShape(drawable, true);
 
+        final Animation anim = AnimationUtils.loadAnimation(getContext(), R.anim.wiggle);
+        binding.explodeImage.startAnimation(anim);
+
         binding.explodeImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
