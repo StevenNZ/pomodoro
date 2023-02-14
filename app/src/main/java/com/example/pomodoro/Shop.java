@@ -7,9 +7,12 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import com.example.pomodoro.databinding.FragmentShopBinding;
 
@@ -56,7 +59,10 @@ public class Shop extends Fragment {
 //                parade();
             }
         });
+
+        binding.tomatoesShopText.setText(String.valueOf(UserAccount.getTomatoes()));
     }
+
     public void explode() {
         EmitterConfig emitterConfig = new Emitter(100L, TimeUnit.MILLISECONDS).max(100);
         binding.konfettiView.start(
