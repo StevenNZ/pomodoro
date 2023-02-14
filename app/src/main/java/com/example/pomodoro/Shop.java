@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Toast;
 
 import com.example.pomodoro.databinding.FragmentShopBinding;
 
@@ -57,9 +58,11 @@ public class Shop extends Fragment {
         binding.explodeImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                rain();
-//                explode();
-//                parade();
+                if (UserAccount.getTomatoes() < 80) {
+                    Toast.makeText(getContext(), "Not enough tomatoes :(", Toast.LENGTH_SHORT).show();
+                } else {
+                    //unlock the tomato
+                }
             }
         });
 
