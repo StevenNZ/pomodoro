@@ -15,11 +15,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.pomodoro.databinding.FragmentShopBinding;
 
 import java.util.Arrays;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import nl.dionsegijn.konfetti.core.Angle;
@@ -99,7 +101,23 @@ public class Shop extends Fragment {
     }
 
     private void itemUpdate() {
-        //randomly unlocks an item
+        float randFloat = new Random().nextFloat();
+        int itemImage;
+        String tier;
+        System.out.println(randFloat);
+
+        if (randFloat >= 0.99f) {
+            itemImage = R.drawable.epic_one;
+            tier = "Epic";
+        } else if (randFloat >= 0.9f) {
+            itemImage = R.drawable.rare_one;
+            tier = "Rare";
+        } else {
+            itemImage = R.drawable.common_one;
+            tier = "Common";
+        }
+        binding.unlockImage.setImageResource(itemImage);
+        binding.unlockText.setText(tier);
     }
 
     private void layoutUpdate() {
