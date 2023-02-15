@@ -1,5 +1,6 @@
 package com.example.pomodoro;
 
+import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
@@ -7,13 +8,20 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.pomodoro.databinding.FragmentShopBinding;
 
 import java.util.Arrays;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import nl.dionsegijn.konfetti.core.Angle;
@@ -29,9 +37,13 @@ import nl.dionsegijn.konfetti.core.models.Size;
 
 public class Shop extends Fragment {
 
-    FragmentShopBinding binding;
+    private FragmentShopBinding binding;
 
-    Shape.DrawableShape drawableShape;
+    private Shape.DrawableShape drawableShape;
+    private Animation initAnim;
+
+    private float swipeY1;
+    private float swipeY2;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,6 +53,7 @@ public class Shop extends Fragment {
         return binding.getRoot();
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -48,15 +61,69 @@ public class Shop extends Fragment {
         final Drawable drawable = ContextCompat.getDrawable(getContext(), R.drawable.tomatoes_currency);
         drawableShape = new Shape.DrawableShape(drawable, true);
 
-        binding.explodeImage.setOnClickListener(new View.OnClickListener() {
+        initAnim = AnimationUtils.loadAnimation(getContext(), R.anim.wiggle);
+        binding.explodeImage.startAnimation(initAnim);
+
+        binding.explodeImage.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-//                rain();
-//                explode();
-//                parade();
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+
+                    case MotionEvent.ACTION_DOWN:
+                        swipeY1 = event.getY();
+                        return true;
+                    case MotionEvent.ACTION_UP:
+                        swipeY2 = event.getY();
+
+                        if (swipeY2 < swipeY1) {
+                            if (UserAccount.getTomatoes() < 80) {
+                                Toast.makeText(getContext(), "Not enough tomatoes :(", Toast.LENGTH_SHORT).show();
+                            } else {
+                                layoutUpdate();
+                                itemUpdate();
+                            }
+                        }
+                        return true;
+                }
+                return false;
             }
         });
+
+        binding.unlockLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                binding.shopLayout.setAlpha(1f);
+                binding.unlockLayout.setVisibility(View.GONE);
+            }
+        });
+
+        binding.tomatoesShopText.setText(String.valueOf(UserAccount.getTomatoes()));
     }
+
+    private void itemUpdate() {
+        float randFloat = new Random().nextFloat();
+        int itemImage;
+        String tier;
+
+        if (randFloat >= 0.99f) {
+            itemImage = R.drawable.epic_one;
+            tier = "Epic";
+        } else if (randFloat >= 0.9f) {
+            itemImage = R.drawable.rare_one;
+            tier = "Rare";
+        } else {
+            itemImage = R.drawable.common_one;
+            tier = "Common";
+        }
+        binding.unlockImage.setImageResource(itemImage);
+        binding.unlockText.setText(tier);
+    }
+
+    private void layoutUpdate() {
+        binding.shopLayout.setAlpha(0.25f);
+        binding.unlockLayout.setVisibility(View.VISIBLE);
+    }
+
     public void explode() {
         EmitterConfig emitterConfig = new Emitter(100L, TimeUnit.MILLISECONDS).max(100);
         binding.konfettiView.start(
