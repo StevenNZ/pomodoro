@@ -7,13 +7,9 @@
     tools:context=".Shop">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/shopLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <nl.dionsegijn.konfetti.xml.KonfettiView
-            android:id="@+id/konfettiView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="120dp"
@@ -55,5 +51,42 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <nl.dionsegijn.konfetti.xml.KonfettiView
+        android:id="@+id/konfettiView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/unlockLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/unlockImage"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:alpha="1.0"
+            android:src="@drawable/start_avatar_one"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/unlockText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="41dp"
+            android:text="Tier"
+            android:textSize="40dp"
+            app:layout_constraintBottom_toTopOf="@+id/unlockImage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </FrameLayout>
