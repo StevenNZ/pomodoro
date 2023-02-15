@@ -29,6 +29,9 @@ public class UserAccount {
     protected static int customLongOne = 15;
     protected static int customLongTwo;
 
+    protected static boolean commonOne;
+    protected static boolean rareOne;
+    protected static boolean epicOne;
 
     public static String getEmailAddress() {
         return emailAddress;
@@ -194,6 +197,30 @@ public class UserAccount {
 
     public static void setCustomTitleTwo(String customTitleTwo) {
         UserAccount.customTitleTwo = customTitleTwo;
+    }
+
+    public static boolean isCommonOne() {
+        return commonOne;
+    }
+
+    public static void setCommonOne(boolean commonOne) {
+        UserAccount.commonOne = commonOne;
+    }
+
+    public static boolean isRareOne() {
+        return rareOne;
+    }
+
+    public static void setRareOne(boolean rareOne) {
+        UserAccount.rareOne = rareOne;
+    }
+
+    public static boolean isEpicOne() {
+        return epicOne;
+    }
+
+    public static void setEpicOne(boolean epicOne) {
+        UserAccount.epicOne = epicOne;
     }
 
     public static void resetGuest() {
