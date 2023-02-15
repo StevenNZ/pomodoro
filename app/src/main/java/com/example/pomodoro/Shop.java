@@ -33,9 +33,10 @@ import nl.dionsegijn.konfetti.core.models.Size;
 
 public class Shop extends Fragment {
 
-    FragmentShopBinding binding;
+    private FragmentShopBinding binding;
 
-    Shape.DrawableShape drawableShape;
+    private Shape.DrawableShape drawableShape;
+    private Animation initAnim;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -52,8 +53,8 @@ public class Shop extends Fragment {
         final Drawable drawable = ContextCompat.getDrawable(getContext(), R.drawable.tomatoes_currency);
         drawableShape = new Shape.DrawableShape(drawable, true);
 
-        final Animation anim = AnimationUtils.loadAnimation(getContext(), R.anim.wiggle);
-        binding.explodeImage.startAnimation(anim);
+        initAnim = AnimationUtils.loadAnimation(getContext(), R.anim.wiggle);
+        binding.explodeImage.startAnimation(initAnim);
 
         binding.explodeImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,12 +62,30 @@ public class Shop extends Fragment {
                 if (UserAccount.getTomatoes() < 80) {
                     Toast.makeText(getContext(), "Not enough tomatoes :(", Toast.LENGTH_SHORT).show();
                 } else {
-                    //unlock the tomato
+                    layoutUpdate();
+                    itemUpdate();
                 }
             }
         });
 
+        binding.unlockLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                binding.shopLayout.setAlpha(1f);
+                binding.unlockLayout.setVisibility(View.GONE);
+            }
+        });
+
         binding.tomatoesShopText.setText(String.valueOf(UserAccount.getTomatoes()));
+    }
+
+    private void itemUpdate() {
+        //randomly unlocks an item
+    }
+
+    private void layoutUpdate() {
+        binding.shopLayout.setAlpha(0.25f);
+        binding.unlockLayout.setVisibility(View.VISIBLE);
     }
 
     public void explode() {
