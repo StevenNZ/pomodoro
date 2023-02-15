@@ -104,7 +104,6 @@ public class Shop extends Fragment {
         float randFloat = new Random().nextFloat();
         int itemImage;
         String tier;
-        System.out.println(randFloat);
 
         if (randFloat >= 0.99f) {
             itemImage = R.drawable.epic_one;
