@@ -1,5 +1,6 @@
 package com.example.pomodoro;
 
+import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
@@ -9,6 +10,7 @@ import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -38,6 +40,9 @@ public class Shop extends Fragment {
     private Shape.DrawableShape drawableShape;
     private Animation initAnim;
 
+    private float swipeY1;
+    private float swipeY2;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -46,6 +51,7 @@ public class Shop extends Fragment {
         return binding.getRoot();
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -56,15 +62,28 @@ public class Shop extends Fragment {
         initAnim = AnimationUtils.loadAnimation(getContext(), R.anim.wiggle);
         binding.explodeImage.startAnimation(initAnim);
 
-        binding.explodeImage.setOnClickListener(new View.OnClickListener() {
+        binding.explodeImage.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                if (UserAccount.getTomatoes() < 80) {
-                    Toast.makeText(getContext(), "Not enough tomatoes :(", Toast.LENGTH_SHORT).show();
-                } else {
-                    layoutUpdate();
-                    itemUpdate();
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+
+                    case MotionEvent.ACTION_DOWN:
+                        swipeY1 = event.getY();
+                        return true;
+                    case MotionEvent.ACTION_UP:
+                        swipeY2 = event.getY();
+
+                        if (swipeY2 < swipeY1) {
+                            if (UserAccount.getTomatoes() < 80) {
+                                Toast.makeText(getContext(), "Not enough tomatoes :(", Toast.LENGTH_SHORT).show();
+                            } else {
+                                layoutUpdate();
+                                itemUpdate();
+                            }
+                        }
+                        return true;
                 }
+                return false;
             }
         });
 
