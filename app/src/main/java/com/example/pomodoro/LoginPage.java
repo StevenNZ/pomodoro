@@ -78,9 +78,13 @@ public class LoginPage extends Fragment {
         binding.signOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                auth.signOut();
-                UserAccount.resetGuest();
-                updateCurrentUserText();
+                if (auth.getCurrentUser() == null) {
+                    Toast.makeText(requireContext(), "No user logged in", Toast.LENGTH_SHORT).show();
+                } else {
+                    auth.signOut();
+                    UserAccount.resetGuest();
+                    updateCurrentUserText();
+                }
             }
         });
 
