@@ -71,19 +71,19 @@ public class ProfilePage extends Fragment {
 
     private void updateBadges() {
         if (pomodoroCycles >= 10) {
-            binding.badgeThreeInitial.setAlpha((float) 1.00);
+            binding.badgeThreeInitial.setAlpha(1.00f);
         }
 
         if (pomodoroCycles >= 5) {
-            binding.badgeTwoInitial.setAlpha((float) 1.00);
+            binding.badgeTwoInitial.setAlpha(1.00f);
         }
 
         if (pomodoroCycles >= 1) {
-            binding.badgeOneInitial.setAlpha((float) 1.00);
+            binding.badgeOneInitial.setAlpha(1.00f);
         }
 
         if (!TextUtils.isEmpty(UserAccount.uid)) {
-            binding.badgeFourInitial.setAlpha((float) 1.00);
+            binding.badgeFourInitial.setAlpha(1.00f);
         }
     }
 
