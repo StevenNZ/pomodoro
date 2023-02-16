@@ -244,7 +244,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout9"
+            android:id="@+id/inventoryLayout"
             android:layout_width="351dp"
             android:layout_height="130dp"
             android:layout_marginTop="35dp"
@@ -292,7 +292,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout9" />
+            app:layout_constraintTop_toBottomOf="@+id/inventoryLayout" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
