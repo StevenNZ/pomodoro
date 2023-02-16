@@ -110,6 +110,8 @@ public class MainMenu extends Fragment {
                 updateUserAccount();
             }
             updateUserProfile();
+        } else {
+            binding.mainIcon.setImageURI(UserAccount.getUriImage());
         }
     }
 
