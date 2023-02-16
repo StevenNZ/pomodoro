@@ -243,6 +243,10 @@ public class UserAccount {
         customShortTwo = 0;
         customLongOne = 15;
         customLongTwo = 0;
+
+        commonOne = false;
+        rareOne = false;
+        epicOne = false;
     }
 
     private UserAccount() {
