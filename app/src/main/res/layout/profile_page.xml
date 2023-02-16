@@ -200,6 +200,16 @@
                 app:layout_constraintTop_toBottomOf="@+id/nameProfileText"
                 app:srcCompat="@drawable/guest_icon" />
 
+            <ImageView
+                android:id="@+id/editButton"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="17dp"
+                app:layout_constraintStart_toEndOf="@+id/nameProfileText"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/work_fill" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
