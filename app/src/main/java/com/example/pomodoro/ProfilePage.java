@@ -40,6 +40,17 @@ public class ProfilePage extends Fragment {
         updateBadges();
         updateInventory();
         showToolTips();
+
+        binding.editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                binding.statsLayout.setVisibility(View.GONE);
+                binding.badgeLayout.setVisibility(View.GONE);
+                binding.editButton.setVisibility(View.GONE);
+                binding.saveAvatarButton.setVisibility(View.VISIBLE);
+                binding.inventoryLayout.setClickable(true);
+            }
+        });
     }
 
     private void updateInventory() {
