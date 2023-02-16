@@ -170,8 +170,14 @@ public class LoginPage extends Fragment {
         DataSnapshot inventorySnapShot = dataSnapshot.child("Inventory");
 
         int tomatoes = Integer.parseInt(String.valueOf(inventorySnapShot.child("Tomatoes").getValue()));
+        boolean commonOne = Boolean.parseBoolean(String.valueOf(inventorySnapShot.child("Common One").getValue()));
+        boolean rareOne = Boolean.parseBoolean(String.valueOf(inventorySnapShot.child("Rare One").getValue()));
+        boolean epicOne = Boolean.parseBoolean(String.valueOf(inventorySnapShot.child("Epic One").getValue()));
 
         UserAccount.setTomatoes(tomatoes);
+        UserAccount.setCommonOne(commonOne);
+        UserAccount.setRareOne(rareOne);
+        UserAccount.setEpicOne(epicOne);
     }
 
     protected static void retrieveUserCustom(DataSnapshot dataSnapshot) {
