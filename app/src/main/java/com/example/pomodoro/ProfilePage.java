@@ -40,12 +40,6 @@ public class ProfilePage extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        updateProfile();
-        updateStats();
-        updateBadges();
-        updateInventory();
-        showToolTips();
-
         binding.editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,20 +91,29 @@ public class ProfilePage extends Fragment {
                 binding.iconProfileImage.setImageURI(currentUri);
             }
         });
+
+        updateProfile();
+        updateStats();
+        updateBadges();
+        updateInventory();
+        showToolTips();
     }
 
     private void updateInventory() {
         if (UserAccount.isCommonOne()) {
             binding.commonOneImage.setAlpha(1f);
         }
+        binding.commonOneImage.setClickable(UserAccount.isCommonOne());
 
         if (UserAccount.isRareOne()) {
             binding.rareOneImage.setAlpha(1f);
         }
+        binding.rareOneImage.setClickable(UserAccount.isRareOne());
 
         if (UserAccount.isEpicOne()) {
             binding.epicOneImage.setAlpha(1f);
         }
+        binding.epicOneImage.setClickable(UserAccount.isEpicOne());
     }
 
     private void updateProfile() {
