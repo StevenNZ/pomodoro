@@ -2,6 +2,7 @@ package com.example.pomodoro;
 
 import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 
 import com.example.pomodoro.databinding.FragmentShopBinding;
 
+import java.net.URI;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -102,21 +104,36 @@ public class Shop extends Fragment {
 
     private void itemUpdate() {
         float randFloat = new Random().nextFloat();
-        int itemImage;
+        String itemImage;
         String tier;
 
         if (randFloat >= 0.99f) {
-            itemImage = R.drawable.epic_one;
+            UserAccount.setEpicOne(true);
+            itemImage = "android.resource://com.example.pomodoro/drawable/epic_one";
             tier = "Epic";
         } else if (randFloat >= 0.9f) {
-            itemImage = R.drawable.rare_one;
+            UserAccount.setRareOne(true);
+            itemImage = "android.resource://com.example.pomodoro/drawable/rare_one";
             tier = "Rare";
         } else {
-            itemImage = R.drawable.common_one;
+            UserAccount.setCommonOne(true);
+            itemImage = "android.resource://com.example.pomodoro/drawable/common_one";
             tier = "Common";
         }
-        binding.unlockImage.setImageResource(itemImage);
+        String key = getFileName(itemImage);
+        UserAccount.updateDatabase("Inventory", key, true);
+        binding.unlockImage.setImageURI(Uri.parse(itemImage));
         binding.unlockText.setText(tier);
+    }
+
+    private String getFileName(String itemImage) {
+        StringBuilder output = new StringBuilder();
+        String[] filename = itemImage.split("/")[itemImage.length()-1].split(" ");
+        for (String name : filename) {
+            output.append(name.substring(0, 1).toUpperCase()).append(name.substring(1)).append(" ");
+        }
+
+        return output.deleteCharAt(output.length()-1).toString();
     }
 
     private void layoutUpdate() {
