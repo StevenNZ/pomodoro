@@ -38,7 +38,22 @@ public class ProfilePage extends Fragment {
         updateProfile();
         updateStats();
         updateBadges();
+        updateInventory();
         showToolTips();
+    }
+
+    private void updateInventory() {
+        if (UserAccount.isCommonOne()) {
+            binding.commonOneImage.setAlpha(1f);
+        }
+
+        if (UserAccount.isRareOne()) {
+            binding.rareOneImage.setAlpha(1f);
+        }
+
+        if (UserAccount.isEpicOne()) {
+            binding.epicOneImage.setAlpha(1f);
+        }
     }
 
     private void updateProfile() {
