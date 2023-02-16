@@ -5,6 +5,7 @@ import static com.example.pomodoro.UserAccount.pomodoroCycles;
 import static com.example.pomodoro.UserAccount.pomodoroTotal;
 import static com.example.pomodoro.UserAccount.workTotal;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -20,6 +21,8 @@ import com.example.pomodoro.databinding.ProfilePageBinding;
 public class ProfilePage extends Fragment {
 
     private ProfilePageBinding binding;
+
+    private Uri currentUri;
 
     @Override
     public View onCreateView(
@@ -51,6 +54,30 @@ public class ProfilePage extends Fragment {
                 binding.inventoryLayout.setClickable(true);
             }
         });
+
+        binding.commonOneImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentUri = Uri.parse("android.resource://com.example.pomodoro/drawable/common_one");
+                binding.iconProfileImage.setImageURI(currentUri);
+            }
+        });
+
+        binding.rareOneImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentUri = Uri.parse("android.resource://com.example.pomodoro/drawable/rare_one");
+                binding.iconProfileImage.setImageURI(currentUri);
+            }
+        });
+
+        binding.epicOneImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentUri = Uri.parse("android.resource://com.example.pomodoro/drawable/epic_one");
+                binding.iconProfileImage.setImageURI(currentUri);
+            }
+        });
     }
 
     private void updateInventory() {
@@ -71,6 +98,8 @@ public class ProfilePage extends Fragment {
         binding.iconProfileImage.setImageURI(UserAccount.getUriImage());
         binding.nameProfileText.setText(UserAccount.getUsername());
         binding.tomatoesUserText.setText(String.valueOf(UserAccount.getTomatoes()));
+
+        currentUri = UserAccount.getUriImage();
     }
 
     private void showToolTips() {
