@@ -17,6 +17,8 @@ import androidx.appcompat.widget.TooltipCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.pomodoro.databinding.ProfilePageBinding;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 public class ProfilePage extends Fragment {
 
@@ -63,6 +65,12 @@ public class ProfilePage extends Fragment {
                 binding.editButton.setVisibility(View.VISIBLE);
                 binding.saveAvatarButton.setVisibility(View.GONE);
                 binding.maskLayout.setClickable(true);
+
+                UserAccount.setUriImage(currentUri);
+                if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setPhotoUri(currentUri).build();
+                    FirebaseAuth.getInstance().getCurrentUser().updateProfile(profileUpdates);
+                }
             }
         });
 
