@@ -111,15 +111,19 @@ public class Shop extends Fragment {
             UserAccount.setEpicOne(true);
             itemImage = "android.resource://com.example.pomodoro/drawable/epic_one";
             tier = "Epic";
+            explode();
+            parade();
         } else if (randFloat >= 0.9f) {
             UserAccount.setRareOne(true);
             itemImage = "android.resource://com.example.pomodoro/drawable/rare_one";
             tier = "Rare";
+            explode();
         } else {
             UserAccount.setCommonOne(true);
             itemImage = "android.resource://com.example.pomodoro/drawable/common_one";
             tier = "Common";
         }
+        rain();
         String key = getFileName(itemImage);
         UserAccount.updateDatabase("Inventory", key, true);
         binding.unlockImage.setImageURI(Uri.parse(itemImage));
