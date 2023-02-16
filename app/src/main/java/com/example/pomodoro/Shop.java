@@ -128,8 +128,9 @@ public class Shop extends Fragment {
 
     private String getFileName(String itemImage) {
         StringBuilder output = new StringBuilder();
-        String[] filename = itemImage.split("/")[itemImage.length()-1].split(" ");
-        for (String name : filename) {
+        String[] filenames = itemImage.split("/");
+        String[] filenameSplit = filenames[filenames.length-1].split("_");
+        for (String name : filenameSplit) {
             output.append(name.substring(0, 1).toUpperCase()).append(name.substring(1)).append(" ");
         }
 
