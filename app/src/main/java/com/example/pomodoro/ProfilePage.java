@@ -51,7 +51,7 @@ public class ProfilePage extends Fragment {
                 binding.badgeLayout.setVisibility(View.GONE);
                 binding.editButton.setVisibility(View.GONE);
                 binding.saveAvatarButton.setVisibility(View.VISIBLE);
-                binding.inventoryLayout.setClickable(true);
+                binding.maskLayout.setClickable(false);
             }
         });
 
@@ -62,7 +62,7 @@ public class ProfilePage extends Fragment {
                 binding.badgeLayout.setVisibility(View.VISIBLE);
                 binding.editButton.setVisibility(View.VISIBLE);
                 binding.saveAvatarButton.setVisibility(View.GONE);
-                binding.inventoryLayout.setClickable(false);
+                binding.maskLayout.setClickable(true);
             }
         });
 
@@ -92,8 +92,6 @@ public class ProfilePage extends Fragment {
     }
 
     private void updateInventory() {
-        binding.inventoryLayout.setClickable(false);
-
         if (UserAccount.isCommonOne()) {
             binding.commonOneImage.setAlpha(1f);
         }
