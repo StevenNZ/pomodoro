@@ -55,6 +55,17 @@ public class ProfilePage extends Fragment {
             }
         });
 
+        binding.saveAvatarButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                binding.statsLayout.setVisibility(View.VISIBLE);
+                binding.badgeLayout.setVisibility(View.VISIBLE);
+                binding.editButton.setVisibility(View.VISIBLE);
+                binding.saveAvatarButton.setVisibility(View.GONE);
+                binding.inventoryLayout.setClickable(false);
+            }
+        });
+
         binding.commonOneImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,6 +92,8 @@ public class ProfilePage extends Fragment {
     }
 
     private void updateInventory() {
+        binding.inventoryLayout.setClickable(false);
+
         if (UserAccount.isCommonOne()) {
             binding.commonOneImage.setAlpha(1f);
         }
