@@ -103,11 +103,15 @@ public class MainMenu extends Fragment {
             }
         });
 
+        binding.tomatoesMenuText.setText(String.valueOf(UserAccount.getTomatoes()));
+
         if (auth.getCurrentUser() != null) {
             if (UserAccount.emailAddress.isEmpty()) {
                 updateUserAccount();
             }
             updateUserProfile();
+        } else {
+            binding.mainIcon.setImageURI(UserAccount.getUriImage());
         }
     }
 
@@ -132,7 +136,6 @@ public class MainMenu extends Fragment {
     private void updateUserProfile() {
         binding.usernameText.setText(auth.getCurrentUser().getDisplayName());
         binding.mainIcon.setImageURI(auth.getCurrentUser().getPhotoUrl());
-        binding.tomatoesMenuText.setText(String.valueOf(UserAccount.getTomatoes()));
     }
 
     @Override

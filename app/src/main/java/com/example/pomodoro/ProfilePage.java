@@ -5,6 +5,7 @@ import static com.example.pomodoro.UserAccount.pomodoroCycles;
 import static com.example.pomodoro.UserAccount.pomodoroTotal;
 import static com.example.pomodoro.UserAccount.workTotal;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -16,10 +17,14 @@ import androidx.appcompat.widget.TooltipCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.pomodoro.databinding.ProfilePageBinding;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 public class ProfilePage extends Fragment {
 
     private ProfilePageBinding binding;
+
+    private Uri currentUri;
 
     @Override
     public View onCreateView(
@@ -35,6 +40,58 @@ public class ProfilePage extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        binding.editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                binding.statsLayout.setVisibility(View.GONE);
+                binding.badgeLayout.setVisibility(View.GONE);
+                binding.editButton.setVisibility(View.GONE);
+                binding.saveAvatarButton.setVisibility(View.VISIBLE);
+                binding.maskLayout.setClickable(false);
+            }
+        });
+
+        binding.saveAvatarButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                binding.statsLayout.setVisibility(View.VISIBLE);
+                binding.badgeLayout.setVisibility(View.VISIBLE);
+                binding.editButton.setVisibility(View.VISIBLE);
+                binding.saveAvatarButton.setVisibility(View.GONE);
+                binding.maskLayout.setClickable(true);
+
+                UserAccount.setUriImage(currentUri);
+                if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setPhotoUri(currentUri).build();
+                    FirebaseAuth.getInstance().getCurrentUser().updateProfile(profileUpdates);
+                }
+            }
+        });
+
+        binding.commonOneImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentUri = Uri.parse("android.resource://com.example.pomodoro/drawable/common_one");
+                binding.iconProfileImage.setImageURI(currentUri);
+            }
+        });
+
+        binding.rareOneImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentUri = Uri.parse("android.resource://com.example.pomodoro/drawable/rare_one");
+                binding.iconProfileImage.setImageURI(currentUri);
+            }
+        });
+
+        binding.epicOneImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentUri = Uri.parse("android.resource://com.example.pomodoro/drawable/epic_one");
+                binding.iconProfileImage.setImageURI(currentUri);
+            }
+        });
+
         updateProfile();
         updateStats();
         updateBadges();
@@ -46,20 +103,25 @@ public class ProfilePage extends Fragment {
         if (UserAccount.isCommonOne()) {
             binding.commonOneImage.setAlpha(1f);
         }
+        binding.commonOneImage.setClickable(UserAccount.isCommonOne());
 
         if (UserAccount.isRareOne()) {
             binding.rareOneImage.setAlpha(1f);
         }
+        binding.rareOneImage.setClickable(UserAccount.isRareOne());
 
         if (UserAccount.isEpicOne()) {
             binding.epicOneImage.setAlpha(1f);
         }
+        binding.epicOneImage.setClickable(UserAccount.isEpicOne());
     }
 
     private void updateProfile() {
         binding.iconProfileImage.setImageURI(UserAccount.getUriImage());
         binding.nameProfileText.setText(UserAccount.getUsername());
         binding.tomatoesUserText.setText(String.valueOf(UserAccount.getTomatoes()));
+
+        currentUri = UserAccount.getUriImage();
     }
 
     private void showToolTips() {

@@ -78,9 +78,13 @@ public class LoginPage extends Fragment {
         binding.signOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                auth.signOut();
-                updateCurrentUserText();
-                UserAccount.resetGuest();
+                if (auth.getCurrentUser() == null) {
+                    Toast.makeText(requireContext(), "No user logged in", Toast.LENGTH_SHORT).show();
+                } else {
+                    auth.signOut();
+                    UserAccount.resetGuest();
+                    updateCurrentUserText();
+                }
             }
         });
 
@@ -156,13 +160,11 @@ public class LoginPage extends Fragment {
 
     private void updateCurrentUserText() {
         String currentUserText = "Currently no user logged in";
-        Uri photoUrl = Uri.parse("android.resource://com.example.pomodoro/drawable/guest_icon");
         if (auth.getCurrentUser() != null) {
             currentUserText = "Current user is " + auth.getCurrentUser().getDisplayName();
-            photoUrl = auth.getCurrentUser().getPhotoUrl();
         }
         binding.userLoginText.setText(currentUserText);
-        binding.mainLoginIcon.setImageURI(photoUrl);
+        binding.mainLoginIcon.setImageURI(UserAccount.getUriImage());
     }
 
 
