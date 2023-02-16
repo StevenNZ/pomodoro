@@ -279,6 +279,15 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/epic_one" />
+
+            <LinearLayout
+                android:id="@+id/maskLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:clickable="true"
+                android:orientation="horizontal"
+                android:visibility="visible"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <Button
