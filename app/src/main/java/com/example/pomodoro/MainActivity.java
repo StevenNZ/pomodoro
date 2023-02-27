@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ConstraintLayout fragmentLayout;
     private ConstraintLayout mainMenuInfoLayout;
+    private ConstraintLayout pomodoroInfoLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,11 +40,20 @@ public class MainActivity extends AppCompatActivity {
 
         fragmentLayout = findViewById(R.id.fragmentLayout);
         mainMenuInfoLayout = findViewById(R.id.mainMenuInfoLayout);
+        pomodoroInfoLayout = findViewById(R.id.pomodoroInfoLayout);
 
         mainMenuInfoLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mainMenuInfoLayout.setVisibility(View.INVISIBLE);
+                fragmentLayout.setAlpha(1.0f);
+            }
+        });
+
+        pomodoroInfoLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pomodoroInfoLayout.setVisibility(View.INVISIBLE);
                 fragmentLayout.setAlpha(1.0f);
             }
         });
@@ -71,6 +81,10 @@ public class MainActivity extends AppCompatActivity {
 
             if (id == R.id.mainMenu) {
                 mainMenuInfoLayout.setVisibility(View.VISIBLE);
+            } else if (id == R.id.pomodoro){
+                pomodoroInfoLayout.setVisibility(View.VISIBLE);
+            } else {
+                fragmentLayout.setAlpha(1f);
             }
         }
 
@@ -82,5 +96,10 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         return NavigationUI.navigateUp(navController, appBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    @Override
+    public void onBackPressed() {
+        fragmentLayout.setAlpha(1.0f);
     }
 }
