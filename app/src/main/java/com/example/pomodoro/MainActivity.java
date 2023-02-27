@@ -6,6 +6,7 @@ import com.example.pomodoro.databinding.ActivityMainBinding;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -13,11 +14,16 @@ import androidx.navigation.ui.NavigationUI;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
+
+    private ConstraintLayout fragmentLayout;
+    private ConstraintLayout mainMenuInfoLayout;
+    private ConstraintLayout pomodoroInfoLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +37,26 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         appBarConfiguration = new AppBarConfiguration.Builder(R.id.mainMenu, R.id.pomodoro).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+
+        fragmentLayout = findViewById(R.id.fragmentLayout);
+        mainMenuInfoLayout = findViewById(R.id.mainMenuInfoLayout);
+        pomodoroInfoLayout = findViewById(R.id.pomodoroInfoLayout);
+
+        mainMenuInfoLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mainMenuInfoLayout.setVisibility(View.INVISIBLE);
+                fragmentLayout.setAlpha(1.0f);
+            }
+        });
+
+        pomodoroInfoLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pomodoroInfoLayout.setVisibility(View.INVISIBLE);
+                fragmentLayout.setAlpha(1.0f);
+            }
+        });
     }
 
     @Override
@@ -45,11 +71,21 @@ public class MainActivity extends AppCompatActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (item.getItemId() == R.id.action_info) {
+            NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
+            int id = navController.getCurrentDestination().getId();
+
+            fragmentLayout.setAlpha(0.5f);
+
+            if (id == R.id.mainMenu) {
+                mainMenuInfoLayout.setVisibility(View.VISIBLE);
+            } else if (id == R.id.pomodoro){
+                pomodoroInfoLayout.setVisibility(View.VISIBLE);
+            } else {
+                fragmentLayout.setAlpha(1f);
+            }
         }
 
         return super.onOptionsItemSelected(item);
@@ -60,5 +96,10 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         return NavigationUI.navigateUp(navController, appBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    @Override
+    public void onBackPressed() {
+        fragmentLayout.setAlpha(1.0f);
     }
 }
