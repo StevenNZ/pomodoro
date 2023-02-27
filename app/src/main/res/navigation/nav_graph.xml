@@ -50,7 +50,7 @@
     <fragment
         android:id="@+id/loginPage"
         android:name="com.example.pomodoro.LoginPage"
-        android:label="LoginPage" >
+        android:label="Login" >
         <action
             android:id="@+id/action_loginPage_to_registerPage"
             app:destination="@id/registerPage" />
@@ -64,7 +64,7 @@
     <fragment
         android:id="@+id/registerPage"
         android:name="com.example.pomodoro.RegisterPage"
-        android:label="RegisterPage" >
+        android:label="Register" >
         <action
             android:id="@+id/action_registerPage_to_loginPage"
             app:destination="@id/loginPage" />
@@ -72,10 +72,10 @@
     <fragment
         android:id="@+id/forgotPassword"
         android:name="com.example.pomodoro.ForgotPassword"
-        android:label="ForgotPassword" />
+        android:label="Forgot Password" />
     <fragment
         android:id="@+id/shop"
         android:name="com.example.pomodoro.Shop"
-        android:label="fragment_shop"
+        android:label="Shop"
         tools:layout="@layout/fragment_shop" />
 </navigation>
