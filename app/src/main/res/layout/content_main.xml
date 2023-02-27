@@ -23,7 +23,7 @@
         android:id="@+id/mainMenuInfoLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="invisible">
+        android:visibility="visible">
 
         <TextView
             android:id="@+id/textView24"
@@ -33,6 +33,7 @@
             android:layout_marginEnd="140dp"
             android:text="These are your tomato points to spend in the shop!"
             android:textAlignment="center"
+            android:textColor="#171717"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -43,6 +44,7 @@
             android:layout_marginEnd="100dp"
             android:layout_marginBottom="40dp"
             android:text="Click the avatar to see user settings!"
+            android:textColor="#171717"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
@@ -51,9 +53,9 @@
             android:layout_width="125dp"
             android:layout_height="38dp"
             android:layout_marginStart="30dp"
-            android:layout_marginBottom="80dp"
+            android:layout_marginTop="315dp"
             android:text="Click start to create your pomodoro!"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:textColor="#171717"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
