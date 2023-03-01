@@ -161,7 +161,7 @@
         android:layout_height="60dp"
         android:layout_marginEnd="30dp"
         android:src="@drawable/guest_icon"
-        app:layout_constraintBottom_toTopOf="@+id/imageView2"
+        app:layout_constraintBottom_toTopOf="@+id/waveImage"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -196,7 +196,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/waveImage"
         android:layout_width="500dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="-20dp"
