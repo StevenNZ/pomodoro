@@ -113,6 +113,9 @@ public class MainMenu extends Fragment {
         } else {
             binding.mainIcon.setImageURI(UserAccount.getUriImage());
         }
+
+        Animation translateWave = AnimationUtils.loadAnimation(requireContext(), R.anim.translation);
+        binding.waveImage.startAnimation(translateWave);
     }
 
     private void updateUserAccount() {
