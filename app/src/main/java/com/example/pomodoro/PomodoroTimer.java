@@ -27,7 +27,7 @@ public class PomodoroTimer extends Fragment {
     private int timeline = 0;
     private long remainingTime = workTime;
     private long initialTime = workTime;
-    private long totalProgressTime = workTime*5 + shortBreakTime*4;
+    private long totalProgressTime = workTime*4 + shortBreakTime*4;
     private double cumulativeProgress = 0;
     private String workSession = "Study Session";
 
@@ -106,7 +106,6 @@ public class PomodoroTimer extends Fragment {
         binding.breakTwo.setVisibility(View.INVISIBLE);
         binding.breakThree.setVisibility(View.INVISIBLE);
         binding.breakFour.setVisibility(View.INVISIBLE);
-        binding.breakLong.setVisibility(View.INVISIBLE);
         binding.timelineProgress.setProgress(0);
 
         cumulativeProgress = 0;
@@ -220,9 +219,6 @@ public class PomodoroTimer extends Fragment {
                 break;
             case 8:
                 binding.workFive.setVisibility(View.VISIBLE);
-                break;
-            case 0:
-                binding.breakLong.setVisibility(View.VISIBLE);
                 break;
         }
     }
