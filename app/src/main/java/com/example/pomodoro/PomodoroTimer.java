@@ -187,7 +187,7 @@ public class PomodoroTimer extends Fragment {
     }
 
     private void updateTimelineProgress() {
-        double progressTotal = (double) initialTime/ (double) totalProgressTime;
+        double progressTotal = 0.1;
         double progressPerSecond = progressTotal / ((double) initialTime / 1000.00);
         cumulativeProgress+=progressPerSecond;
         ObjectAnimator.ofInt(binding.timelineProgress, "progress", (int) (cumulativeProgress*100))
