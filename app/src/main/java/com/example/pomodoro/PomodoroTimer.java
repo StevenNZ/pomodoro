@@ -18,16 +18,14 @@ import java.util.Locale;
 
 public class PomodoroTimer extends Fragment {
 
-    private static long workTime = 10000;
-    private static long shortBreakTime = 4000;
-    private static long longBreakTime = 30000;
+    private static long workTime = 5000;
+    private static long shortBreakTime = 2000;
+    private static long longBreakTime = 4000;
 
-    private boolean isRunning = false;
     private boolean isBreak = false;
     private int timeline = 0;
     private long remainingTime = workTime;
     private long initialTime = workTime;
-    private long totalProgressTime = workTime*5 + shortBreakTime*4 + longBreakTime;
     private double cumulativeProgress = 0;
     private String workSession = "Study Session";
 
@@ -54,25 +52,12 @@ public class PomodoroTimer extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.buttonPlay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (isRunning) {
-                    pauseTimer();
-                    binding.buttonBack.setVisibility(View.VISIBLE);
-                } else {
-                    startTimer();
-                    binding.buttonBack.setVisibility(View.INVISIBLE);
-                    binding.workOne.setVisibility(View.VISIBLE);
-                }
-            }
-        });
-
         updateTimer();
 
         binding.buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                timer.cancel();
                 NavHostFragment.findNavController(PomodoroTimer.this)
                         .navigate(R.id.action_SecondFragment_to_FirstFragment);
             }
@@ -81,7 +66,6 @@ public class PomodoroTimer extends Fragment {
         binding.buttonNewGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                binding.buttonPlay.setVisibility(View.VISIBLE);
                 binding.buttonNewGame.setVisibility(View.INVISIBLE);
                 remainingTime = workTime;
                 initialTime = workTime;
@@ -89,6 +73,7 @@ public class PomodoroTimer extends Fragment {
                 isBreak = false;
                 updateTimer();
                 resetTimeline();
+                startTimer();
             }
         });
 
@@ -136,12 +121,10 @@ public class PomodoroTimer extends Fragment {
 
             @Override
             public void onFinish() {
-                isRunning = false;
                 updateTomatoes();
 
                 if (isBreak && timeline == 0) {
                     UserAccount.incrementCycles();
-                    binding.buttonPlay.setVisibility(View.INVISIBLE);
                     binding.buttonNewGame.setVisibility(View.VISIBLE);
                     binding.buttonBack.setVisibility(View.VISIBLE);
                 } else {
@@ -167,11 +150,11 @@ public class PomodoroTimer extends Fragment {
                     initialTime = remainingTime;
                     updateTimelineIcons();
                     updateTimer();
+                    startTimer();
                 }
             }
         }.start();
 
-        isRunning = true;
     }
 
     private void updateTomatoes() {
@@ -225,11 +208,6 @@ public class PomodoroTimer extends Fragment {
                 binding.breakLong.setVisibility(View.VISIBLE);
                 break;
         }
-    }
-
-    private void pauseTimer() {
-        timer.cancel();
-        isRunning = false;
     }
 
     @Override
