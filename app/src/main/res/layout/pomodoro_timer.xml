@@ -130,7 +130,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <ImageView
-            android:id="@+id/workFive"
+            android:id="@+id/workTwo"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_marginTop="120dp"
@@ -141,7 +141,7 @@
             app:layout_constraintTop_toTopOf="@+id/timelineProgress" />
 
         <ImageView
-            android:id="@+id/breakFour"
+            android:id="@+id/breakTwo"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_marginEnd="12dp"
@@ -152,7 +152,7 @@
             app:layout_constraintEnd_toEndOf="parent" />
 
         <ImageView
-            android:id="@+id/workFour"
+            android:id="@+id/workThree"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_marginEnd="75dp"
@@ -163,18 +163,18 @@
             app:layout_constraintEnd_toEndOf="parent" />
 
         <ImageView
-            android:id="@+id/breakLong"
+            android:id="@+id/breakOne"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_marginTop="33dp"
             android:layout_marginEnd="75dp"
-            android:src="@drawable/long_break_fill"
+            android:src="@drawable/break_fill"
             android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/breakTwo"
+            android:id="@+id/breakFour"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_marginStart="12dp"
@@ -185,7 +185,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <ImageView
-            android:id="@+id/workThree"
+            android:id="@+id/workFour"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_marginStart="75dp"
@@ -212,18 +212,18 @@
             app:layout_constraintTop_toTopOf="@+id/breakOne" />
 
         <ImageView
-            android:id="@+id/breakOne"
+            android:id="@+id/breakLong"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_marginStart="75dp"
             android:layout_marginTop="33dp"
-            android:src="@drawable/break_fill"
+            android:src="@drawable/long_break_fill"
             android:visibility="invisible"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/timelineProgress" />
 
         <ImageView
-            android:id="@+id/workFiveInitial"
+            android:id="@+id/workTwoInitial"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:src="@drawable/work_initial"
@@ -231,7 +231,7 @@
             app:layout_constraintTop_toTopOf="@+id/workFive" />
 
         <ImageView
-            android:id="@+id/workTwoInitial"
+            android:id="@+id/workFiveInitial"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:src="@drawable/work_initial"
@@ -239,7 +239,7 @@
             app:layout_constraintTop_toTopOf="@+id/workTwo" />
 
         <ImageView
-            android:id="@+id/workTwo"
+            android:id="@+id/workFive"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_marginStart="12dp"
