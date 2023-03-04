@@ -22,6 +22,7 @@ public class PomodoroTimer extends Fragment {
     private static long shortBreakTime = 2000;
     private static long longBreakTime = 4000;
 
+    private boolean isNewGame = true;
     private boolean isBreak = false;
     private int timeline = 0;
     private long remainingTime = workTime;
@@ -101,7 +102,12 @@ public class PomodoroTimer extends Fragment {
         int minutes = (int) (remainingTime / 1000) / 60;
         int seconds = (int) (remainingTime / 1000) % 60;
 
-        String remainingTimeText = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
+        if (isNewGame) {
+            seconds--;
+            isNewGame = false;
+        }
+
+        String remainingTimeText = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds + 1);
         binding.textTimer.setText(remainingTimeText);
         binding.textSession.setText(workSession);
 
@@ -111,6 +117,8 @@ public class PomodoroTimer extends Fragment {
     }
 
     private void startTimer() {
+        binding.workOne.setVisibility(View.VISIBLE);
+
         timer = new CountDownTimer(remainingTime, 1000) {
             @Override
             public void onTick(long timeUntilFinish) {
@@ -127,6 +135,7 @@ public class PomodoroTimer extends Fragment {
                     UserAccount.incrementCycles();
                     binding.buttonNewGame.setVisibility(View.VISIBLE);
                     binding.buttonBack.setVisibility(View.VISIBLE);
+                    isNewGame = true;
                 } else {
                     if (isBreak) {// Break -> Work
                         remainingTime = workTime;
