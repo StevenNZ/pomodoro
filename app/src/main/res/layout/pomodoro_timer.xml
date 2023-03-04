@@ -127,7 +127,6 @@
             android:indeterminateOnly="false"
             android:layoutDirection="ltr"
             android:progressDrawable="@drawable/circle_timeline"
-            android:rotationY="180"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/workOne"
             app:layout_constraintTop_toTopOf="parent" />
