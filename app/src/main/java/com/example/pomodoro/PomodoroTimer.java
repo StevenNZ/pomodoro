@@ -143,7 +143,6 @@ public class PomodoroTimer extends Fragment {
                 updateTomatoes();
 
                 if (isBreak && timeline == 0) {
-                    UserAccount.incrementCycles();
                     binding.buttonNewGame.setVisibility(View.VISIBLE);
                     binding.buttonBack.setVisibility(View.VISIBLE);
                     isNewGame = true;
@@ -162,6 +161,7 @@ public class PomodoroTimer extends Fragment {
                         isBreak = true;
                         timeline = 0;
                         updateStats();
+                        UserAccount.incrementCycles();
                         timelineDrawable.setColorFilter(Color.RED, PorterDuff.Mode.SRC);
                     } else {// Work -> Short Break
                         remainingTime = shortBreakTime;
