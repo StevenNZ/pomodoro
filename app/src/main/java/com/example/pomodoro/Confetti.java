@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import androidx.core.content.ContextCompat;
 
 import java.util.Arrays;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import nl.dionsegijn.konfetti.core.Angle;
@@ -80,5 +81,20 @@ public class Confetti {
                         .position(new Position.Relative(0.0, 0.0).between(new Position.Relative(1.0, 0.0)))
                         .build()
         );
+    }
+
+    public void randomConfetti() {
+        float rand = new Random().nextFloat();
+        if (rand < 0.33) {
+            rain();
+        } else if (rand < 0.66) {
+            explode();
+        } else if (rand < 0.9) {
+            parade();
+        } else {
+            rain();
+            explode();
+            parade();
+        }
     }
 }

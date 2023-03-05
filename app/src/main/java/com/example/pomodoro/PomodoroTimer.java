@@ -165,7 +165,7 @@ public class PomodoroTimer extends Fragment {
                         timeline = 0;
                         updateStats();
                         UserAccount.incrementCycles();
-                        confetti.explode();
+                        confetti.randomConfetti();
                         timelineDrawable.setColorFilter(Color.RED, PorterDuff.Mode.SRC);
                     } else {// Work -> Short Break
                         remainingTime = shortBreakTime;
