@@ -28,6 +28,8 @@ public class RegisterPage extends Fragment {
 
     private FirebaseAuth auth = FirebaseAuth.getInstance();
 
+    private Confetti confetti;
+
     private int avatarSelected = 0;
 
     @Override
@@ -82,6 +84,8 @@ public class RegisterPage extends Fragment {
                 binding.avatarTwoImage.setAlpha((float) 1.00);
             }
         });
+
+        confetti = new Confetti(binding.konfettiViewRegister, getContext());
     }
 
     private void registerUser(String emailAddress, String username, String password) {
@@ -130,6 +134,7 @@ public class RegisterPage extends Fragment {
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
                     Toast.makeText(getContext(), "Registered Successfully! Please check your email for verification", Toast.LENGTH_LONG).show();
+                    confetti.parade();
                 } else {
                     Toast.makeText(getContext(), task.getException().getMessage(), Toast.LENGTH_LONG).show();
                 }
