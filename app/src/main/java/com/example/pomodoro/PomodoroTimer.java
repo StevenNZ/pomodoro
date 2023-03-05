@@ -1,6 +1,12 @@
 package com.example.pomodoro;
 
 import android.animation.ObjectAnimator;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -9,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
@@ -18,18 +25,18 @@ import java.util.Locale;
 
 public class PomodoroTimer extends Fragment {
 
-    private static long workTime = 6000;
+    private static long workTime = 5000;
     private static long shortBreakTime = 2000;
     private static long longBreakTime = 4000;
 
-    private boolean isRunning = false;
+    private boolean isNewGame = true;
     private boolean isBreak = false;
     private int timeline = 0;
     private long remainingTime = workTime;
     private long initialTime = workTime;
-    private long totalProgressTime = workTime*5 + shortBreakTime*4;
     private double cumulativeProgress = 0;
     private String workSession = "Study Session";
+    private Drawable timelineDrawable;
 
     private CountDownTimer timer;
     private PomodoroTimerBinding binding;
@@ -54,25 +61,12 @@ public class PomodoroTimer extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.buttonPlay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (isRunning) {
-                    pauseTimer();
-                    binding.buttonBack.setVisibility(View.VISIBLE);
-                } else {
-                    startTimer();
-                    binding.buttonBack.setVisibility(View.INVISIBLE);
-                    binding.workOne.setVisibility(View.VISIBLE);
-                }
-            }
-        });
-
         updateTimer();
 
         binding.buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                timer.cancel();
                 NavHostFragment.findNavController(PomodoroTimer.this)
                         .navigate(R.id.action_SecondFragment_to_FirstFragment);
             }
@@ -81,7 +75,6 @@ public class PomodoroTimer extends Fragment {
         binding.buttonNewGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                binding.buttonPlay.setVisibility(View.VISIBLE);
                 binding.buttonNewGame.setVisibility(View.INVISIBLE);
                 remainingTime = workTime;
                 initialTime = workTime;
@@ -89,11 +82,15 @@ public class PomodoroTimer extends Fragment {
                 isBreak = false;
                 updateTimer();
                 resetTimeline();
+                startTimer();
             }
         });
 
         binding.tomatoesPomoText.setText(String.valueOf(UserAccount.getTomatoes()));
         binding.progressBarTimer.setMax(10000);
+
+        LayerDrawable progressBarDrawable = (LayerDrawable) binding.timelineProgress.getProgressDrawable();
+        timelineDrawable = progressBarDrawable.getDrawable(1);
     }
 
     private void resetTimeline() {
@@ -116,7 +113,12 @@ public class PomodoroTimer extends Fragment {
         int minutes = (int) (remainingTime / 1000) / 60;
         int seconds = (int) (remainingTime / 1000) % 60;
 
-        String remainingTimeText = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
+        if (isNewGame) {
+            seconds--;
+            isNewGame = false;
+        }
+
+        String remainingTimeText = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds + 1);
         binding.textTimer.setText(remainingTimeText);
         binding.textSession.setText(workSession);
 
@@ -126,6 +128,8 @@ public class PomodoroTimer extends Fragment {
     }
 
     private void startTimer() {
+        binding.workOne.setVisibility(View.VISIBLE);
+
         timer = new CountDownTimer(remainingTime, 1000) {
             @Override
             public void onTick(long timeUntilFinish) {
@@ -136,14 +140,14 @@ public class PomodoroTimer extends Fragment {
 
             @Override
             public void onFinish() {
-                isRunning = false;
                 updateTomatoes();
 
                 if (isBreak && timeline == 0) {
                     UserAccount.incrementCycles();
-                    binding.buttonPlay.setVisibility(View.INVISIBLE);
                     binding.buttonNewGame.setVisibility(View.VISIBLE);
                     binding.buttonBack.setVisibility(View.VISIBLE);
+                    isNewGame = true;
+                    timelineDrawable.setColorFilter(0xFF03DAC5, PorterDuff.Mode.SRC);
                 } else {
                     if (isBreak) {// Break -> Work
                         remainingTime = workTime;
@@ -151,27 +155,30 @@ public class PomodoroTimer extends Fragment {
                         isBreak = false;
                         timeline++;
                         UserAccount.increaseBreakTotal(initialTime/1000);
+                        timelineDrawable.setColorFilter(0xFF03DAC5, PorterDuff.Mode.SRC);
                     } else if (timeline == 8) {// Work -> Long break
                         remainingTime = longBreakTime;
                         workSession = "Long Break";
                         isBreak = true;
                         timeline = 0;
                         updateStats();
+                        timelineDrawable.setColorFilter(Color.RED, PorterDuff.Mode.SRC);
                     } else {// Work -> Short Break
                         remainingTime = shortBreakTime;
                         workSession = "Short Break";
                         isBreak = true;
                         timeline++;
                         updateStats();
+                        timelineDrawable.setColorFilter(Color.RED, PorterDuff.Mode.SRC);
                     }
                     initialTime = remainingTime;
                     updateTimelineIcons();
                     updateTimer();
+                    startTimer();
                 }
             }
         }.start();
 
-        isRunning = true;
     }
 
     private void updateTomatoes() {
@@ -187,7 +194,7 @@ public class PomodoroTimer extends Fragment {
     }
 
     private void updateTimelineProgress() {
-        double progressTotal = (double) initialTime/ (double) totalProgressTime;
+        double progressTotal = 0.1;
         double progressPerSecond = progressTotal / ((double) initialTime / 1000.00);
         cumulativeProgress+=progressPerSecond;
         ObjectAnimator.ofInt(binding.timelineProgress, "progress", (int) (cumulativeProgress*100))
@@ -225,11 +232,6 @@ public class PomodoroTimer extends Fragment {
                 binding.breakLong.setVisibility(View.VISIBLE);
                 break;
         }
-    }
-
-    private void pauseTimer() {
-        timer.cancel();
-        isRunning = false;
     }
 
     @Override

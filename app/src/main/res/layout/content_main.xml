@@ -89,21 +89,11 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView23"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="595dp"
-            android:layout_marginEnd="90dp"
-            android:text="Play/Pause"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
             android:id="@+id/textView27"
             android:layout_width="101dp"
             android:layout_height="44dp"
             android:layout_marginStart="15dp"
-            android:layout_marginTop="180dp"
+            android:layout_marginTop="170dp"
             android:text="Timeline of your sessions"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -112,10 +102,10 @@
             android:id="@+id/textView28"
             android:layout_width="85dp"
             android:layout_height="43dp"
-            android:layout_marginTop="200dp"
-            android:layout_marginEnd="10dp"
-            android:text="Session progress bar"
+            android:layout_marginTop="230dp"
+            android:text="Timer progress bar"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
