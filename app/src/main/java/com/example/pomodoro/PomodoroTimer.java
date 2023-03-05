@@ -37,6 +37,7 @@ public class PomodoroTimer extends Fragment {
     private double cumulativeProgress = 0;
     private String workSession = "Study Session";
     private Drawable timelineDrawable;
+    private Confetti confetti;
 
     private CountDownTimer timer;
     private PomodoroTimerBinding binding;
@@ -91,6 +92,8 @@ public class PomodoroTimer extends Fragment {
 
         LayerDrawable progressBarDrawable = (LayerDrawable) binding.timelineProgress.getProgressDrawable();
         timelineDrawable = progressBarDrawable.getDrawable(1);
+
+        confetti = new Confetti(binding.konfettiViewPomo, getContext());
     }
 
     private void resetTimeline() {
@@ -162,6 +165,7 @@ public class PomodoroTimer extends Fragment {
                         timeline = 0;
                         updateStats();
                         UserAccount.incrementCycles();
+                        confetti.explode();
                         timelineDrawable.setColorFilter(Color.RED, PorterDuff.Mode.SRC);
                     } else {// Work -> Short Break
                         remainingTime = shortBreakTime;
