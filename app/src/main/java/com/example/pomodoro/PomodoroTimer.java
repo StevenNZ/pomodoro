@@ -1,6 +1,8 @@
 package com.example.pomodoro;
 
 import android.animation.ObjectAnimator;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
@@ -67,9 +69,12 @@ public class PomodoroTimer extends Fragment {
         binding.buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                timer.cancel();
-                NavHostFragment.findNavController(PomodoroTimer.this)
-                        .navigate(R.id.action_SecondFragment_to_FirstFragment);
+                if (isNewGame) {
+                    NavHostFragment.findNavController(PomodoroTimer.this)
+                            .navigate(R.id.action_SecondFragment_to_FirstFragment);
+                } else {
+                    alertConfirmation();
+                }
             }
         });
 
@@ -96,6 +101,28 @@ public class PomodoroTimer extends Fragment {
         confetti = new Confetti(binding.konfettiViewPomo, getContext());
     }
 
+    private void alertConfirmation() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setMessage("Remaining pomodoro progress will not be saved, are you sure you want to go back?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+                if (!isNewGame) {
+                    timer.cancel();
+                }
+                NavHostFragment.findNavController(PomodoroTimer.this)
+                        .navigate(R.id.action_SecondFragment_to_FirstFragment);
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
     private void resetTimeline() {
         binding.workOne.setVisibility(View.INVISIBLE);
         binding.workTwo.setVisibility(View.INVISIBLE);
@@ -118,7 +145,6 @@ public class PomodoroTimer extends Fragment {
 
         if (isNewGame) {
             seconds--;
-            isNewGame = false;
         }
 
         String remainingTimeText = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds + 1);
@@ -132,6 +158,7 @@ public class PomodoroTimer extends Fragment {
 
     private void startTimer() {
         binding.workOne.setVisibility(View.VISIBLE);
+        isNewGame = false;
 
         timer = new CountDownTimer(remainingTime, 1000) {
             @Override
