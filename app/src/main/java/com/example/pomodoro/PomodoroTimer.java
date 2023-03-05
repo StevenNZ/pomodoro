@@ -1,6 +1,12 @@
 package com.example.pomodoro;
 
 import android.animation.ObjectAnimator;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -9,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
@@ -29,6 +36,7 @@ public class PomodoroTimer extends Fragment {
     private long initialTime = workTime;
     private double cumulativeProgress = 0;
     private String workSession = "Study Session";
+    private Drawable timelineDrawable;
 
     private CountDownTimer timer;
     private PomodoroTimerBinding binding;
@@ -80,6 +88,9 @@ public class PomodoroTimer extends Fragment {
 
         binding.tomatoesPomoText.setText(String.valueOf(UserAccount.getTomatoes()));
         binding.progressBarTimer.setMax(10000);
+
+        LayerDrawable progressBarDrawable = (LayerDrawable) binding.timelineProgress.getProgressDrawable();
+        timelineDrawable = progressBarDrawable.getDrawable(1);
     }
 
     private void resetTimeline() {
@@ -136,6 +147,7 @@ public class PomodoroTimer extends Fragment {
                     binding.buttonNewGame.setVisibility(View.VISIBLE);
                     binding.buttonBack.setVisibility(View.VISIBLE);
                     isNewGame = true;
+                    timelineDrawable.setColorFilter(0xFF03DAC5, PorterDuff.Mode.SRC);
                 } else {
                     if (isBreak) {// Break -> Work
                         remainingTime = workTime;
@@ -143,18 +155,21 @@ public class PomodoroTimer extends Fragment {
                         isBreak = false;
                         timeline++;
                         UserAccount.increaseBreakTotal(initialTime/1000);
+                        timelineDrawable.setColorFilter(0xFF03DAC5, PorterDuff.Mode.SRC);
                     } else if (timeline == 8) {// Work -> Long break
                         remainingTime = longBreakTime;
                         workSession = "Long Break";
                         isBreak = true;
                         timeline = 0;
                         updateStats();
+                        timelineDrawable.setColorFilter(Color.RED, PorterDuff.Mode.SRC);
                     } else {// Work -> Short Break
                         remainingTime = shortBreakTime;
                         workSession = "Short Break";
                         isBreak = true;
                         timeline++;
                         updateStats();
+                        timelineDrawable.setColorFilter(Color.RED, PorterDuff.Mode.SRC);
                     }
                     initialTime = remainingTime;
                     updateTimelineIcons();
