@@ -41,7 +41,7 @@ public class Shop extends Fragment {
 
     private FragmentShopBinding binding;
 
-    private Shape.DrawableShape drawableShape;
+    private Confetti confetti;
     private Animation initAnim;
 
     private float swipeY1;
@@ -59,9 +59,6 @@ public class Shop extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        final Drawable drawable = ContextCompat.getDrawable(getContext(), R.drawable.tomatoes_currency);
-        drawableShape = new Shape.DrawableShape(drawable, true);
 
         initAnim = AnimationUtils.loadAnimation(getContext(), R.anim.wiggle);
         binding.explodeImage.startAnimation(initAnim);
@@ -100,6 +97,7 @@ public class Shop extends Fragment {
         });
 
         binding.tomatoesShopText.setText(String.valueOf(UserAccount.getTomatoes()));
+        confetti = new Confetti(binding.konfettiView, getContext());
     }
 
     private void itemUpdate() {
@@ -111,19 +109,19 @@ public class Shop extends Fragment {
             UserAccount.setEpicOne(true);
             itemImage = "android.resource://com.example.pomodoro/drawable/epic_one";
             tier = "Epic";
-            explode();
-            parade();
+            confetti.explode();
+            confetti.parade();
         } else if (randFloat >= 0.9f) {
             UserAccount.setRareOne(true);
             itemImage = "android.resource://com.example.pomodoro/drawable/rare_one";
             tier = "Rare";
-            explode();
+            confetti.explode();
         } else {
             UserAccount.setCommonOne(true);
             itemImage = "android.resource://com.example.pomodoro/drawable/common_one";
             tier = "Common";
         }
-        rain();
+        confetti.rain();
         String key = getFileName(itemImage);
         UserAccount.updateDatabase("Inventory", key, true);
         binding.unlockImage.setImageURI(Uri.parse(itemImage));
@@ -144,54 +142,5 @@ public class Shop extends Fragment {
     private void layoutUpdate() {
         binding.shopLayout.setAlpha(0.25f);
         binding.unlockLayout.setVisibility(View.VISIBLE);
-    }
-
-    public void explode() {
-        EmitterConfig emitterConfig = new Emitter(100L, TimeUnit.MILLISECONDS).max(100);
-        binding.konfettiView.start(
-                new PartyFactory(emitterConfig)
-                        .spread(360)
-                        .shapes(Arrays.asList(Shape.Square.INSTANCE, Shape.Circle.INSTANCE, drawableShape))
-                        .colors(Arrays.asList(0xfce18a, 0xff726d, 0xf4306d, 0xb48def))
-                        .setSpeedBetween(0f, 30f)
-                        .position(new Position.Relative(0.5, 0.3))
-                        .build()
-        );
-    }
-
-    public void parade() {
-        EmitterConfig emitterConfig = new Emitter(5, TimeUnit.SECONDS).perSecond(30);
-        binding.konfettiView.start(
-                new PartyFactory(emitterConfig)
-                        .angle(Angle.RIGHT - 45)
-                        .spread(Spread.SMALL)
-                        .shapes(Arrays.asList(Shape.Square.INSTANCE, Shape.Circle.INSTANCE, drawableShape))
-                        .colors(Arrays.asList(0xfce18a, 0xff726d, 0xf4306d, 0xb48def))
-                        .setSpeedBetween(10f, 30f)
-                        .position(new Position.Relative(0.0, 0.5))
-                        .build(),
-                new PartyFactory(emitterConfig)
-                        .angle(Angle.LEFT + 45)
-                        .spread(Spread.SMALL)
-                        .shapes(Arrays.asList(Shape.Square.INSTANCE, Shape.Circle.INSTANCE, drawableShape))
-                        .colors(Arrays.asList(0xfce18a, 0xff726d, 0xf4306d, 0xb48def))
-                        .setSpeedBetween(10f, 30f)
-                        .position(new Position.Relative(1.0, 0.5))
-                        .build()
-        );
-    }
-
-    public void rain() {
-        EmitterConfig emitterConfig = new Emitter(5, TimeUnit.SECONDS).perSecond(100);
-        binding.konfettiView.start(
-                new PartyFactory(emitterConfig)
-                        .angle(Angle.BOTTOM)
-                        .spread(Spread.ROUND)
-                        .shapes(Arrays.asList(Shape.Square.INSTANCE, Shape.Circle.INSTANCE, drawableShape))
-                        .colors(Arrays.asList(0xfce18a, 0xff726d, 0xf4306d, 0xb48def))
-                        .setSpeedBetween(0f, 15f)
-                        .position(new Position.Relative(0.0, 0.0).between(new Position.Relative(1.0, 0.0)))
-                        .build()
-        );
     }
 }
