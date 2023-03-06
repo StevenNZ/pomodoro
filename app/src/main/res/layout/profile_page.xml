@@ -254,31 +254,41 @@
 
             <ImageView
                 android:id="@+id/commonOneImage"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
                 android:alpha="0.25"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/common_one" />
+                app:srcCompat="@drawable/common_two" />
 
             <ImageView
-                android:id="@+id/rareOneImage"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:id="@+id/commonTwoImage"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
                 android:alpha="0.25"
-                app:layout_constraintEnd_toStartOf="@+id/epicOneImage"
+                app:layout_constraintEnd_toStartOf="@+id/commonThreeImage"
                 app:layout_constraintStart_toEndOf="@+id/commonOneImage"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/rare_one" />
+                app:srcCompat="@drawable/common_three" />
 
             <ImageView
-                android:id="@+id/epicOneImage"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:id="@+id/commonThreeImage"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:alpha="0.25"
+                app:layout_constraintEnd_toStartOf="@+id/commonFourImage"
+                app:layout_constraintStart_toEndOf="@+id/commonTwoImage"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/common_four" />
+
+            <ImageView
+                android:id="@+id/commonFourImage"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
                 android:alpha="0.25"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/epic_one" />
+                app:srcCompat="@drawable/common_five" />
 
             <LinearLayout
                 android:id="@+id/maskLayout"
