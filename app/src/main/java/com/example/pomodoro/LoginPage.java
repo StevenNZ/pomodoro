@@ -132,7 +132,7 @@ public class LoginPage extends Fragment {
 
                             updateMainMenu();
 
-                            requireActivity().onBackPressed();
+                            requireActivity().getOnBackPressedDispatcher().onBackPressed();
                         }
 
                         private void retrieveData(Task<DataSnapshot> task) {

@@ -139,7 +139,8 @@ public class RegisterPage extends Fragment {
                     Toast.makeText(getContext(), task.getException().getMessage(), Toast.LENGTH_LONG).show();
                 }
                 auth.signOut();
-                requireActivity().onBackPressed();
+                UserAccount.resetGuest();
+                requireActivity().getOnBackPressedDispatcher().onBackPressed();
             }
         });
     }
