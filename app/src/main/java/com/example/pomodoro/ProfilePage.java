@@ -76,6 +76,30 @@ public class ProfilePage extends Fragment {
             }
         });
 
+        binding.commonTwoImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentUri = Uri.parse("android.resource://com.example.pomodoro/drawable/common_two");
+                binding.iconProfileImage.setImageURI(currentUri);
+            }
+        });
+
+        binding.commonThreeImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentUri = Uri.parse("android.resource://com.example.pomodoro/drawable/common_three");
+                binding.iconProfileImage.setImageURI(currentUri);
+            }
+        });
+
+        binding.commonFourImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentUri = Uri.parse("android.resource://com.example.pomodoro/drawable/common_four");
+                binding.iconProfileImage.setImageURI(currentUri);
+            }
+        });
+
         binding.rareOneImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,10 +108,50 @@ public class ProfilePage extends Fragment {
             }
         });
 
+        binding.rareTwoImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentUri = Uri.parse("android.resource://com.example.pomodoro/drawable/rare_two");
+                binding.iconProfileImage.setImageURI(currentUri);
+            }
+        });
+
+        binding.rareThreeImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentUri = Uri.parse("android.resource://com.example.pomodoro/drawable/rare_three");
+                binding.iconProfileImage.setImageURI(currentUri);
+            }
+        });
+
+        binding.rareFourImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentUri = Uri.parse("android.resource://com.example.pomodoro/drawable/rare_four");
+                binding.iconProfileImage.setImageURI(currentUri);
+            }
+        });
+
         binding.epicOneImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 currentUri = Uri.parse("android.resource://com.example.pomodoro/drawable/epic_one");
+                binding.iconProfileImage.setImageURI(currentUri);
+            }
+        });
+
+        binding.epicTwoImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentUri = Uri.parse("android.resource://com.example.pomodoro/drawable/epic_two");
+                binding.iconProfileImage.setImageURI(currentUri);
+            }
+        });
+
+        binding.epicThreeImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentUri = Uri.parse("android.resource://com.example.pomodoro/drawable/epic_three");
                 binding.iconProfileImage.setImageURI(currentUri);
             }
         });
