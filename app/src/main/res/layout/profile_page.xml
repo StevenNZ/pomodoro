@@ -370,11 +370,12 @@
             <LinearLayout
                 android:id="@+id/maskLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="300dp"
                 android:background="@android:color/transparent"
                 android:clickable="true"
+                android:visibility="visible"
                 android:orientation="horizontal"
-                android:visibility="visible" />
+                app:layout_constraintTop_toTopOf="parent"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <Button
