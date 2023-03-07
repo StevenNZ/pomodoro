@@ -317,8 +317,16 @@ public class UserAccount {
         customLongTwo = 0;
 
         commonOne = false;
+        commonTwo = false;
+        commonThree = false;
+        commonFour = false;
         rareOne = false;
+        rareTwo = false;
+        rareThree = false;
+        rareFour = false;
         epicOne = false;
+        epicTwo = false;
+        epicThree = false;
     }
 
     private UserAccount() {
