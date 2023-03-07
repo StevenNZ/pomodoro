@@ -30,8 +30,16 @@ public class UserAccount {
     protected static int customLongTwo;
 
     protected static boolean commonOne;
+    protected static boolean commonTwo;
+    protected static boolean commonThree;
+    protected static boolean commonFour;
     protected static boolean rareOne;
+    protected static boolean rareTwo;
+    protected static boolean rareThree;
+    protected static boolean rareFour;
     protected static boolean epicOne;
+    protected static boolean epicTwo;
+    protected static boolean epicThree;
 
     public static String getEmailAddress() {
         return emailAddress;
@@ -207,6 +215,30 @@ public class UserAccount {
         UserAccount.commonOne = commonOne;
     }
 
+    public static boolean isCommonTwo() {
+        return commonTwo;
+    }
+
+    public static void setCommonTwo(boolean commonTwo) {
+        UserAccount.commonTwo = commonTwo;
+    }
+
+    public static boolean isCommonThree() {
+        return commonThree;
+    }
+
+    public static void setCommonThree(boolean commonThree) {
+        UserAccount.commonThree = commonThree;
+    }
+
+    public static boolean isCommonFour() {
+        return commonFour;
+    }
+
+    public static void setCommonFour(boolean commonFour) {
+        UserAccount.commonFour = commonFour;
+    }
+
     public static boolean isRareOne() {
         return rareOne;
     }
@@ -215,12 +247,52 @@ public class UserAccount {
         UserAccount.rareOne = rareOne;
     }
 
+    public static boolean isRareTwo() {
+        return rareTwo;
+    }
+
+    public static void setRareTwo(boolean rareTwo) {
+        UserAccount.rareTwo = rareTwo;
+    }
+
+    public static boolean isRareThree() {
+        return rareThree;
+    }
+
+    public static void setRareThree(boolean rareThree) {
+        UserAccount.rareThree = rareThree;
+    }
+
+    public static boolean isRareFour() {
+        return rareFour;
+    }
+
+    public static void setRareFour(boolean rareFour) {
+        UserAccount.rareFour = rareFour;
+    }
+
     public static boolean isEpicOne() {
         return epicOne;
     }
 
     public static void setEpicOne(boolean epicOne) {
         UserAccount.epicOne = epicOne;
+    }
+
+    public static boolean isEpicTwo() {
+        return epicTwo;
+    }
+
+    public static void setEpicTwo(boolean epicTwo) {
+        UserAccount.epicTwo = epicTwo;
+    }
+
+    public static boolean isEpicThree() {
+        return epicThree;
+    }
+
+    public static void setEpicThree(boolean epicThree) {
+        UserAccount.epicThree = epicThree;
     }
 
     public static void resetGuest() {
