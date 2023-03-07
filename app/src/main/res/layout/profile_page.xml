@@ -334,6 +334,39 @@
                 app:layout_constraintTop_toBottomOf="@id/commonOneImage"
                 app:srcCompat="@drawable/rare_four" />
 
+            <ImageView
+                android:id="@+id/epicOneImage"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginStart="40dp"
+                android:alpha="0.25"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rareOneImage"
+                app:srcCompat="@drawable/epic_one" />
+
+            <ImageView
+                android:id="@+id/epicTwoImage"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_marginTop="30dp"
+                android:alpha="0.25"
+                app:layout_constraintTop_toBottomOf="@id/rareOneImage"
+                app:layout_constraintStart_toEndOf="@id/epicOneImage"
+                app:layout_constraintEnd_toStartOf="@id/epicThreeImage"
+                app:srcCompat="@drawable/epic_two" />
+
+            <ImageView
+                android:id="@+id/epicThreeImage"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="40dp"
+                android:alpha="0.25"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rareOneImage"
+                app:srcCompat="@drawable/epic_three" />
+
             <LinearLayout
                 android:id="@+id/maskLayout"
                 android:layout_width="match_parent"
