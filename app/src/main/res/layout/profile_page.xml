@@ -246,8 +246,10 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/inventoryLayout"
             android:layout_width="351dp"
-            android:layout_height="130dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="35dp"
+            android:layout_marginBottom="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/badgeLayout">
@@ -290,6 +292,48 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/common_five" />
 
+            <ImageView
+                android:id="@+id/rareOneImage"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_marginTop="30dp"
+                android:alpha="0.25"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/commonOneImage"
+                app:srcCompat="@drawable/rare_one" />
+
+            <ImageView
+                android:id="@+id/rareTwoImage"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_marginTop="30dp"
+                android:alpha="0.25"
+                app:layout_constraintStart_toEndOf="@id/rareOneImage"
+                app:layout_constraintEnd_toStartOf="@id/rareThreeImage"
+                app:layout_constraintTop_toBottomOf="@id/commonOneImage"
+                app:srcCompat="@drawable/rare_two" />
+
+            <ImageView
+                android:id="@+id/rareThreeImage"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_marginTop="30dp"
+                android:alpha="0.25"
+                app:layout_constraintStart_toEndOf="@id/rareTwoImage"
+                app:layout_constraintEnd_toStartOf="@id/rareFourImage"
+                app:layout_constraintTop_toBottomOf="@id/commonOneImage"
+                app:srcCompat="@drawable/rare_three" />
+
+            <ImageView
+                android:id="@+id/rareFourImage"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_marginTop="30dp"
+                android:alpha="0.25"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/commonOneImage"
+                app:srcCompat="@drawable/rare_four" />
+
             <LinearLayout
                 android:id="@+id/maskLayout"
                 android:layout_width="match_parent"
@@ -297,7 +341,7 @@
                 android:background="@android:color/transparent"
                 android:clickable="true"
                 android:orientation="horizontal"
-                android:visibility="visible"/>
+                android:visibility="visible" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <Button
