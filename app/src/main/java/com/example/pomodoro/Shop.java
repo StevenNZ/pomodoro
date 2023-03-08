@@ -111,8 +111,7 @@ public class Shop extends Fragment {
             confetti.explode();
             confetti.parade();
         } else if (randFloat >= 0.85f) {
-            UserAccount.setRareOne(true);
-            itemImage = "android.resource://com.example.pomodoro/drawable/rare_one";
+            itemImage = getRandomRare();
             tier = "Rare";
             confetti.explode();
         } else {
@@ -125,6 +124,27 @@ public class Shop extends Fragment {
         UserAccount.updateDatabase("Inventory", key, true);
         binding.unlockImage.setImageURI(Uri.parse(itemImage));
         binding.unlockText.setText(tier);
+    }
+
+    private String getRandomRare() {
+        float randFloat = new Random().nextFloat();
+        String rareName;
+
+        if (randFloat < 0.25f) {
+            rareName = "android.resource://com.example.pomodoro/drawable/rare_one";
+            UserAccount.setRareOne(true);
+        } else if (randFloat < 0.5f) {
+            rareName = "android.resource://com.example.pomodoro/drawable/rare_two";
+            UserAccount.setRareTwo(true);
+        } else if (randFloat < 0.75) {
+            rareName = "android.resource://com.example.pomodoro/drawable/rare_three";
+            UserAccount.setRareThree(true);
+        } else {
+            rareName = "android.resource://com.example.pomodoro/drawable/rare_four";
+            UserAccount.setRareFour(true);
+        }
+
+        return rareName;
     }
 
     private String getRandomEpic() {
