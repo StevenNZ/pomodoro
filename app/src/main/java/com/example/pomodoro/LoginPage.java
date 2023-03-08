@@ -173,13 +173,29 @@ public class LoginPage extends Fragment {
 
         int tomatoes = Integer.parseInt(String.valueOf(inventorySnapShot.child("Tomatoes").getValue()));
         boolean commonOne = Boolean.parseBoolean(String.valueOf(inventorySnapShot.child("Common One").getValue()));
+        boolean commonTwo = Boolean.parseBoolean(String.valueOf(inventorySnapShot.child("Common Two").getValue()));
+        boolean commonThree = Boolean.parseBoolean(String.valueOf(inventorySnapShot.child("Common Three").getValue()));
+        boolean commonFour = Boolean.parseBoolean(String.valueOf(inventorySnapShot.child("Common Four").getValue()));
         boolean rareOne = Boolean.parseBoolean(String.valueOf(inventorySnapShot.child("Rare One").getValue()));
+        boolean rareTwo = Boolean.parseBoolean(String.valueOf(inventorySnapShot.child("Rare Two").getValue()));
+        boolean rareThree = Boolean.parseBoolean(String.valueOf(inventorySnapShot.child("Rare Three").getValue()));
+        boolean rareFour = Boolean.parseBoolean(String.valueOf(inventorySnapShot.child("Rare Four").getValue()));
         boolean epicOne = Boolean.parseBoolean(String.valueOf(inventorySnapShot.child("Epic One").getValue()));
+        boolean epicTwo = Boolean.parseBoolean(String.valueOf(inventorySnapShot.child("Epic Two").getValue()));
+        boolean epicThree = Boolean.parseBoolean(String.valueOf(inventorySnapShot.child("Epic Three").getValue()));
 
         UserAccount.setTomatoes(tomatoes);
         UserAccount.setCommonOne(commonOne);
+        UserAccount.setCommonTwo(commonTwo);
+        UserAccount.setCommonThree(commonThree);
+        UserAccount.setCommonFour(commonFour);
         UserAccount.setRareOne(rareOne);
+        UserAccount.setRareTwo(rareTwo);
+        UserAccount.setRareThree(rareThree);
+        UserAccount.setRareFour(rareFour);
         UserAccount.setEpicOne(epicOne);
+        UserAccount.setEpicTwo(epicTwo);
+        UserAccount.setEpicThree(epicThree);
     }
 
     protected static void retrieveUserCustom(DataSnapshot dataSnapshot) {
