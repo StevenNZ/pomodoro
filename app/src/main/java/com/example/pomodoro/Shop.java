@@ -115,6 +115,7 @@ public class Shop extends Fragment {
             tier = "Rare";
             confetti.explode();
         } else {
+            itemImage = getRandomCommon();
             UserAccount.setCommonOne(true);
             itemImage = "android.resource://com.example.pomodoro/drawable/common_one";
             tier = "Common";
@@ -124,6 +125,27 @@ public class Shop extends Fragment {
         UserAccount.updateDatabase("Inventory", key, true);
         binding.unlockImage.setImageURI(Uri.parse(itemImage));
         binding.unlockText.setText(tier);
+    }
+
+    private String getRandomCommon() {
+        float randFloat = new Random().nextFloat();
+        String commonName;
+
+        if (randFloat < 0.25f) {
+            commonName = "android.resource://com.example.pomodoro/drawable/common_one";
+            UserAccount.setCommonOne(true);
+        } else if (randFloat < 0.5f) {
+            commonName = "android.resource://com.example.pomodoro/drawable/common_two";
+            UserAccount.setCommonTwo(true);
+        } else if (randFloat < 0.75) {
+            commonName = "android.resource://com.example.pomodoro/drawable/common_three";
+            UserAccount.setCommonThree(true);
+        } else {
+            commonName = "android.resource://com.example.pomodoro/drawable/common_four";
+            UserAccount.setCommonFour(true);
+        }
+
+        return commonName;
     }
 
     private String getRandomRare() {
