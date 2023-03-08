@@ -246,48 +246,136 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/inventoryLayout"
             android:layout_width="351dp"
-            android:layout_height="130dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="35dp"
+            android:layout_marginBottom="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/badgeLayout">
 
             <ImageView
                 android:id="@+id/commonOneImage"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
                 android:alpha="0.25"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/common_one" />
 
             <ImageView
-                android:id="@+id/rareOneImage"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:id="@+id/commonTwoImage"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
                 android:alpha="0.25"
-                app:layout_constraintEnd_toStartOf="@+id/epicOneImage"
+                app:layout_constraintEnd_toStartOf="@+id/commonThreeImage"
                 app:layout_constraintStart_toEndOf="@+id/commonOneImage"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/rare_one" />
+                app:srcCompat="@drawable/common_two" />
 
             <ImageView
-                android:id="@+id/epicOneImage"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:id="@+id/commonThreeImage"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:alpha="0.25"
+                app:layout_constraintEnd_toStartOf="@+id/commonFourImage"
+                app:layout_constraintStart_toEndOf="@+id/commonTwoImage"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/common_three" />
+
+            <ImageView
+                android:id="@+id/commonFourImage"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
                 android:alpha="0.25"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/common_four" />
+
+            <ImageView
+                android:id="@+id/rareOneImage"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_marginTop="30dp"
+                android:alpha="0.25"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/commonOneImage"
+                app:srcCompat="@drawable/rare_one" />
+
+            <ImageView
+                android:id="@+id/rareTwoImage"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_marginTop="30dp"
+                android:alpha="0.25"
+                app:layout_constraintStart_toEndOf="@id/rareOneImage"
+                app:layout_constraintEnd_toStartOf="@id/rareThreeImage"
+                app:layout_constraintTop_toBottomOf="@id/commonOneImage"
+                app:srcCompat="@drawable/rare_two" />
+
+            <ImageView
+                android:id="@+id/rareThreeImage"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_marginTop="30dp"
+                android:alpha="0.25"
+                app:layout_constraintStart_toEndOf="@id/rareTwoImage"
+                app:layout_constraintEnd_toStartOf="@id/rareFourImage"
+                app:layout_constraintTop_toBottomOf="@id/commonOneImage"
+                app:srcCompat="@drawable/rare_three" />
+
+            <ImageView
+                android:id="@+id/rareFourImage"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_marginTop="30dp"
+                android:alpha="0.25"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/commonOneImage"
+                app:srcCompat="@drawable/rare_four" />
+
+            <ImageView
+                android:id="@+id/epicOneImage"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginStart="40dp"
+                android:alpha="0.25"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rareOneImage"
                 app:srcCompat="@drawable/epic_one" />
+
+            <ImageView
+                android:id="@+id/epicTwoImage"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_marginTop="30dp"
+                android:alpha="0.25"
+                app:layout_constraintTop_toBottomOf="@id/rareOneImage"
+                app:layout_constraintStart_toEndOf="@id/epicOneImage"
+                app:layout_constraintEnd_toStartOf="@id/epicThreeImage"
+                app:srcCompat="@drawable/epic_two" />
+
+            <ImageView
+                android:id="@+id/epicThreeImage"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="40dp"
+                android:alpha="0.25"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rareOneImage"
+                app:srcCompat="@drawable/epic_three" />
 
             <LinearLayout
                 android:id="@+id/maskLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="300dp"
                 android:background="@android:color/transparent"
                 android:clickable="true"
+                android:visibility="visible"
                 android:orientation="horizontal"
-                android:visibility="visible"/>
+                app:layout_constraintTop_toTopOf="parent"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <Button

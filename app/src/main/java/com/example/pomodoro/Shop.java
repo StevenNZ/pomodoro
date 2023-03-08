@@ -105,27 +105,83 @@ public class Shop extends Fragment {
         String itemImage;
         String tier;
 
-        if (randFloat >= 0.99f) {
-            UserAccount.setEpicOne(true);
-            itemImage = "android.resource://com.example.pomodoro/drawable/epic_one";
+        if (randFloat >= 0.95f) {
+            itemImage = getRandomEpic();
             tier = "Epic";
             confetti.explode();
             confetti.parade();
-        } else if (randFloat >= 0.9f) {
-            UserAccount.setRareOne(true);
-            itemImage = "android.resource://com.example.pomodoro/drawable/rare_one";
+        } else if (randFloat >= 0.85f) {
+            itemImage = getRandomRare();
             tier = "Rare";
             confetti.explode();
         } else {
-            UserAccount.setCommonOne(true);
-            itemImage = "android.resource://com.example.pomodoro/drawable/common_one";
+            itemImage = getRandomCommon();
             tier = "Common";
         }
-        confetti.rain();
         String key = getFileName(itemImage);
         UserAccount.updateDatabase("Inventory", key, true);
         binding.unlockImage.setImageURI(Uri.parse(itemImage));
         binding.unlockText.setText(tier);
+    }
+
+    private String getRandomCommon() {
+        float randFloat = new Random().nextFloat();
+        String commonName;
+
+        if (randFloat < 0.25f) {
+            commonName = "android.resource://com.example.pomodoro/drawable/common_one";
+            UserAccount.setCommonOne(true);
+        } else if (randFloat < 0.5f) {
+            commonName = "android.resource://com.example.pomodoro/drawable/common_two";
+            UserAccount.setCommonTwo(true);
+        } else if (randFloat < 0.75) {
+            commonName = "android.resource://com.example.pomodoro/drawable/common_three";
+            UserAccount.setCommonThree(true);
+        } else {
+            commonName = "android.resource://com.example.pomodoro/drawable/common_four";
+            UserAccount.setCommonFour(true);
+        }
+
+        return commonName;
+    }
+
+    private String getRandomRare() {
+        float randFloat = new Random().nextFloat();
+        String rareName;
+
+        if (randFloat < 0.25f) {
+            rareName = "android.resource://com.example.pomodoro/drawable/rare_one";
+            UserAccount.setRareOne(true);
+        } else if (randFloat < 0.5f) {
+            rareName = "android.resource://com.example.pomodoro/drawable/rare_two";
+            UserAccount.setRareTwo(true);
+        } else if (randFloat < 0.75) {
+            rareName = "android.resource://com.example.pomodoro/drawable/rare_three";
+            UserAccount.setRareThree(true);
+        } else {
+            rareName = "android.resource://com.example.pomodoro/drawable/rare_four";
+            UserAccount.setRareFour(true);
+        }
+
+        return rareName;
+    }
+
+    private String getRandomEpic() {
+        float randFloat = new Random().nextFloat();
+        String epicName;
+
+        if (randFloat < 0.33f) {
+            epicName = "android.resource://com.example.pomodoro/drawable/epic_one";
+            UserAccount.setEpicOne(true);
+        } else if (randFloat < 0.66f) {
+            epicName = "android.resource://com.example.pomodoro/drawable/epic_two";
+            UserAccount.setEpicTwo(true);
+        } else {
+            epicName = "android.resource://com.example.pomodoro/drawable/epic_three";
+            UserAccount.setEpicThree(true);
+        }
+
+        return epicName;
     }
 
     private String getFileName(String itemImage) {

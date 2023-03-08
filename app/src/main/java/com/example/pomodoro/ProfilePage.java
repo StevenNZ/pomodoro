@@ -11,6 +11,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.TooltipCompat;
@@ -76,10 +77,58 @@ public class ProfilePage extends Fragment {
             }
         });
 
+        binding.commonTwoImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentUri = Uri.parse("android.resource://com.example.pomodoro/drawable/common_two");
+                binding.iconProfileImage.setImageURI(currentUri);
+            }
+        });
+
+        binding.commonThreeImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentUri = Uri.parse("android.resource://com.example.pomodoro/drawable/common_three");
+                binding.iconProfileImage.setImageURI(currentUri);
+            }
+        });
+
+        binding.commonFourImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentUri = Uri.parse("android.resource://com.example.pomodoro/drawable/common_four");
+                binding.iconProfileImage.setImageURI(currentUri);
+            }
+        });
+
         binding.rareOneImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 currentUri = Uri.parse("android.resource://com.example.pomodoro/drawable/rare_one");
+                binding.iconProfileImage.setImageURI(currentUri);
+            }
+        });
+
+        binding.rareTwoImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentUri = Uri.parse("android.resource://com.example.pomodoro/drawable/rare_two");
+                binding.iconProfileImage.setImageURI(currentUri);
+            }
+        });
+
+        binding.rareThreeImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentUri = Uri.parse("android.resource://com.example.pomodoro/drawable/rare_three");
+                binding.iconProfileImage.setImageURI(currentUri);
+            }
+        });
+
+        binding.rareFourImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentUri = Uri.parse("android.resource://com.example.pomodoro/drawable/rare_four");
                 binding.iconProfileImage.setImageURI(currentUri);
             }
         });
@@ -92,6 +141,22 @@ public class ProfilePage extends Fragment {
             }
         });
 
+        binding.epicTwoImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentUri = Uri.parse("android.resource://com.example.pomodoro/drawable/epic_two");
+                binding.iconProfileImage.setImageURI(currentUri);
+            }
+        });
+
+        binding.epicThreeImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentUri = Uri.parse("android.resource://com.example.pomodoro/drawable/epic_three");
+                binding.iconProfileImage.setImageURI(currentUri);
+            }
+        });
+
         updateProfile();
         updateStats();
         updateBadges();
@@ -100,20 +165,24 @@ public class ProfilePage extends Fragment {
     }
 
     private void updateInventory() {
-        if (UserAccount.isCommonOne()) {
-            binding.commonOneImage.setAlpha(1f);
-        }
-        binding.commonOneImage.setClickable(UserAccount.isCommonOne());
+        checkHasAvatar(binding.commonOneImage, UserAccount.isCommonOne());
+        checkHasAvatar(binding.commonTwoImage, UserAccount.isCommonTwo());
+        checkHasAvatar(binding.commonThreeImage, UserAccount.isCommonTwo());
+        checkHasAvatar(binding.commonFourImage, UserAccount.isCommonFour());
+        checkHasAvatar(binding.rareOneImage, UserAccount.isRareOne());
+        checkHasAvatar(binding.rareTwoImage, UserAccount.isRareTwo());
+        checkHasAvatar(binding.rareThreeImage, UserAccount.isRareThree());
+        checkHasAvatar(binding.rareFourImage, UserAccount.isRareFour());
+        checkHasAvatar(binding.epicOneImage, UserAccount.isEpicOne());
+        checkHasAvatar(binding.epicTwoImage, UserAccount.isEpicTwo());
+        checkHasAvatar(binding.epicThreeImage, UserAccount.isEpicThree());
+    }
 
-        if (UserAccount.isRareOne()) {
-            binding.rareOneImage.setAlpha(1f);
+    private void checkHasAvatar(ImageView avatarImage, boolean isUnlocked) {
+        if (isUnlocked) {
+            avatarImage.setAlpha(1f);
         }
-        binding.rareOneImage.setClickable(UserAccount.isRareOne());
-
-        if (UserAccount.isEpicOne()) {
-            binding.epicOneImage.setAlpha(1f);
-        }
-        binding.epicOneImage.setClickable(UserAccount.isEpicOne());
+        avatarImage.setClickable(isUnlocked);
     }
 
     private void updateProfile() {
