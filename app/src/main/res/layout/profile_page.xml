@@ -261,7 +261,7 @@
                 android:alpha="0.25"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/common_two" />
+                app:srcCompat="@drawable/common_one" />
 
             <ImageView
                 android:id="@+id/commonTwoImage"
@@ -271,7 +271,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/commonThreeImage"
                 app:layout_constraintStart_toEndOf="@+id/commonOneImage"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/common_three" />
+                app:srcCompat="@drawable/common_two" />
 
             <ImageView
                 android:id="@+id/commonThreeImage"
@@ -281,7 +281,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/commonFourImage"
                 app:layout_constraintStart_toEndOf="@+id/commonTwoImage"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/common_four" />
+                app:srcCompat="@drawable/common_three" />
 
             <ImageView
                 android:id="@+id/commonFourImage"
@@ -290,7 +290,7 @@
                 android:alpha="0.25"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/common_five" />
+                app:srcCompat="@drawable/common_four" />
 
             <ImageView
                 android:id="@+id/rareOneImage"
