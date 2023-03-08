@@ -105,13 +105,13 @@ public class Shop extends Fragment {
         String itemImage;
         String tier;
 
-        if (randFloat >= 0.99f) {
+        if (randFloat >= 0.95f) {
             UserAccount.setEpicOne(true);
             itemImage = "android.resource://com.example.pomodoro/drawable/epic_one";
             tier = "Epic";
             confetti.explode();
             confetti.parade();
-        } else if (randFloat >= 0.9f) {
+        } else if (randFloat >= 0.85f) {
             UserAccount.setRareOne(true);
             itemImage = "android.resource://com.example.pomodoro/drawable/rare_one";
             tier = "Rare";
