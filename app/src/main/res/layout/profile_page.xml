@@ -201,11 +201,24 @@
                 app:srcCompat="@drawable/guest_icon" />
 
             <ImageView
+                android:id="@+id/editBackground"
+                android:layout_width="37dp"
+                android:layout_height="37dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginStart="-2dp"
+                android:background="@drawable/common"
+                android:backgroundTint="#CCCFD3"
+                app:layout_constraintStart_toStartOf="@+id/editButton"
+                app:layout_constraintTop_toTopOf="@id/editButton"
+                app:layout_constraintEnd_toEndOf="@id/editButton"
+                app:layout_constraintBottom_toBottomOf="@id/editButton" />
+
+            <ImageView
                 android:id="@+id/editButton"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="17dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="20dp"
                 app:layout_constraintStart_toEndOf="@+id/nameProfileText"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/work_fill" />
