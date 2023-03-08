@@ -116,11 +116,8 @@ public class Shop extends Fragment {
             confetti.explode();
         } else {
             itemImage = getRandomCommon();
-            UserAccount.setCommonOne(true);
-            itemImage = "android.resource://com.example.pomodoro/drawable/common_one";
             tier = "Common";
         }
-        confetti.rain();
         String key = getFileName(itemImage);
         UserAccount.updateDatabase("Inventory", key, true);
         binding.unlockImage.setImageURI(Uri.parse(itemImage));
