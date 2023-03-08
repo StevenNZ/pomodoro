@@ -162,8 +162,16 @@ public class RegisterPage extends Fragment {
     private void updateInventoryDatabase(DatabaseReference databaseReference) {
         databaseReference.child("Tomatoes").setValue(0);
         databaseReference.child("Common One").setValue(false);
+        databaseReference.child("Common Two").setValue(false);
+        databaseReference.child("Common Three").setValue(false);
+        databaseReference.child("Common Four").setValue(false);
         databaseReference.child("Rare One").setValue(false);
+        databaseReference.child("Rare Two").setValue(false);
+        databaseReference.child("Rare Three").setValue(false);
+        databaseReference.child("Rare Four").setValue(false);
         databaseReference.child("Epic One").setValue(false);
+        databaseReference.child("Epic Two").setValue(false);
+        databaseReference.child("Epic Three").setValue(false);
     }
 
     private void updateCustomDatabase(DatabaseReference databaseReference) {
