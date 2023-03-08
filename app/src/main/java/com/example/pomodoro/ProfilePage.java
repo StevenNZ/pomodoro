@@ -11,6 +11,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.TooltipCompat;
@@ -164,20 +165,24 @@ public class ProfilePage extends Fragment {
     }
 
     private void updateInventory() {
-        if (UserAccount.isCommonOne()) {
-            binding.commonOneImage.setAlpha(1f);
-        }
-        binding.commonOneImage.setClickable(UserAccount.isCommonOne());
+        checkHasAvatar(binding.commonOneImage, UserAccount.isCommonOne());
+        checkHasAvatar(binding.commonTwoImage, UserAccount.isCommonTwo());
+        checkHasAvatar(binding.commonThreeImage, UserAccount.isCommonTwo());
+        checkHasAvatar(binding.commonFourImage, UserAccount.isCommonFour());
+        checkHasAvatar(binding.rareOneImage, UserAccount.isRareOne());
+        checkHasAvatar(binding.rareTwoImage, UserAccount.isRareTwo());
+        checkHasAvatar(binding.rareThreeImage, UserAccount.isRareThree());
+        checkHasAvatar(binding.rareFourImage, UserAccount.isRareFour());
+        checkHasAvatar(binding.epicOneImage, UserAccount.isEpicOne());
+        checkHasAvatar(binding.epicTwoImage, UserAccount.isEpicTwo());
+        checkHasAvatar(binding.epicThreeImage, UserAccount.isEpicThree());
+    }
 
-        if (UserAccount.isRareOne()) {
-            binding.rareOneImage.setAlpha(1f);
+    private void checkHasAvatar(ImageView avatarImage, boolean isUnlocked) {
+        if (isUnlocked) {
+            avatarImage.setAlpha(1f);
         }
-        binding.rareOneImage.setClickable(UserAccount.isRareOne());
-
-        if (UserAccount.isEpicOne()) {
-            binding.epicOneImage.setAlpha(1f);
-        }
-        binding.epicOneImage.setClickable(UserAccount.isEpicOne());
+        avatarImage.setClickable(isUnlocked);
     }
 
     private void updateProfile() {
