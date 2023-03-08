@@ -106,8 +106,7 @@ public class Shop extends Fragment {
         String tier;
 
         if (randFloat >= 0.95f) {
-            UserAccount.setEpicOne(true);
-            itemImage = "android.resource://com.example.pomodoro/drawable/epic_one";
+            itemImage = getRandomEpic();
             tier = "Epic";
             confetti.explode();
             confetti.parade();
@@ -126,6 +125,24 @@ public class Shop extends Fragment {
         UserAccount.updateDatabase("Inventory", key, true);
         binding.unlockImage.setImageURI(Uri.parse(itemImage));
         binding.unlockText.setText(tier);
+    }
+
+    private String getRandomEpic() {
+        float randFloat = new Random().nextFloat();
+        String epicName;
+
+        if (randFloat < 0.33f) {
+            epicName = "android.resource://com.example.pomodoro/drawable/epic_one";
+            UserAccount.setEpicOne(true);
+        } else if (randFloat < 0.66f) {
+            epicName = "android.resource://com.example.pomodoro/drawable/epic_two";
+            UserAccount.setEpicTwo(true);
+        } else {
+            epicName = "android.resource://com.example.pomodoro/drawable/epic_three";
+            UserAccount.setEpicThree(true);
+        }
+
+        return epicName;
     }
 
     private String getFileName(String itemImage) {
