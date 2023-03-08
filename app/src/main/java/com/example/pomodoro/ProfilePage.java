@@ -48,6 +48,7 @@ public class ProfilePage extends Fragment {
                 binding.badgeLayout.setVisibility(View.GONE);
                 binding.editButton.setVisibility(View.GONE);
                 binding.saveAvatarButton.setVisibility(View.VISIBLE);
+                binding.editBackground.setVisibility(View.GONE);
                 binding.maskLayout.setClickable(false);
             }
         });
@@ -58,6 +59,7 @@ public class ProfilePage extends Fragment {
                 binding.statsLayout.setVisibility(View.VISIBLE);
                 binding.badgeLayout.setVisibility(View.VISIBLE);
                 binding.editButton.setVisibility(View.VISIBLE);
+                binding.editBackground.setVisibility(View.VISIBLE);
                 binding.saveAvatarButton.setVisibility(View.GONE);
                 binding.maskLayout.setClickable(true);
 
