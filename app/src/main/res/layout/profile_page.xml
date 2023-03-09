@@ -53,7 +53,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/pomodoroTotal2"
+                android:id="@+id/pomodoroCycle"
                 android:layout_width="150dp"
                 android:layout_height="100dp"
                 android:background="@drawable/stats_box"
@@ -99,9 +99,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
                 android:text="Pomodoro Cycle"
-                app:layout_constraintEnd_toEndOf="@+id/pomodoroTotal2"
-                app:layout_constraintStart_toStartOf="@+id/pomodoroTotal2"
-                app:layout_constraintTop_toTopOf="@+id/pomodoroTotal2" />
+                app:layout_constraintEnd_toEndOf="@+id/pomodoroCycle"
+                app:layout_constraintStart_toStartOf="@+id/pomodoroCycle"
+                app:layout_constraintTop_toTopOf="@+id/pomodoroCycle" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout

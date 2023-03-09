@@ -227,5 +227,6 @@ public class ProfilePage extends Fragment {
         binding.pomodoroTotal.setText(String.valueOf(pomodoroTotal));
         binding.workTotal.setText(workTotalString);
         binding.breakTotal.setText(breakTotalString);
+        binding.pomodoroCycle.setText(String.valueOf(pomodoroCycles));
     }
 }
