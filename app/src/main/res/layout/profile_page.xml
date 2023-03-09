@@ -98,7 +98,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
-                android:text="Place Holder"
+                android:text="Pomodoro Cycle"
                 app:layout_constraintEnd_toEndOf="@+id/pomodoroTotal2"
                 app:layout_constraintStart_toStartOf="@+id/pomodoroTotal2"
                 app:layout_constraintTop_toTopOf="@+id/pomodoroTotal2" />
