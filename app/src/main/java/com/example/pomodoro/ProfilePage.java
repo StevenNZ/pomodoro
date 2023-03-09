@@ -200,6 +200,8 @@ public class ProfilePage extends Fragment {
         TooltipCompat.setTooltipText(binding.badgeTwoInitial, "Complete two pomodoro cycle");
         TooltipCompat.setTooltipText(binding.badgeTwoInitial, "Complete three pomodoro cycle");
         TooltipCompat.setTooltipText(binding.badgeFourInitial, "Create an account!");
+        TooltipCompat.setTooltipText(binding.badgeFiveInitial, "Try out and create your own custom session");
+        TooltipCompat.setTooltipText(binding.badgeSixInitial, "Unlock the rarest legendary icon");
     }
 
     private void updateBadges() {
