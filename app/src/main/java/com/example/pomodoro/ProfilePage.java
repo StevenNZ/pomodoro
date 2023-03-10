@@ -220,6 +220,10 @@ public class ProfilePage extends Fragment {
         if (!TextUtils.isEmpty(UserAccount.uid)) {
             binding.badgeFourInitial.setAlpha(1.00f);
         }
+
+        if (UserAccount.getCustomWorkTwo() != 0) {
+            binding.badgeFiveInitial.setAlpha(1.00f);
+        }
     }
 
     private void updateStats() {
