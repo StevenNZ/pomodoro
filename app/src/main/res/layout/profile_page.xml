@@ -53,7 +53,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/pomodoroTotal2"
+                android:id="@+id/pomodoroCycle"
                 android:layout_width="150dp"
                 android:layout_height="100dp"
                 android:background="@drawable/stats_box"
@@ -98,10 +98,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
-                android:text="Place Holder"
-                app:layout_constraintEnd_toEndOf="@+id/pomodoroTotal2"
-                app:layout_constraintStart_toStartOf="@+id/pomodoroTotal2"
-                app:layout_constraintTop_toTopOf="@+id/pomodoroTotal2" />
+                android:text="Pomodoro Cycle"
+                app:layout_constraintEnd_toEndOf="@+id/pomodoroCycle"
+                app:layout_constraintStart_toStartOf="@+id/pomodoroCycle"
+                app:layout_constraintTop_toTopOf="@+id/pomodoroCycle" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -201,11 +201,24 @@
                 app:srcCompat="@drawable/guest_icon" />
 
             <ImageView
+                android:id="@+id/editBackground"
+                android:layout_width="37dp"
+                android:layout_height="37dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginStart="-2dp"
+                android:background="@drawable/common"
+                android:backgroundTint="#CCCFD3"
+                app:layout_constraintStart_toStartOf="@+id/editButton"
+                app:layout_constraintTop_toTopOf="@id/editButton"
+                app:layout_constraintEnd_toEndOf="@id/editButton"
+                app:layout_constraintBottom_toBottomOf="@id/editButton" />
+
+            <ImageView
                 android:id="@+id/editButton"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="17dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="20dp"
                 app:layout_constraintStart_toEndOf="@+id/nameProfileText"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/work_fill" />

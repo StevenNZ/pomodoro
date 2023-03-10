@@ -89,6 +89,10 @@ public class UserAccount {
         UserAccount.pomodoroCycles = pomodoroCycles;
     }
 
+    public static int getPomodoroCycles() {
+        return UserAccount.pomodoroCycles;
+    }
+
     public static void setUID(String uid) {
         UserAccount.uid = uid;
     }
