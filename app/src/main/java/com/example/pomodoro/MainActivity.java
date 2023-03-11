@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
@@ -21,9 +22,10 @@ public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
 
-    private ConstraintLayout fragmentLayout;
+    private View navHostFrag;
     private ConstraintLayout mainMenuInfoLayout;
     private ConstraintLayout pomodoroInfoLayout;
+    private ConstraintLayout shopInfoLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,15 +40,16 @@ public class MainActivity extends AppCompatActivity {
         appBarConfiguration = new AppBarConfiguration.Builder(R.id.mainMenu, R.id.pomodoro).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
-        fragmentLayout = findViewById(R.id.fragmentLayout);
+        navHostFrag = findViewById(R.id.nav_host_fragment_content_main);
         mainMenuInfoLayout = findViewById(R.id.mainMenuInfoLayout);
         pomodoroInfoLayout = findViewById(R.id.pomodoroInfoLayout);
+        shopInfoLayout = findViewById(R.id.shopInfoLayout);
 
         mainMenuInfoLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mainMenuInfoLayout.setVisibility(View.INVISIBLE);
-                fragmentLayout.setAlpha(1.0f);
+                navHostFrag.setAlpha(1.0f);
             }
         });
 
@@ -54,7 +57,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 pomodoroInfoLayout.setVisibility(View.INVISIBLE);
-                fragmentLayout.setAlpha(1.0f);
+                navHostFrag.setAlpha(1.0f);
+            }
+        });
+
+        shopInfoLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                shopInfoLayout.setVisibility(View.INVISIBLE);
+                navHostFrag.setAlpha(1.0f);
             }
         });
     }
@@ -77,14 +88,16 @@ public class MainActivity extends AppCompatActivity {
             NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
             int id = navController.getCurrentDestination().getId();
 
-            fragmentLayout.setAlpha(0.5f);
+            navHostFrag.setAlpha(0.25f);
 
             if (id == R.id.mainMenu) {
                 mainMenuInfoLayout.setVisibility(View.VISIBLE);
-            } else if (id == R.id.pomodoro){
+            } else if (id == R.id.pomodoro) {
                 pomodoroInfoLayout.setVisibility(View.VISIBLE);
+            } else if (id == R.id.shop) {
+                shopInfoLayout.setVisibility(View.VISIBLE);
             } else {
-                fragmentLayout.setAlpha(1f);
+                navHostFrag.setAlpha(1f);
             }
         }
 
@@ -100,6 +113,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        fragmentLayout.setAlpha(1.0f);
+        navHostFrag.setAlpha(1.0f);
     }
 }
