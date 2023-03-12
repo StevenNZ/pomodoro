@@ -13,11 +13,11 @@ import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.example.pomodoro.databinding.CustomSettingBinding;
+import com.example.pomodoro.databinding.FragmentCustomSettingBinding;
 
-public class CustomSetting extends Fragment {
+public class CustomSettingFragment extends Fragment {
 
-    private CustomSettingBinding binding;
+    private FragmentCustomSettingBinding binding;
     private TextView currentTimeText;
     private EditText currentTitleText;
 
@@ -30,7 +30,7 @@ public class CustomSetting extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = CustomSettingBinding.inflate(inflater, container, false);
+        binding = FragmentCustomSettingBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
@@ -46,7 +46,7 @@ public class CustomSetting extends Fragment {
                 if (!isEditing) {
                     updatePomodoro();
 
-                    NavHostFragment.findNavController(CustomSetting.this)
+                    NavHostFragment.findNavController(CustomSettingFragment.this)
                             .navigate(R.id.action_customSetting_to_pomodoro);
                 } else {
                     saveCustomTimes();
@@ -239,7 +239,7 @@ public class CustomSetting extends Fragment {
     }
 
     private void updatePomodoro() {
-        PomodoroTimer.updateTimerSettings(workTime, shortBreakTime, longBreakTime);
+        PomodoroTimerFragment.updateTimerSettings(workTime, shortBreakTime, longBreakTime);
     }
 
     private void getCustomTimes() {

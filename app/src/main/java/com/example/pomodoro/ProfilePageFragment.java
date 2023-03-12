@@ -17,13 +17,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.fragment.app.Fragment;
 
-import com.example.pomodoro.databinding.ProfilePageBinding;
+import com.example.pomodoro.databinding.FragmentProfilePageBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
-public class ProfilePage extends Fragment {
+public class ProfilePageFragment extends Fragment {
 
-    private ProfilePageBinding binding;
+    private FragmentProfilePageBinding binding;
 
     private Uri currentUri;
 
@@ -33,7 +33,7 @@ public class ProfilePage extends Fragment {
             Bundle savedInstanceState
     ) {
 
-        binding = ProfilePageBinding.inflate(inflater, container, false);
+        binding = FragmentProfilePageBinding.inflate(inflater, container, false);
         return binding.getRoot();
 
     }
@@ -180,6 +180,11 @@ public class ProfilePage extends Fragment {
         checkHasAvatar(binding.epicThreeImage, UserAccount.isEpicThree());
     }
 
+    /**
+     * Checks if the user has already unlocked the avatar
+     * @param avatarImage - the avatar being checked
+     * @param isUnlocked - boolean variable if unlocked
+     */
     private void checkHasAvatar(ImageView avatarImage, boolean isUnlocked) {
         if (isUnlocked) {
             avatarImage.setAlpha(1f);

@@ -1,43 +1,26 @@
 package com.example.pomodoro;
 
 import android.annotation.SuppressLint;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.pomodoro.databinding.FragmentShopBinding;
 
-import java.net.URI;
-import java.util.Arrays;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
-
-import nl.dionsegijn.konfetti.core.Angle;
-import nl.dionsegijn.konfetti.core.Party;
-import nl.dionsegijn.konfetti.core.PartyFactory;
-import nl.dionsegijn.konfetti.core.Position;
-import nl.dionsegijn.konfetti.core.Spread;
-import nl.dionsegijn.konfetti.core.emitter.Emitter;
-import nl.dionsegijn.konfetti.core.emitter.EmitterConfig;
-import nl.dionsegijn.konfetti.core.models.Shape;
-import nl.dionsegijn.konfetti.core.models.Size;
 
 
-public class Shop extends Fragment {
+public class ShopFragment extends Fragment {
 
     private FragmentShopBinding binding;
 
@@ -69,9 +52,11 @@ public class Shop extends Fragment {
                 switch (event.getAction()) {
 
                     case MotionEvent.ACTION_DOWN:
+                        // when user holds down
                         swipeY1 = event.getY();
                         return true;
                     case MotionEvent.ACTION_UP:
+                        // when user releases
                         swipeY2 = event.getY();
 
                         if (swipeY2 < swipeY1) {
@@ -184,6 +169,11 @@ public class Shop extends Fragment {
         return epicName;
     }
 
+    /**
+     * Grabs the key of the inputted image to update the firebase database
+     * @param itemImage - image of the file name needed
+     * @return - String of the file name
+     */
     private String getFileName(String itemImage) {
         StringBuilder output = new StringBuilder();
         String[] filenames = itemImage.split("/");

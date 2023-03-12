@@ -1,6 +1,5 @@
 package com.example.pomodoro;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -14,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
-import com.example.pomodoro.databinding.LoginPageBinding;
+import com.example.pomodoro.databinding.FragmentLoginPageBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -25,11 +24,11 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class LoginPage extends Fragment {
+public class LoginPageFragment extends Fragment {
 
     protected static DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://pomodoro-2bd96-default-rtdb.firebaseio.com/");
 
-    private LoginPageBinding binding;
+    private FragmentLoginPageBinding binding;
 
     private static FirebaseAuth auth = FirebaseAuth.getInstance();
 
@@ -39,7 +38,7 @@ public class LoginPage extends Fragment {
             Bundle savedInstanceState
     ) {
 
-        binding = LoginPageBinding.inflate(inflater, container, false);
+        binding = FragmentLoginPageBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
@@ -49,7 +48,7 @@ public class LoginPage extends Fragment {
         binding.signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NavHostFragment.findNavController(LoginPage.this).navigate(R.id.action_loginPage_to_registerPage);
+                NavHostFragment.findNavController(LoginPageFragment.this).navigate(R.id.action_loginPage_to_registerPage);
             }
         });
 
@@ -70,7 +69,7 @@ public class LoginPage extends Fragment {
         binding.forgotPasswordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NavHostFragment.findNavController(LoginPage.this).navigate(R.id.action_loginPage_to_forgotPassword);
+                NavHostFragment.findNavController(LoginPageFragment.this).navigate(R.id.action_loginPage_to_forgotPassword);
             }
         });
         updateCurrentUserText();
@@ -87,7 +86,7 @@ public class LoginPage extends Fragment {
                 }
             }
         });
-
+        // Animations for user fab
         Animation showLayout = AnimationUtils.loadAnimation(getContext(), R.anim.show_layout);
         Animation hideLayout = AnimationUtils.loadAnimation(getContext(), R.anim.hide_layout);
 
@@ -158,6 +157,9 @@ public class LoginPage extends Fragment {
         });
     }
 
+    /**
+     * Updates the current user text at the bottom as well as the user picture
+     */
     private void updateCurrentUserText() {
         String currentUserText = "Currently no user logged in";
         if (auth.getCurrentUser() != null) {
@@ -167,7 +169,10 @@ public class LoginPage extends Fragment {
         binding.mainLoginIcon.setImageURI(UserAccount.getUriImage());
     }
 
-
+    /**
+     * Retrieve's the user's data from firebase in this case it's inventory
+     * @param dataSnapshot - a snapshot of the user's database state
+     */
     protected static void retrieveUserInventory(DataSnapshot dataSnapshot) {
         DataSnapshot inventorySnapShot = dataSnapshot.child("Inventory");
 
@@ -241,6 +246,9 @@ public class LoginPage extends Fragment {
         UserAccount.setUriImage(auth.getCurrentUser().getPhotoUrl());
     }
 
+    /**
+     * Updates the main menu when transitioning after log in
+     */
     private void updateMainMenu() {
         Bundle result = new Bundle();
         result.putString("lpUsername", UserAccount.getUsername());

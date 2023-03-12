@@ -3,13 +3,10 @@ package com.example.pomodoro;
 import android.animation.ObjectAnimator;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.graphics.ColorFilter;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.LayoutInflater;
@@ -17,15 +14,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
-import com.example.pomodoro.databinding.PomodoroTimerBinding;
+import com.example.pomodoro.databinding.FragmentPomodoroTimerBinding;
 
 import java.util.Locale;
 
-public class PomodoroTimer extends Fragment {
+public class PomodoroTimerFragment extends Fragment {
 
     private static long workTime = 5000;
     private static long shortBreakTime = 2000;
@@ -42,7 +38,7 @@ public class PomodoroTimer extends Fragment {
     private Confetti confetti;
 
     private CountDownTimer timer;
-    private PomodoroTimerBinding binding;
+    private FragmentPomodoroTimerBinding binding;
 
     public static void updateTimerSettings(long workTime, long shortTime, long longTime) {
 //        PomodoroTimer.workTime = workTime*60*1000;
@@ -56,7 +52,7 @@ public class PomodoroTimer extends Fragment {
             Bundle savedInstanceState
     ) {
 
-        binding = PomodoroTimerBinding.inflate(inflater, container, false);
+        binding = FragmentPomodoroTimerBinding.inflate(inflater, container, false);
         return binding.getRoot();
 
     }
@@ -70,7 +66,7 @@ public class PomodoroTimer extends Fragment {
             @Override
             public void onClick(View view) {
                 if (isNewGame) {
-                    NavHostFragment.findNavController(PomodoroTimer.this)
+                    NavHostFragment.findNavController(PomodoroTimerFragment.this)
                             .navigate(R.id.action_SecondFragment_to_FirstFragment);
                 } else {
                     alertConfirmation();
@@ -101,6 +97,9 @@ public class PomodoroTimer extends Fragment {
         confetti = new Confetti(binding.konfettiViewPomo, getContext());
     }
 
+    /**
+     * Called when user presses back button while in a pomodoro session and displays a confirmation prompt
+     */
     private void alertConfirmation() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setMessage("Remaining pomodoro progress will not be saved, are you sure you want to go back?");
@@ -110,7 +109,7 @@ public class PomodoroTimer extends Fragment {
                 if (!isNewGame) {
                     timer.cancel();
                 }
-                NavHostFragment.findNavController(PomodoroTimer.this)
+                NavHostFragment.findNavController(PomodoroTimerFragment.this)
                         .navigate(R.id.action_SecondFragment_to_FirstFragment);
             }
         });
@@ -172,6 +171,7 @@ public class PomodoroTimer extends Fragment {
             public void onFinish() {
                 updateTomatoes();
 
+                // if pomodoro session is over
                 if (isBreak && timeline == 0) {
                     binding.buttonNewGame.setVisibility(View.VISIBLE);
                     binding.buttonBack.setVisibility(View.VISIBLE);

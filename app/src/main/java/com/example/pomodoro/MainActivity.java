@@ -90,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
 
             navHostFrag.setAlpha(0.25f);
 
+            // displays the user info for the respective layout
             if (id == R.id.mainMenu) {
                 mainMenuInfoLayout.setVisibility(View.VISIBLE);
             } else if (id == R.id.pomodoro) {
