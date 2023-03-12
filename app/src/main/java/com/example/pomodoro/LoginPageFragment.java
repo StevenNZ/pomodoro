@@ -86,7 +86,7 @@ public class LoginPageFragment extends Fragment {
                 }
             }
         });
-
+        // Animations for user fab
         Animation showLayout = AnimationUtils.loadAnimation(getContext(), R.anim.show_layout);
         Animation hideLayout = AnimationUtils.loadAnimation(getContext(), R.anim.hide_layout);
 
@@ -157,6 +157,9 @@ public class LoginPageFragment extends Fragment {
         });
     }
 
+    /**
+     * Updates the current user text at the bottom as well as the user picture
+     */
     private void updateCurrentUserText() {
         String currentUserText = "Currently no user logged in";
         if (auth.getCurrentUser() != null) {
@@ -166,7 +169,10 @@ public class LoginPageFragment extends Fragment {
         binding.mainLoginIcon.setImageURI(UserAccount.getUriImage());
     }
 
-
+    /**
+     * Retrieve's the user's data from firebase in this case it's inventory
+     * @param dataSnapshot - a snapshot of the user's database state
+     */
     protected static void retrieveUserInventory(DataSnapshot dataSnapshot) {
         DataSnapshot inventorySnapShot = dataSnapshot.child("Inventory");
 
@@ -240,6 +246,9 @@ public class LoginPageFragment extends Fragment {
         UserAccount.setUriImage(auth.getCurrentUser().getPhotoUrl());
     }
 
+    /**
+     * Updates the main menu when transitioning after log in
+     */
     private void updateMainMenu() {
         Bundle result = new Bundle();
         result.putString("lpUsername", UserAccount.getUsername());
