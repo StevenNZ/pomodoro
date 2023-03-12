@@ -9,20 +9,20 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.example.pomodoro.databinding.ForgotPasswordBinding;
+import com.example.pomodoro.databinding.FragmentForgotPasswordBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class ForgotPasswordFragment extends Fragment {
 
-    ForgotPasswordBinding binding;
+    private FragmentForgotPasswordBinding binding;
 
-    FirebaseAuth auth = FirebaseAuth.getInstance();
+    private FirebaseAuth auth = FirebaseAuth.getInstance();
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = ForgotPasswordBinding.inflate(inflater, container, false);
+        binding = FragmentForgotPasswordBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 

@@ -14,7 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentResultListener;
 import androidx.navigation.fragment.NavHostFragment;
 
-import com.example.pomodoro.databinding.MainMenuBinding;
+import com.example.pomodoro.databinding.FragmentMainMenuBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -22,7 +22,7 @@ import com.google.firebase.database.DataSnapshot;
 
 public class MainMenuFragment extends Fragment {
 
-    private MainMenuBinding binding;
+    private FragmentMainMenuBinding binding;
 
     private FirebaseAuth auth = FirebaseAuth.getInstance();
 
@@ -32,7 +32,7 @@ public class MainMenuFragment extends Fragment {
             Bundle savedInstanceState
     ) {
 
-        binding = MainMenuBinding.inflate(inflater, container, false);
+        binding = FragmentMainMenuBinding.inflate(inflater, container, false);
         return binding.getRoot();
 
     }

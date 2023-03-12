@@ -17,7 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
-import com.example.pomodoro.databinding.PomodoroTimerBinding;
+import com.example.pomodoro.databinding.FragmentPomodoroTimerBinding;
 
 import java.util.Locale;
 
@@ -38,7 +38,7 @@ public class PomodoroTimerFragment extends Fragment {
     private Confetti confetti;
 
     private CountDownTimer timer;
-    private PomodoroTimerBinding binding;
+    private FragmentPomodoroTimerBinding binding;
 
     public static void updateTimerSettings(long workTime, long shortTime, long longTime) {
 //        PomodoroTimer.workTime = workTime*60*1000;
@@ -52,7 +52,7 @@ public class PomodoroTimerFragment extends Fragment {
             Bundle savedInstanceState
     ) {
 
-        binding = PomodoroTimerBinding.inflate(inflater, container, false);
+        binding = FragmentPomodoroTimerBinding.inflate(inflater, container, false);
         return binding.getRoot();
 
     }

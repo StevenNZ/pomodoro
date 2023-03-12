@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
-import com.example.pomodoro.databinding.LoginPageBinding;
+import com.example.pomodoro.databinding.FragmentLoginPageBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -28,7 +28,7 @@ public class LoginPageFragment extends Fragment {
 
     protected static DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://pomodoro-2bd96-default-rtdb.firebaseio.com/");
 
-    private LoginPageBinding binding;
+    private FragmentLoginPageBinding binding;
 
     private static FirebaseAuth auth = FirebaseAuth.getInstance();
 
@@ -38,7 +38,7 @@ public class LoginPageFragment extends Fragment {
             Bundle savedInstanceState
     ) {
 
-        binding = LoginPageBinding.inflate(inflater, container, false);
+        binding = FragmentLoginPageBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 

@@ -12,7 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.example.pomodoro.databinding.RegisterPageBinding;
+import com.example.pomodoro.databinding.FragmentRegisterPageBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -24,7 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class RegisterPageFragment extends Fragment {
 
-    private RegisterPageBinding binding;
+    private FragmentRegisterPageBinding binding;
 
     private FirebaseAuth auth = FirebaseAuth.getInstance();
 
@@ -38,7 +38,7 @@ public class RegisterPageFragment extends Fragment {
             Bundle savedInstanceState
     ) {
 
-        binding = RegisterPageBinding.inflate(inflater, container, false);
+        binding = FragmentRegisterPageBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
