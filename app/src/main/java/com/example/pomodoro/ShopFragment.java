@@ -52,9 +52,11 @@ public class ShopFragment extends Fragment {
                 switch (event.getAction()) {
 
                     case MotionEvent.ACTION_DOWN:
+                        // when user holds down
                         swipeY1 = event.getY();
                         return true;
                     case MotionEvent.ACTION_UP:
+                        // when user releases
                         swipeY2 = event.getY();
 
                         if (swipeY2 < swipeY1) {
@@ -167,6 +169,11 @@ public class ShopFragment extends Fragment {
         return epicName;
     }
 
+    /**
+     * Grabs the key of the inputted image to update the firebase database
+     * @param itemImage - image of the file name needed
+     * @return - String of the file name
+     */
     private String getFileName(String itemImage) {
         StringBuilder output = new StringBuilder();
         String[] filenames = itemImage.split("/");
