@@ -83,6 +83,9 @@ public class Confetti {
         );
     }
 
+    /**
+     * Grabs a random confetti animation
+     */
     public void randomConfetti() {
         float rand = new Random().nextFloat();
         if (rand < 0.33) {
