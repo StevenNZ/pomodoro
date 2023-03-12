@@ -95,6 +95,7 @@ public class MainMenuFragment extends Fragment {
             }
         });
 
+        // a listener for when the user logs in from loginpage fragment
         getParentFragmentManager().setFragmentResultListener("dataFromLP", this, new FragmentResultListener() {
             @Override
             public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
