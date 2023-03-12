@@ -180,6 +180,11 @@ public class ProfilePageFragment extends Fragment {
         checkHasAvatar(binding.epicThreeImage, UserAccount.isEpicThree());
     }
 
+    /**
+     * Checks if the user has already unlocked the avatar
+     * @param avatarImage - the avatar being checked
+     * @param isUnlocked - boolean variable if unlocked
+     */
     private void checkHasAvatar(ImageView avatarImage, boolean isUnlocked) {
         if (isUnlocked) {
             avatarImage.setAlpha(1f);
