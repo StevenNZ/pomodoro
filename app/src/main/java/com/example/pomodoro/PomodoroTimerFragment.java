@@ -97,6 +97,9 @@ public class PomodoroTimerFragment extends Fragment {
         confetti = new Confetti(binding.konfettiViewPomo, getContext());
     }
 
+    /**
+     * Called when user presses back button while in a pomodoro session and displays a confirmation prompt
+     */
     private void alertConfirmation() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setMessage("Remaining pomodoro progress will not be saved, are you sure you want to go back?");
@@ -168,6 +171,7 @@ public class PomodoroTimerFragment extends Fragment {
             public void onFinish() {
                 updateTomatoes();
 
+                // if pomodoro session is over
                 if (isBreak && timeline == 0) {
                     binding.buttonNewGame.setVisibility(View.VISIBLE);
                     binding.buttonBack.setVisibility(View.VISIBLE);
