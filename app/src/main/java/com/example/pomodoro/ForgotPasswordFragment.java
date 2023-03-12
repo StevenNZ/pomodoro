@@ -14,7 +14,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class ForgotPassword extends Fragment {
+public class ForgotPasswordFragment extends Fragment {
 
     ForgotPasswordBinding binding;
 

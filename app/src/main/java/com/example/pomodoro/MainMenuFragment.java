@@ -1,8 +1,7 @@
 package com.example.pomodoro;
 
-import static com.example.pomodoro.LoginPage.databaseReference;
+import static com.example.pomodoro.LoginPageFragment.databaseReference;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +20,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 
-public class MainMenu extends Fragment {
+public class MainMenuFragment extends Fragment {
 
     private MainMenuBinding binding;
 
@@ -44,7 +43,7 @@ public class MainMenu extends Fragment {
         binding.buttonFirst.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NavHostFragment.findNavController(MainMenu.this)
+                NavHostFragment.findNavController(MainMenuFragment.this)
                         .navigate(R.id.action_FirstFragment_to_SecondFragment);
             }
         });
@@ -52,7 +51,7 @@ public class MainMenu extends Fragment {
         binding.profileIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NavHostFragment.findNavController(MainMenu.this)
+                NavHostFragment.findNavController(MainMenuFragment.this)
                         .navigate(R.id.action_mainMenu_to_statisticsPage);
             }
         });
@@ -60,14 +59,14 @@ public class MainMenu extends Fragment {
         binding.userIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NavHostFragment.findNavController(MainMenu.this).navigate(R.id.action_mainMenu_to_loginPage);
+                NavHostFragment.findNavController(MainMenuFragment.this).navigate(R.id.action_mainMenu_to_loginPage);
             }
         });
 
         binding.shopIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NavHostFragment.findNavController(MainMenu.this).navigate(R.id.action_mainMenu_to_shop);
+                NavHostFragment.findNavController(MainMenuFragment.this).navigate(R.id.action_mainMenu_to_shop);
             }
         });
 
@@ -126,10 +125,10 @@ public class MainMenu extends Fragment {
                 DataSnapshot snapshot = task.getResult();
 
                 UserAccount.setUID(uid);
-                LoginPage.retrieveUserInfo(snapshot);
-                LoginPage.retrieveUserStats(snapshot);
-                LoginPage.retrieveUserCustom(snapshot);
-                LoginPage.retrieveUserInventory(snapshot);
+                LoginPageFragment.retrieveUserInfo(snapshot);
+                LoginPageFragment.retrieveUserStats(snapshot);
+                LoginPageFragment.retrieveUserCustom(snapshot);
+                LoginPageFragment.retrieveUserInventory(snapshot);
 
                 binding.tomatoesMenuText.setText(String.valueOf(UserAccount.getTomatoes()));
             }

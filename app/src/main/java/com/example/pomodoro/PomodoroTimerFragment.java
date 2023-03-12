@@ -3,13 +3,10 @@ package com.example.pomodoro;
 import android.animation.ObjectAnimator;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.graphics.ColorFilter;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.LayoutInflater;
@@ -17,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
@@ -25,7 +21,7 @@ import com.example.pomodoro.databinding.PomodoroTimerBinding;
 
 import java.util.Locale;
 
-public class PomodoroTimer extends Fragment {
+public class PomodoroTimerFragment extends Fragment {
 
     private static long workTime = 5000;
     private static long shortBreakTime = 2000;
@@ -70,7 +66,7 @@ public class PomodoroTimer extends Fragment {
             @Override
             public void onClick(View view) {
                 if (isNewGame) {
-                    NavHostFragment.findNavController(PomodoroTimer.this)
+                    NavHostFragment.findNavController(PomodoroTimerFragment.this)
                             .navigate(R.id.action_SecondFragment_to_FirstFragment);
                 } else {
                     alertConfirmation();
@@ -110,7 +106,7 @@ public class PomodoroTimer extends Fragment {
                 if (!isNewGame) {
                     timer.cancel();
                 }
-                NavHostFragment.findNavController(PomodoroTimer.this)
+                NavHostFragment.findNavController(PomodoroTimerFragment.this)
                         .navigate(R.id.action_SecondFragment_to_FirstFragment);
             }
         });

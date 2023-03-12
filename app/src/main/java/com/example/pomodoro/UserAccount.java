@@ -1,6 +1,6 @@
 package com.example.pomodoro;
 
-import static com.example.pomodoro.LoginPage.databaseReference;
+import static com.example.pomodoro.LoginPageFragment.databaseReference;
 
 import android.net.Uri;
 

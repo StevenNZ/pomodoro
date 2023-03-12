@@ -22,7 +22,7 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class RegisterPage extends Fragment {
+public class RegisterPageFragment extends Fragment {
 
     private RegisterPageBinding binding;
 

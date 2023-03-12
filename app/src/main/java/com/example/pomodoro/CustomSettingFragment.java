@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.example.pomodoro.databinding.CustomSettingBinding;
 
-public class CustomSetting extends Fragment {
+public class CustomSettingFragment extends Fragment {
 
     private CustomSettingBinding binding;
     private TextView currentTimeText;
@@ -46,7 +46,7 @@ public class CustomSetting extends Fragment {
                 if (!isEditing) {
                     updatePomodoro();
 
-                    NavHostFragment.findNavController(CustomSetting.this)
+                    NavHostFragment.findNavController(CustomSettingFragment.this)
                             .navigate(R.id.action_customSetting_to_pomodoro);
                 } else {
                     saveCustomTimes();
@@ -239,7 +239,7 @@ public class CustomSetting extends Fragment {
     }
 
     private void updatePomodoro() {
-        PomodoroTimer.updateTimerSettings(workTime, shortBreakTime, longBreakTime);
+        PomodoroTimerFragment.updateTimerSettings(workTime, shortBreakTime, longBreakTime);
     }
 
     private void getCustomTimes() {

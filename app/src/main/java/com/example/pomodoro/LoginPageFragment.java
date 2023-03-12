@@ -1,6 +1,5 @@
 package com.example.pomodoro;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -25,7 +24,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class LoginPage extends Fragment {
+public class LoginPageFragment extends Fragment {
 
     protected static DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://pomodoro-2bd96-default-rtdb.firebaseio.com/");
 
@@ -49,7 +48,7 @@ public class LoginPage extends Fragment {
         binding.signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NavHostFragment.findNavController(LoginPage.this).navigate(R.id.action_loginPage_to_registerPage);
+                NavHostFragment.findNavController(LoginPageFragment.this).navigate(R.id.action_loginPage_to_registerPage);
             }
         });
 
@@ -70,7 +69,7 @@ public class LoginPage extends Fragment {
         binding.forgotPasswordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NavHostFragment.findNavController(LoginPage.this).navigate(R.id.action_loginPage_to_forgotPassword);
+                NavHostFragment.findNavController(LoginPageFragment.this).navigate(R.id.action_loginPage_to_forgotPassword);
             }
         });
         updateCurrentUserText();

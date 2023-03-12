@@ -21,7 +21,7 @@ import com.example.pomodoro.databinding.ProfilePageBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
-public class ProfilePage extends Fragment {
+public class ProfilePageFragment extends Fragment {
 
     private ProfilePageBinding binding;
 

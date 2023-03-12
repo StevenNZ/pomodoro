@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/mainMenu"
-        android:name="com.example.pomodoro.MainMenu"
+        android:name="com.example.pomodoro.MainMenuFragment"
         android:label="@string/first_fragment_label"
-        tools:layout="@layout/main_menu">
+        tools:layout="@layout/fragment_main_menu">
 
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
@@ -26,9 +26,9 @@
     </fragment>
     <fragment
         android:id="@+id/pomodoro"
-        android:name="com.example.pomodoro.PomodoroTimer"
+        android:name="com.example.pomodoro.PomodoroTimerFragment"
         android:label="@string/second_fragment_label"
-        tools:layout="@layout/pomodoro_timer">
+        tools:layout="@layout/fragment_pomodoro_timer">
 
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
@@ -36,20 +36,20 @@
     </fragment>
     <fragment
         android:id="@+id/customSetting"
-        android:name="com.example.pomodoro.CustomSetting"
+        android:name="com.example.pomodoro.CustomSettingFragment"
         android:label="Customize your settings"
-        tools:layout="@layout/custom_setting" >
+        tools:layout="@layout/fragment_custom_setting" >
         <action
             android:id="@+id/action_customSetting_to_pomodoro"
             app:destination="@id/pomodoro" />
     </fragment>
     <fragment
         android:id="@+id/profilePage"
-        android:name="com.example.pomodoro.ProfilePage"
+        android:name="com.example.pomodoro.ProfilePageFragment"
         android:label="Profile"/>
     <fragment
         android:id="@+id/loginPage"
-        android:name="com.example.pomodoro.LoginPage"
+        android:name="com.example.pomodoro.LoginPageFragment"
         android:label="Login" >
         <action
             android:id="@+id/action_loginPage_to_registerPage"
@@ -63,7 +63,7 @@
     </fragment>
     <fragment
         android:id="@+id/registerPage"
-        android:name="com.example.pomodoro.RegisterPage"
+        android:name="com.example.pomodoro.RegisterPageFragment"
         android:label="Register" >
         <action
             android:id="@+id/action_registerPage_to_loginPage"
@@ -71,11 +71,11 @@
     </fragment>
     <fragment
         android:id="@+id/forgotPassword"
-        android:name="com.example.pomodoro.ForgotPassword"
+        android:name="com.example.pomodoro.ForgotPasswordFragment"
         android:label="Forgot Password" />
     <fragment
         android:id="@+id/shop"
-        android:name="com.example.pomodoro.Shop"
+        android:name="com.example.pomodoro.ShopFragment"
         android:label="Shop"
         tools:layout="@layout/fragment_shop" />
 </navigation>
