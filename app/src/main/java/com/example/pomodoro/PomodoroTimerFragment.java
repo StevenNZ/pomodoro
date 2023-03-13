@@ -41,9 +41,9 @@ public class PomodoroTimerFragment extends Fragment {
     private FragmentPomodoroTimerBinding binding;
 
     public static void updateTimerSettings(long workTime, long shortTime, long longTime) {
-//        PomodoroTimer.workTime = workTime*60*1000;
-//        shortBreakTime = shortTime*60*1000;
-//        longBreakTime = longTime*60*1000;
+        PomodoroTimerFragment.workTime = workTime*60*1000;
+        shortBreakTime = shortTime*60*1000;
+        longBreakTime = longTime*60*1000;
     }
 
     @Override
