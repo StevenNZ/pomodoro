@@ -90,7 +90,13 @@ public class ShopFragment extends Fragment {
         String itemImage;
         String tier;
 
-        if (randFloat >= 0.95f) {
+        if (randFloat >= 0.99) {
+            itemImage = "android.resource://com.example.pomodoro/drawable/common";
+            tier = "Legendary";
+            confetti.explode();
+            confetti.parade();
+            confetti.rain();
+        } else if (randFloat >= 0.95f) {
             itemImage = getRandomEpic();
             tier = "Epic";
             confetti.explode();
