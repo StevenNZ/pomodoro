@@ -16,6 +16,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
 import com.example.pomodoro.databinding.FragmentShopBinding;
+import com.google.firebase.firestore.auth.User;
 
 import java.util.Random;
 
@@ -60,9 +61,11 @@ public class ShopFragment extends Fragment {
                         swipeY2 = event.getY();
 
                         if (swipeY2 < swipeY1) {
-                            if (UserAccount.getTomatoes() < 80) {
+                            int tomatoes = UserAccount.getTomatoes();
+                            if (tomatoes < 200) {
                                 Toast.makeText(getContext(), "Not enough tomatoes :(", Toast.LENGTH_SHORT).show();
                             } else {
+                                updateTomatoes(tomatoes);
                                 layoutUpdate();
                                 itemUpdate();
                             }
@@ -85,12 +88,25 @@ public class ShopFragment extends Fragment {
         confetti = new Confetti(binding.konfettiView, getContext());
     }
 
+    private void updateTomatoes(int tomatoes) {
+        UserAccount.setTomatoes(tomatoes - 200);
+
+        String tomatoesText = String.valueOf(UserAccount.getTomatoes());
+        binding.tomatoesShopText.setText(tomatoesText);
+    }
+
     private void itemUpdate() {
         float randFloat = new Random().nextFloat();
         String itemImage;
         String tier;
 
-        if (randFloat >= 0.95f) {
+        if (randFloat >= 0.99) {
+            itemImage = "android.resource://com.example.pomodoro/drawable/common";
+            tier = "Legendary";
+            confetti.explode();
+            confetti.parade();
+            confetti.rain();
+        } else if (randFloat >= 0.95f) {
             itemImage = getRandomEpic();
             tier = "Epic";
             confetti.explode();
