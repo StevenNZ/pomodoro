@@ -16,6 +16,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
 import com.example.pomodoro.databinding.FragmentShopBinding;
+import com.google.firebase.firestore.auth.User;
 
 import java.util.Random;
 
@@ -60,9 +61,11 @@ public class ShopFragment extends Fragment {
                         swipeY2 = event.getY();
 
                         if (swipeY2 < swipeY1) {
-                            if (UserAccount.getTomatoes() < 80) {
+                            int tomatoes = UserAccount.getTomatoes();
+                            if (tomatoes < 200) {
                                 Toast.makeText(getContext(), "Not enough tomatoes :(", Toast.LENGTH_SHORT).show();
                             } else {
+                                UserAccount.setTomatoes(tomatoes - 200);
                                 layoutUpdate();
                                 itemUpdate();
                             }
