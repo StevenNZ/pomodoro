@@ -65,7 +65,7 @@ public class ShopFragment extends Fragment {
                             if (tomatoes < 200) {
                                 Toast.makeText(getContext(), "Not enough tomatoes :(", Toast.LENGTH_SHORT).show();
                             } else {
-                                UserAccount.setTomatoes(tomatoes - 200);
+                                updateTomatoes(tomatoes);
                                 layoutUpdate();
                                 itemUpdate();
                             }
@@ -86,6 +86,13 @@ public class ShopFragment extends Fragment {
 
         binding.tomatoesShopText.setText(String.valueOf(UserAccount.getTomatoes()));
         confetti = new Confetti(binding.konfettiView, getContext());
+    }
+
+    private void updateTomatoes(int tomatoes) {
+        UserAccount.setTomatoes(tomatoes - 200);
+
+        String tomatoesText = String.valueOf(UserAccount.getTomatoes());
+        binding.tomatoesShopText.setText(tomatoesText);
     }
 
     private void itemUpdate() {
