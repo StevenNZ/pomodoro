@@ -213,7 +213,7 @@ public class PomodoroTimerFragment extends Fragment {
     }
 
     private void updateTomatoes() {
-        UserAccount.incrementTomatoes((int) initialTime/100);
+        UserAccount.incrementTomatoes((int) initialTime/6000);
 
         String tomatoes = String.valueOf(UserAccount.getTomatoes());
         binding.tomatoesPomoText.setText(tomatoes);
