@@ -40,6 +40,10 @@ public class UserAccount {
     protected static boolean epicOne;
     protected static boolean epicTwo;
     protected static boolean epicThree;
+    protected static boolean isBackgroundBlue;
+    protected static boolean isBackgroundCyan;
+    protected static boolean isBackgroundPurple;
+
 
     public static String getEmailAddress() {
         return emailAddress;
@@ -298,6 +302,31 @@ public class UserAccount {
     public static void setEpicThree(boolean epicThree) {
         UserAccount.epicThree = epicThree;
     }
+
+    public static boolean getIsBackgroundBlue() {
+        return isBackgroundBlue;
+    }
+
+    public static void setIsBackgroundBlue(boolean isBackgroundBlue) {
+        UserAccount.isBackgroundBlue = isBackgroundBlue;
+    }
+
+    public static boolean getIsBackgroundCyan() {
+        return isBackgroundCyan;
+    }
+
+    public static void setIsBackgroundCyan(boolean isBackgroundCyan) {
+        UserAccount.isBackgroundCyan = isBackgroundCyan;
+    }
+
+    public static boolean getIsBackgroundPurple() {
+        return isBackgroundPurple;
+    }
+
+    public static void setIsBackgroundPurple(boolean isBackgroundPurple) {
+        UserAccount.isBackgroundPurple = isBackgroundPurple;
+    }
+
 
     public static void resetGuest() {
         emailAddress = "";
