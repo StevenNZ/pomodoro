@@ -110,7 +110,7 @@ public class RegisterPageFragment extends Fragment {
                     updateUserInfo(user, username);
 
                     // sending to the database
-                    updateDatabase(databaseReference.child(uid), emailAddress, username, password);
+                    updateDatabase(databaseReference.child(uid), emailAddress, username);
                     updateFirestore(emailAddress, uid, username);
 
                     sendVerifyEmail();
@@ -167,14 +167,13 @@ public class RegisterPageFragment extends Fragment {
         });
     }
 
-    private void updateDatabase(DatabaseReference databaseReference, String emailAddress, String username, String password) {
+    private void updateDatabase(DatabaseReference databaseReference, String emailAddress, String username) {
         String statPath = "Statistics";
         String customPath = "Custom";
         String inventoryPath = "Inventory";
 
         databaseReference.child("Email Address").setValue(emailAddress);
         databaseReference.child("Username").setValue(username);
-        databaseReference.child("Password").setValue(password);
 
         updateStatsDatabase(databaseReference.child(statPath));
         updateCustomDatabase(databaseReference.child(customPath));
