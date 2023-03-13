@@ -131,7 +131,7 @@ public class RegisterPageFragment extends Fragment {
         db.collection(emailAddress).add(userInfo).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
-                Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
+                System.out.println("Success");
             }
         });
     }
