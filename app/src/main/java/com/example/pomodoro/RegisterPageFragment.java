@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.pomodoro.databinding.FragmentRegisterPageBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,6 +22,11 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegisterPageFragment extends Fragment {
 
@@ -104,12 +110,28 @@ public class RegisterPageFragment extends Fragment {
                     updateUserInfo(user, username);
 
                     // sending to the database
-                    updateDatabase(databaseReference.child(uid), emailAddress, username, password);
+                    updateDatabase(databaseReference.child(uid), emailAddress, username);
+                    updateFirestore(emailAddress, uid, username);
 
                     sendVerifyEmail();
                 } else {
                     Toast.makeText(requireContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+    }
+
+    private void updateFirestore(String emailAddress, String uid, String username) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        Map<String, Object> userInfo = new HashMap<>();
+        userInfo.put("uid", uid);
+        userInfo.put("username", username);
+
+        db.collection(emailAddress).add(userInfo).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+            @Override
+            public void onSuccess(DocumentReference documentReference) {
+                Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -145,14 +167,13 @@ public class RegisterPageFragment extends Fragment {
         });
     }
 
-    private void updateDatabase(DatabaseReference databaseReference, String emailAddress, String username, String password) {
+    private void updateDatabase(DatabaseReference databaseReference, String emailAddress, String username) {
         String statPath = "Statistics";
         String customPath = "Custom";
         String inventoryPath = "Inventory";
 
         databaseReference.child("Email Address").setValue(emailAddress);
         databaseReference.child("Username").setValue(username);
-        databaseReference.child("Password").setValue(password);
 
         updateStatsDatabase(databaseReference.child(statPath));
         updateCustomDatabase(databaseReference.child(customPath));
