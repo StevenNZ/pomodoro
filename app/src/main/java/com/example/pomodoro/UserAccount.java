@@ -13,6 +13,7 @@ public class UserAccount {
     protected static String password;
     protected static String uid = "";
     protected static Uri uriImage = Uri.parse("android.resource://com.example.pomodoro/drawable/guest_icon");
+    protected static Uri uriBackground = Uri.parse("android.resource://com.example.pomodoro/drawable/background_white");
     protected static int tomatoesCurrency = 0;
 
     protected static int pomodoroTotal;
@@ -75,6 +76,14 @@ public class UserAccount {
 
     public static void setUriImage(Uri uriImage) {
         UserAccount.uriImage = uriImage;
+    }
+
+    public static Uri getUriBackground() {
+        return uriBackground;
+    }
+
+    public static void setUriBackground(Uri uriBackground) {
+        UserAccount.uriBackground = uriBackground;
     }
 
     public static void setPomodoroTotal(int pomodoroTotal) {
