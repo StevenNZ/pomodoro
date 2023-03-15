@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
         updateBackground();
     }
 
-    private void updateBackground() {
+    protected void updateBackground() {
         backgroundImageView.setImageURI(UserAccount.getUriBackground());
     }
 
