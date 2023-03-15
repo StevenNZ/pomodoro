@@ -3,6 +3,7 @@ package com.example.pomodoro;
 import android.os.Bundle;
 
 import com.example.pomodoro.databinding.ActivityMainBinding;
+import com.google.firebase.firestore.auth.User;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,6 +17,7 @@ import androidx.navigation.ui.NavigationUI;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private ConstraintLayout mainMenuInfoLayout;
     private ConstraintLayout pomodoroInfoLayout;
     private ConstraintLayout shopInfoLayout;
+    private ImageView backgroundImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         mainMenuInfoLayout = findViewById(R.id.mainMenuInfoLayout);
         pomodoroInfoLayout = findViewById(R.id.pomodoroInfoLayout);
         shopInfoLayout = findViewById(R.id.shopInfoLayout);
+        backgroundImageView = findViewById(R.id.globalImage);
 
         mainMenuInfoLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,6 +72,12 @@ public class MainActivity extends AppCompatActivity {
                 navHostFrag.setAlpha(1.0f);
             }
         });
+
+        updateBackground();
+    }
+
+    private void updateBackground() {
+        backgroundImageView.setImageURI(UserAccount.getUriBackground());
     }
 
     @Override
