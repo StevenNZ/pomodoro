@@ -438,6 +438,16 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/background_dark" />
 
+            <LinearLayout
+                android:id="@+id/maskBackgroundLayout"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:background="@android:color/transparent"
+                android:clickable="true"
+                android:visibility="visible"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toTopOf="parent"/>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <Button
