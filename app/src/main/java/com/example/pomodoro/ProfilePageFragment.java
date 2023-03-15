@@ -14,18 +14,21 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.pomodoro.databinding.FragmentProfilePageBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.firestore.auth.User;
 
 public class ProfilePageFragment extends Fragment {
 
     private FragmentProfilePageBinding binding;
 
     private Uri currentUri;
+    private String currentBackground;
 
     @Override
     public View onCreateView(
@@ -158,6 +161,16 @@ public class ProfilePageFragment extends Fragment {
                 binding.iconProfileImage.setImageURI(currentUri);
             }
         });
+
+        binding.backgroundOneImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentBackground = "android.resource://com.example.pomodoro/drawable/background_cyan";
+                binding.profilePageLayout.setBackground(AppCompatResources.getDrawable(requireContext(), R.drawable.background_cyan));
+            }
+        });
+
+        binding.profilePageLayout.setBackground(null);
 
         updateProfile();
         updateStats();
