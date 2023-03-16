@@ -172,6 +172,30 @@ public class ProfilePageFragment extends Fragment {
             }
         });
 
+        binding.backgroundTwoImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentBackground = "android.resource://com.example.pomodoro/drawable/background_blue";
+                binding.profilePageLayout.setBackground(AppCompatResources.getDrawable(requireContext(), R.drawable.background_blue));
+            }
+        });
+
+        binding.backgroundThreeImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentBackground = "android.resource://com.example.pomodoro/drawable/background_purple";
+                binding.profilePageLayout.setBackground(AppCompatResources.getDrawable(requireContext(), R.drawable.background_purple));
+            }
+        });
+
+        binding.backgroundFourImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentBackground = "android.resource://com.example.pomodoro/drawable/background_dark";
+                binding.profilePageLayout.setBackground(AppCompatResources.getDrawable(requireContext(), R.drawable.background_dark));
+            }
+        });
+
         binding.profilePageLayout.setBackground(null);
 
         updateProfile();
