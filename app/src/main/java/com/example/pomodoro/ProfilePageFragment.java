@@ -53,6 +53,7 @@ public class ProfilePageFragment extends Fragment {
                 binding.saveAvatarButton.setVisibility(View.VISIBLE);
                 binding.editBackground.setVisibility(View.GONE);
                 binding.maskLayout.setClickable(false);
+                binding.maskBackgroundLayout.setClickable(false);
             }
         });
 
@@ -65,6 +66,7 @@ public class ProfilePageFragment extends Fragment {
                 binding.editBackground.setVisibility(View.VISIBLE);
                 binding.saveAvatarButton.setVisibility(View.GONE);
                 binding.maskLayout.setClickable(true);
+                binding.maskBackgroundLayout.setClickable(true);
 
                 UserAccount.setUriImage(currentUri);
                 if (FirebaseAuth.getInstance().getCurrentUser() != null) {
