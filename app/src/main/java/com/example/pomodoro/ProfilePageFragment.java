@@ -68,6 +68,9 @@ public class ProfilePageFragment extends Fragment {
                 binding.maskLayout.setClickable(true);
                 binding.maskBackgroundLayout.setClickable(true);
 
+                UserAccount.setUriBackground(Uri.parse(currentBackground));
+                ((MainActivity)requireActivity()).updateBackground();
+
                 UserAccount.setUriImage(currentUri);
                 if (FirebaseAuth.getInstance().getCurrentUser() != null) {
                     UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setPhotoUri(currentUri).build();
