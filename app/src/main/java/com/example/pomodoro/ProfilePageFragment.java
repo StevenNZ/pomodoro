@@ -217,6 +217,10 @@ public class ProfilePageFragment extends Fragment {
         checkHasAvatar(binding.epicOneImage, UserAccount.isEpicOne());
         checkHasAvatar(binding.epicTwoImage, UserAccount.isEpicTwo());
         checkHasAvatar(binding.epicThreeImage, UserAccount.isEpicThree());
+        checkHasAvatar(binding.backgroundOneImage, UserAccount.getIsBackgroundCyan());
+        checkHasAvatar(binding.backgroundTwoImage, UserAccount.getIsBackgroundBlue());
+        checkHasAvatar(binding.backgroundThreeImage, UserAccount.getIsBackgroundPurple());
+        checkHasAvatar(binding.backgroundFourImage, UserAccount.getIsBackgroundDark());
     }
 
     /**
