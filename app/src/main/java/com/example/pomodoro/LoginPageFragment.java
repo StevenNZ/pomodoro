@@ -1,5 +1,6 @@
 package com.example.pomodoro;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -25,7 +26,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.auth.User;
 
 public class LoginPageFragment extends Fragment {
 
@@ -149,6 +150,19 @@ public class LoginPageFragment extends Fragment {
                             retrieveFirestore(email);
                         }
                     });
+
+                    db.collection("Users").document(auth.getCurrentUser().getEmail()).get()
+                            .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        DocumentSnapshot document = task.getResult();
+                                        if (document.exists()) {
+                                            retrieveBackground(document);
+                                        }
+                                    }
+                                }
+                            });
                 } else {
                     Toast.makeText(requireContext(), "Please verify your email", Toast.LENGTH_SHORT).show();
                     auth.signOut();
@@ -162,13 +176,24 @@ public class LoginPageFragment extends Fragment {
         });
     }
 
+    protected static void retrieveBackground(DocumentSnapshot document) {
+        UserAccount.setUriBackground(Uri.parse(String.valueOf(document.get("bgUri"))));
+        UserAccount.setIsBackgroundCyan(Boolean.parseBoolean(String.valueOf(document.get("bgOne"))));
+        UserAccount.setIsBackgroundBlue(Boolean.parseBoolean(String.valueOf(document.get("bgTwo"))));
+        UserAccount.setIsBackgroundPurple(Boolean.parseBoolean(String.valueOf(document.get("bgThree"))));
+        UserAccount.setIsBackgroundDark(Boolean.parseBoolean(String.valueOf(document.get("bgFour"))));
+    }
+
     protected static void retrieveFirestore(String email) {
         db.collection("Users").document(email).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
+                        UserAccount.setUriBackground(Uri.parse(String.valueOf(document.get("bgUri"))));
                         UserAccount.setIsBackgroundCyan(Boolean.parseBoolean(String.valueOf(document.get("bgOne"))));
                         UserAccount.setIsBackgroundBlue(Boolean.parseBoolean(String.valueOf(document.get("bgTwo"))));
                         UserAccount.setIsBackgroundPurple(Boolean.parseBoolean(String.valueOf(document.get("bgThree"))));
