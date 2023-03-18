@@ -127,6 +127,10 @@ public class RegisterPageFragment extends Fragment {
         Map<String, Object> userInfo = new HashMap<>();
         userInfo.put("uid", uid);
         userInfo.put("username", username);
+        userInfo.put("bgOne", false);
+        userInfo.put("bgTwo", false);
+        userInfo.put("bgThree", false);
+        userInfo.put("bgFour", false);
 
         db.collection(emailAddress).add(userInfo).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
