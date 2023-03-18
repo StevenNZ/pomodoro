@@ -1,6 +1,7 @@
 package com.example.pomodoro;
 
 import static com.example.pomodoro.LoginPageFragment.databaseReference;
+import static com.example.pomodoro.LoginPageFragment.db;
 
 import android.net.Uri;
 
@@ -319,6 +320,7 @@ public class UserAccount {
 
     public static void setIsBackgroundBlue(boolean isBackgroundBlue) {
         UserAccount.isBackgroundBlue = isBackgroundBlue;
+        updateFirestore("bgTwo");
     }
 
     public static boolean getIsBackgroundCyan() {
@@ -327,6 +329,7 @@ public class UserAccount {
 
     public static void setIsBackgroundCyan(boolean isBackgroundCyan) {
         UserAccount.isBackgroundCyan = isBackgroundCyan;
+        updateFirestore("bgOne");
     }
 
     public static boolean getIsBackgroundPurple() {
@@ -335,6 +338,7 @@ public class UserAccount {
 
     public static void setIsBackgroundPurple(boolean isBackgroundPurple) {
         UserAccount.isBackgroundPurple = isBackgroundPurple;
+        updateFirestore("bgThree");
     }
 
     public static boolean getIsBackgroundDark() {
@@ -343,6 +347,13 @@ public class UserAccount {
 
     public static void setIsBackgroundDark(boolean isBackgroundDark) {
         UserAccount.isBackgroundDark = isBackgroundDark;
+        updateFirestore("bgFour");
+    }
+
+    protected static void updateFirestore(String bg) {
+        if (!uid.isEmpty()) {
+            db.collection("Users").document(emailAddress).update(bg, true);
+        }
     }
 
     public static void resetGuest() {

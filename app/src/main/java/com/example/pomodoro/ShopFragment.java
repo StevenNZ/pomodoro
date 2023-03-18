@@ -166,12 +166,15 @@ public class ShopFragment extends Fragment {
         } else if (randFloat < 5/itemTotal){
             rareName = "android.resource://com.example.pomodoro/drawable/background_cyan";
             UserAccount.setIsBackgroundCyan(true);
+            UserAccount.updateFirestore("bgOne");
         } else if (randFloat < 6/itemTotal){
             rareName = "android.resource://com.example.pomodoro/drawable/background_blue";
             UserAccount.setIsBackgroundBlue(true);
+            UserAccount.updateFirestore("bgTwo");
         } else {
             rareName = "android.resource://com.example.pomodoro/drawable/background_purple";
             UserAccount.setIsBackgroundPurple(true);
+            UserAccount.updateFirestore("bgThree");
         }
 
         return rareName;
@@ -194,6 +197,7 @@ public class ShopFragment extends Fragment {
         } else {
             epicName = "android.resource://com.example.pomodoro/drawable/background_dark";
             UserAccount.setIsBackgroundDark(true);
+            UserAccount.updateFirestore("bgFour");
         }
 
         return epicName;
