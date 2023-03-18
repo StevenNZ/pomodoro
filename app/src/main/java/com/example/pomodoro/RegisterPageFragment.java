@@ -127,6 +127,7 @@ public class RegisterPageFragment extends Fragment {
         Map<String, Object> userInfo = new HashMap<>();
         userInfo.put("uid", uid);
         userInfo.put("username", username);
+        userInfo.put("bgUri", "android.resource://com.example.pomodoro/drawable/background_white");
         userInfo.put("bgOne", false);
         userInfo.put("bgTwo", false);
         userInfo.put("bgThree", false);
