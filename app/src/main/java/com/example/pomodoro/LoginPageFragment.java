@@ -23,10 +23,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class LoginPageFragment extends Fragment {
 
     protected static DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://pomodoro-2bd96-default-rtdb.firebaseio.com/");
+    protected static FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     private FragmentLoginPageBinding binding;
 
@@ -142,6 +146,7 @@ public class LoginPageFragment extends Fragment {
                             retrieveUserStats(dataSnapshot);
                             retrieveUserCustom(dataSnapshot);
                             retrieveUserInventory(dataSnapshot);
+                            retrieveFirestore(email);
                         }
                     });
                 } else {
@@ -153,6 +158,23 @@ public class LoginPageFragment extends Fragment {
             @Override
             public void onFailure(@NonNull Exception exception) {
                 Toast.makeText(requireContext(), exception.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    protected static void retrieveFirestore(String email) {
+        db.collection("Users").document(email).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        UserAccount.setIsBackgroundCyan(Boolean.parseBoolean(String.valueOf(document.get("bgOne"))));
+                        UserAccount.setIsBackgroundBlue(Boolean.parseBoolean(String.valueOf(document.get("bgTwo"))));
+                        UserAccount.setIsBackgroundPurple(Boolean.parseBoolean(String.valueOf(document.get("bgThree"))));
+                        UserAccount.setIsBackgroundDark(Boolean.parseBoolean(String.valueOf(document.get("bgFour"))));
+                    }
+                }
             }
         });
     }
