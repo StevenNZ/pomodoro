@@ -361,6 +361,7 @@ public class UserAccount {
         username = "Guest";
         uid = "";
         uriImage = Uri.parse("android.resource://com.example.pomodoro/drawable/guest_icon");
+        uriBackground = Uri.parse("android.resource://com.example.pomodoro/drawable/background_white");
         tomatoesCurrency = 0;
 
         pomodoroTotal = 0;
