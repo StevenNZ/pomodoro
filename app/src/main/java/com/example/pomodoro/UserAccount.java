@@ -320,7 +320,7 @@ public class UserAccount {
 
     public static void setIsBackgroundBlue(boolean isBackgroundBlue) {
         UserAccount.isBackgroundBlue = isBackgroundBlue;
-        updateFirestore("bgTwo");
+        updateFirestore("bgTwo", true);
     }
 
     public static boolean getIsBackgroundCyan() {
@@ -329,7 +329,7 @@ public class UserAccount {
 
     public static void setIsBackgroundCyan(boolean isBackgroundCyan) {
         UserAccount.isBackgroundCyan = isBackgroundCyan;
-        updateFirestore("bgOne");
+        updateFirestore("bgOne", true);
     }
 
     public static boolean getIsBackgroundPurple() {
@@ -338,7 +338,7 @@ public class UserAccount {
 
     public static void setIsBackgroundPurple(boolean isBackgroundPurple) {
         UserAccount.isBackgroundPurple = isBackgroundPurple;
-        updateFirestore("bgThree");
+        updateFirestore("bgThree", true);
     }
 
     public static boolean getIsBackgroundDark() {
@@ -347,12 +347,12 @@ public class UserAccount {
 
     public static void setIsBackgroundDark(boolean isBackgroundDark) {
         UserAccount.isBackgroundDark = isBackgroundDark;
-        updateFirestore("bgFour");
+        updateFirestore("bgFour", true);
     }
 
-    protected static void updateFirestore(String bg) {
+    protected static void updateFirestore(String key, Object value) {
         if (!uid.isEmpty()) {
-            db.collection("Users").document(emailAddress).update(bg, true);
+            db.collection("Users").document(emailAddress).update(key, value);
         }
     }
 
