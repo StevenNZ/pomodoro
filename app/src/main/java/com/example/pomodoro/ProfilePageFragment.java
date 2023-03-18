@@ -28,7 +28,7 @@ public class ProfilePageFragment extends Fragment {
     private FragmentProfilePageBinding binding;
 
     private Uri currentUri;
-    private String currentBackground;
+    private String currentBackground = "";
 
     @Override
     public View onCreateView(
@@ -68,8 +68,10 @@ public class ProfilePageFragment extends Fragment {
                 binding.maskLayout.setClickable(true);
                 binding.maskBackgroundLayout.setClickable(true);
 
-                UserAccount.setUriBackground(Uri.parse(currentBackground));
-                ((MainActivity)requireActivity()).updateBackground();
+                if (!currentBackground.isEmpty()) {
+                    UserAccount.setUriBackground(Uri.parse(currentBackground));
+                    ((MainActivity) requireActivity()).updateBackground();
+                }
 
                 UserAccount.setUriImage(currentUri);
                 if (FirebaseAuth.getInstance().getCurrentUser() != null) {
