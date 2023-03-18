@@ -132,9 +132,10 @@ public class RegisterPageFragment extends Fragment {
         userInfo.put("bgThree", false);
         userInfo.put("bgFour", false);
 
-        db.collection(emailAddress).add(userInfo).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+        db.collection("Users").document(emailAddress)
+                .set(userInfo).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
-            public void onSuccess(DocumentReference documentReference) {
+            public void onSuccess(Void avoid) {
                 System.out.println("Success");
             }
         });
