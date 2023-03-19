@@ -1,10 +1,12 @@
 package com.example.pomodoro;
 
 import static com.example.pomodoro.LoginPageFragment.databaseReference;
+import static com.example.pomodoro.LoginPageFragment.db;
 
 import android.net.Uri;
 
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.firestore.DocumentReference;
 
 public class UserAccount {
 
@@ -13,6 +15,7 @@ public class UserAccount {
     protected static String password;
     protected static String uid = "";
     protected static Uri uriImage = Uri.parse("android.resource://com.example.pomodoro/drawable/guest_icon");
+    protected static Uri uriBackground = Uri.parse("android.resource://com.example.pomodoro/drawable/background_white");
     protected static int tomatoesCurrency = 0;
 
     protected static int pomodoroTotal;
@@ -40,6 +43,11 @@ public class UserAccount {
     protected static boolean epicOne;
     protected static boolean epicTwo;
     protected static boolean epicThree;
+    protected static boolean isBackgroundBlue;
+    protected static boolean isBackgroundCyan;
+    protected static boolean isBackgroundPurple;
+    protected static boolean isBackgroundDark;
+
 
     public static String getEmailAddress() {
         return emailAddress;
@@ -71,6 +79,14 @@ public class UserAccount {
 
     public static void setUriImage(Uri uriImage) {
         UserAccount.uriImage = uriImage;
+    }
+
+    public static Uri getUriBackground() {
+        return uriBackground;
+    }
+
+    public static void setUriBackground(Uri uriBackground) {
+        UserAccount.uriBackground = uriBackground;
     }
 
     public static void setPomodoroTotal(int pomodoroTotal) {
@@ -299,11 +315,55 @@ public class UserAccount {
         UserAccount.epicThree = epicThree;
     }
 
+    public static boolean getIsBackgroundBlue() {
+        return isBackgroundBlue;
+    }
+
+    public static void setIsBackgroundBlue(boolean isBackgroundBlue) {
+        UserAccount.isBackgroundBlue = isBackgroundBlue;
+        updateFirestore("bgTwo", true);
+    }
+
+    public static boolean getIsBackgroundCyan() {
+        return isBackgroundCyan;
+    }
+
+    public static void setIsBackgroundCyan(boolean isBackgroundCyan) {
+        UserAccount.isBackgroundCyan = isBackgroundCyan;
+        updateFirestore("bgOne", true);
+    }
+
+    public static boolean getIsBackgroundPurple() {
+        return isBackgroundPurple;
+    }
+
+    public static void setIsBackgroundPurple(boolean isBackgroundPurple) {
+        UserAccount.isBackgroundPurple = isBackgroundPurple;
+        updateFirestore("bgThree", true);
+    }
+
+    public static boolean getIsBackgroundDark() {
+        return isBackgroundDark;
+    }
+
+    public static void setIsBackgroundDark(boolean isBackgroundDark) {
+        UserAccount.isBackgroundDark = isBackgroundDark;
+        updateFirestore("bgFour", true);
+    }
+
+    protected static void updateFirestore(String key, Object value) {
+        if (!uid.isEmpty()) {
+            DocumentReference documentReference = db.collection("Users").document(emailAddress);
+            documentReference.update(key, value);
+        }
+    }
+
     public static void resetGuest() {
         emailAddress = "";
         username = "Guest";
         uid = "";
         uriImage = Uri.parse("android.resource://com.example.pomodoro/drawable/guest_icon");
+        uriBackground = Uri.parse("android.resource://com.example.pomodoro/drawable/background_white");
         tomatoesCurrency = 0;
 
         pomodoroTotal = 0;
@@ -331,6 +391,10 @@ public class UserAccount {
         epicOne = false;
         epicTwo = false;
         epicThree = false;
+        isBackgroundCyan = false;
+        isBackgroundBlue = false;
+        isBackgroundPurple = false;
+        isBackgroundDark = false;
     }
 
     private UserAccount() {

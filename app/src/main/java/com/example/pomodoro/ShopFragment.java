@@ -111,7 +111,7 @@ public class ShopFragment extends Fragment {
             tier = "Epic";
             confetti.explode();
             confetti.parade();
-        } else if (randFloat >= 0.85f) {
+        } else if (randFloat >= 0.80f) {
             itemImage = getRandomRare();
             tier = "Rare";
             confetti.explode();
@@ -148,20 +148,33 @@ public class ShopFragment extends Fragment {
 
     private String getRandomRare() {
         float randFloat = new Random().nextFloat();
+        float itemTotal = 7f;
         String rareName;
 
-        if (randFloat < 0.25f) {
+        if (randFloat < 1/itemTotal) {
             rareName = "android.resource://com.example.pomodoro/drawable/rare_one";
             UserAccount.setRareOne(true);
-        } else if (randFloat < 0.5f) {
+        } else if (randFloat < 2/itemTotal) {
             rareName = "android.resource://com.example.pomodoro/drawable/rare_two";
             UserAccount.setRareTwo(true);
-        } else if (randFloat < 0.75) {
+        } else if (randFloat < 3/itemTotal) {
             rareName = "android.resource://com.example.pomodoro/drawable/rare_three";
             UserAccount.setRareThree(true);
-        } else {
+        } else if (randFloat < 4/itemTotal){
             rareName = "android.resource://com.example.pomodoro/drawable/rare_four";
             UserAccount.setRareFour(true);
+        } else if (randFloat < 5/itemTotal){
+            rareName = "android.resource://com.example.pomodoro/drawable/background_cyan";
+            UserAccount.setIsBackgroundCyan(true);
+            UserAccount.updateFirestore("bgOne", true);
+        } else if (randFloat < 6/itemTotal){
+            rareName = "android.resource://com.example.pomodoro/drawable/background_blue";
+            UserAccount.setIsBackgroundBlue(true);
+            UserAccount.updateFirestore("bgTwo", true);
+        } else {
+            rareName = "android.resource://com.example.pomodoro/drawable/background_purple";
+            UserAccount.setIsBackgroundPurple(true);
+            UserAccount.updateFirestore("bgThree", true);
         }
 
         return rareName;
@@ -169,17 +182,22 @@ public class ShopFragment extends Fragment {
 
     private String getRandomEpic() {
         float randFloat = new Random().nextFloat();
+        float epicTotal = 4;
         String epicName;
 
-        if (randFloat < 0.33f) {
+        if (randFloat < 1/epicTotal) {
             epicName = "android.resource://com.example.pomodoro/drawable/epic_one";
             UserAccount.setEpicOne(true);
-        } else if (randFloat < 0.66f) {
+        } else if (randFloat < 2/epicTotal) {
             epicName = "android.resource://com.example.pomodoro/drawable/epic_two";
             UserAccount.setEpicTwo(true);
-        } else {
+        } else if (randFloat < 3/epicTotal){
             epicName = "android.resource://com.example.pomodoro/drawable/epic_three";
             UserAccount.setEpicThree(true);
+        } else {
+            epicName = "android.resource://com.example.pomodoro/drawable/background_dark";
+            UserAccount.setIsBackgroundDark(true);
+            UserAccount.updateFirestore("bgFour", true);
         }
 
         return epicName;

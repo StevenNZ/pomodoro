@@ -1,6 +1,7 @@
 package com.example.pomodoro;
 
 import static com.example.pomodoro.LoginPageFragment.databaseReference;
+import static com.example.pomodoro.LoginPageFragment.db;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -19,6 +20,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.firestore.DocumentSnapshot;
 
 public class MainMenuFragment extends Fragment {
 
@@ -132,6 +134,20 @@ public class MainMenuFragment extends Fragment {
                 LoginPageFragment.retrieveUserInventory(snapshot);
 
                 binding.tomatoesMenuText.setText(String.valueOf(UserAccount.getTomatoes()));
+            }
+        });
+
+        db.collection("Users").document(auth.getCurrentUser().getEmail()).get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        LoginPageFragment.retrieveBackground(document);
+                        ((MainActivity)requireActivity()).updateBackground();
+                    }
+                }
             }
         });
     }

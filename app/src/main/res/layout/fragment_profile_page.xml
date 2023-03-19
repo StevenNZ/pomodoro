@@ -7,6 +7,7 @@
     android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/profilePageLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -239,7 +240,6 @@
                 android:layout_width="43dp"
                 android:layout_height="30dp"
                 android:src="@drawable/tomatoes_currency"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -261,8 +261,6 @@
             android:layout_width="351dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="35dp"
-            android:layout_marginBottom="30dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/badgeLayout">
@@ -391,6 +389,67 @@
                 app:layout_constraintTop_toTopOf="parent"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/backgroundLayout"
+            android:layout_width="351dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:layout_marginBottom="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/inventoryLayout">
+
+            <ImageView
+                android:id="@+id/backgroundOneImage"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:alpha="0.25"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/background_cyan" />
+
+            <ImageView
+                android:id="@+id/backgroundTwoImage"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:alpha="0.25"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/backgroundOneImage"
+                app:layout_constraintEnd_toStartOf="@id/backgroundThreeImage"
+                app:srcCompat="@drawable/background_blue" />
+
+            <ImageView
+                android:id="@+id/backgroundThreeImage"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:alpha="0.25"
+                app:layout_constraintStart_toEndOf="@+id/backgroundTwoImage"
+                app:layout_constraintEnd_toStartOf="@id/backgroundFourImage"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/background_purple" />
+
+            <ImageView
+                android:id="@+id/backgroundFourImage"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:alpha="0.25"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/background_dark" />
+
+            <LinearLayout
+                android:id="@+id/maskBackgroundLayout"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:background="@android:color/transparent"
+                android:clickable="true"
+                android:visibility="visible"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <Button
             android:id="@+id/saveAvatarButton"
             android:layout_width="wrap_content"
@@ -402,7 +461,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/inventoryLayout" />
+            app:layout_constraintTop_toBottomOf="@+id/backgroundLayout" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

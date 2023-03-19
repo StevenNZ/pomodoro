@@ -14,18 +14,21 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.pomodoro.databinding.FragmentProfilePageBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.firestore.auth.User;
 
 public class ProfilePageFragment extends Fragment {
 
     private FragmentProfilePageBinding binding;
 
     private Uri currentUri;
+    private String currentBackground = "";
 
     @Override
     public View onCreateView(
@@ -50,6 +53,7 @@ public class ProfilePageFragment extends Fragment {
                 binding.saveAvatarButton.setVisibility(View.VISIBLE);
                 binding.editBackground.setVisibility(View.GONE);
                 binding.maskLayout.setClickable(false);
+                binding.maskBackgroundLayout.setClickable(false);
             }
         });
 
@@ -62,11 +66,18 @@ public class ProfilePageFragment extends Fragment {
                 binding.editBackground.setVisibility(View.VISIBLE);
                 binding.saveAvatarButton.setVisibility(View.GONE);
                 binding.maskLayout.setClickable(true);
+                binding.maskBackgroundLayout.setClickable(true);
+
+                if (!currentBackground.isEmpty()) {
+                    UserAccount.setUriBackground(Uri.parse(currentBackground));
+                    ((MainActivity) requireActivity()).updateBackground();
+                }
 
                 UserAccount.setUriImage(currentUri);
                 if (FirebaseAuth.getInstance().getCurrentUser() != null) {
                     UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setPhotoUri(currentUri).build();
                     FirebaseAuth.getInstance().getCurrentUser().updateProfile(profileUpdates);
+                    UserAccount.updateFirestore("bgUri", String.valueOf(currentBackground));
                 }
             }
         });
@@ -159,6 +170,40 @@ public class ProfilePageFragment extends Fragment {
             }
         });
 
+        binding.backgroundOneImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentBackground = "android.resource://com.example.pomodoro/drawable/background_cyan";
+                binding.profilePageLayout.setBackground(AppCompatResources.getDrawable(requireContext(), R.drawable.background_cyan));
+            }
+        });
+
+        binding.backgroundTwoImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentBackground = "android.resource://com.example.pomodoro/drawable/background_blue";
+                binding.profilePageLayout.setBackground(AppCompatResources.getDrawable(requireContext(), R.drawable.background_blue));
+            }
+        });
+
+        binding.backgroundThreeImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentBackground = "android.resource://com.example.pomodoro/drawable/background_purple";
+                binding.profilePageLayout.setBackground(AppCompatResources.getDrawable(requireContext(), R.drawable.background_purple));
+            }
+        });
+
+        binding.backgroundFourImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentBackground = "android.resource://com.example.pomodoro/drawable/background_dark";
+                binding.profilePageLayout.setBackground(AppCompatResources.getDrawable(requireContext(), R.drawable.background_dark));
+            }
+        });
+
+        binding.profilePageLayout.setBackground(null);
+
         updateProfile();
         updateStats();
         updateBadges();
@@ -178,6 +223,10 @@ public class ProfilePageFragment extends Fragment {
         checkHasAvatar(binding.epicOneImage, UserAccount.isEpicOne());
         checkHasAvatar(binding.epicTwoImage, UserAccount.isEpicTwo());
         checkHasAvatar(binding.epicThreeImage, UserAccount.isEpicThree());
+        checkHasAvatar(binding.backgroundOneImage, UserAccount.getIsBackgroundCyan());
+        checkHasAvatar(binding.backgroundTwoImage, UserAccount.getIsBackgroundBlue());
+        checkHasAvatar(binding.backgroundThreeImage, UserAccount.getIsBackgroundPurple());
+        checkHasAvatar(binding.backgroundFourImage, UserAccount.getIsBackgroundDark());
     }
 
     /**
