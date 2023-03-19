@@ -6,6 +6,7 @@ import static com.example.pomodoro.LoginPageFragment.db;
 import android.net.Uri;
 
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.firestore.DocumentReference;
 
 public class UserAccount {
 
@@ -352,7 +353,8 @@ public class UserAccount {
 
     protected static void updateFirestore(String key, Object value) {
         if (!uid.isEmpty()) {
-            db.collection("Users").document(emailAddress).update(key, value);
+            DocumentReference documentReference = db.collection("Users").document(emailAddress);
+            documentReference.update(key, value);
         }
     }
 
