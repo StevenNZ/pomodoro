@@ -30,6 +30,19 @@ public class ProfilePageFragment extends Fragment {
     private Uri currentUri;
     private String currentBackground = "";
 
+    class DatabaseThread extends Thread {
+
+        DatabaseThread() {
+        }
+
+        public void run() {
+            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setPhotoUri(currentUri).build();
+            FirebaseAuth.getInstance().getCurrentUser().updateProfile(profileUpdates);
+            UserAccount.updateFirestore("bgUri", String.valueOf(currentBackground));
+            System.out.println(Thread.currentThread().getName());
+        }
+    }
+
     @Override
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container,
@@ -72,12 +85,10 @@ public class ProfilePageFragment extends Fragment {
                     UserAccount.setUriBackground(Uri.parse(currentBackground));
                     ((MainActivity) requireActivity()).updateBackground();
                 }
-
                 UserAccount.setUriImage(currentUri);
                 if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setPhotoUri(currentUri).build();
-                    FirebaseAuth.getInstance().getCurrentUser().updateProfile(profileUpdates);
-                    UserAccount.updateFirestore("bgUri", String.valueOf(currentBackground));
+                    DatabaseThread dThread = new DatabaseThread();
+                    dThread.start();
                 }
             }
         });
