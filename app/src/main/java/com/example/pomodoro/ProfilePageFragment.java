@@ -39,7 +39,6 @@ public class ProfilePageFragment extends Fragment {
             UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setPhotoUri(currentUri).build();
             FirebaseAuth.getInstance().getCurrentUser().updateProfile(profileUpdates);
             UserAccount.updateFirestore("bgUri", String.valueOf(currentBackground));
-            System.out.println(Thread.currentThread().getName());
         }
     }
 
@@ -84,6 +83,7 @@ public class ProfilePageFragment extends Fragment {
                 if (!currentBackground.isEmpty()) {
                     UserAccount.setUriBackground(Uri.parse(currentBackground));
                     ((MainActivity) requireActivity()).updateBackground();
+                    currentBackground = "";
                 }
                 UserAccount.setUriImage(currentUri);
                 if (FirebaseAuth.getInstance().getCurrentUser() != null) {
