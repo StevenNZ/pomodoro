@@ -4,6 +4,8 @@ import static com.example.pomodoro.LoginPageFragment.databaseReference;
 import static com.example.pomodoro.LoginPageFragment.db;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +29,35 @@ public class MainMenuFragment extends Fragment {
     private FragmentMainMenuBinding binding;
 
     private FirebaseAuth auth = FirebaseAuth.getInstance();
+
+    class RealTimeThread extends Thread {
+
+        private final Task<DataSnapshot> task;
+        private final String uid;
+
+        RealTimeThread(Task<DataSnapshot> task, String uid) {
+            this.task = task;
+            this.uid = uid;
+        }
+
+        public void run() {
+            Handler mainHandler = new Handler(Looper.getMainLooper());
+            DataSnapshot snapshot = task.getResult();
+
+            UserAccount.setUID(uid);
+            LoginPageFragment.retrieveUserInfo(snapshot);
+            LoginPageFragment.retrieveUserStats(snapshot);
+            LoginPageFragment.retrieveUserCustom(snapshot);
+            LoginPageFragment.retrieveUserInventory(snapshot);
+
+            mainHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    binding.tomatoesMenuText.setText(String.valueOf(UserAccount.getTomatoes()));
+                }
+            });
+            }
+        }
 
     @Override
     public View onCreateView(
@@ -125,15 +156,8 @@ public class MainMenuFragment extends Fragment {
         databaseReference.child("Users").child(uid).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
-                DataSnapshot snapshot = task.getResult();
-
-                UserAccount.setUID(uid);
-                LoginPageFragment.retrieveUserInfo(snapshot);
-                LoginPageFragment.retrieveUserStats(snapshot);
-                LoginPageFragment.retrieveUserCustom(snapshot);
-                LoginPageFragment.retrieveUserInventory(snapshot);
-
-                binding.tomatoesMenuText.setText(String.valueOf(UserAccount.getTomatoes()));
+                RealTimeThread rtThread = new RealTimeThread(task, uid);
+                rtThread.start();
             }
         });
 
