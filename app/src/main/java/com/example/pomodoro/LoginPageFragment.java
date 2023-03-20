@@ -193,11 +193,7 @@ public class LoginPageFragment extends Fragment {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
-                        UserAccount.setUriBackground(Uri.parse(String.valueOf(document.get("bgUri"))));
-                        UserAccount.setIsBackgroundCyan(Boolean.parseBoolean(String.valueOf(document.get("bgOne"))));
-                        UserAccount.setIsBackgroundBlue(Boolean.parseBoolean(String.valueOf(document.get("bgTwo"))));
-                        UserAccount.setIsBackgroundPurple(Boolean.parseBoolean(String.valueOf(document.get("bgThree"))));
-                        UserAccount.setIsBackgroundDark(Boolean.parseBoolean(String.valueOf(document.get("bgFour"))));
+                        retrieveBackground(document);
                     }
                 }
             }
