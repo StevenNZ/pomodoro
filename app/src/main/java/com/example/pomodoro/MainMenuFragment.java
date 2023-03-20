@@ -56,8 +56,34 @@ public class MainMenuFragment extends Fragment {
                     binding.tomatoesMenuText.setText(String.valueOf(UserAccount.getTomatoes()));
                 }
             });
+        }
+    }
+
+    class FirestoreThread extends Thread {
+
+        private final Task<DocumentSnapshot> task;
+
+        FirestoreThread(Task<DocumentSnapshot> task) {
+            this.task = task;
+        }
+
+        public void run() {
+            Handler mainHandler = new Handler(Looper.getMainLooper());
+
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                if (document.exists()) {
+                    LoginPageFragment.retrieveBackground(document);
+                    mainHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            ((MainActivity) requireActivity()).updateBackground();
+                        }
+                    });
+                }
             }
         }
+    }
 
     @Override
     public View onCreateView(
@@ -163,17 +189,12 @@ public class MainMenuFragment extends Fragment {
 
         db.collection("Users").document(auth.getCurrentUser().getEmail()).get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        LoginPageFragment.retrieveBackground(document);
-                        ((MainActivity)requireActivity()).updateBackground();
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        FirestoreThread fsThread = new FirestoreThread(task);
+                        fsThread.start();
                     }
-                }
-            }
-        });
+                });
     }
 
     private void updateUserProfile() {
