@@ -22,7 +22,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -37,6 +37,36 @@ public class RegisterPageFragment extends Fragment {
     private Confetti confetti;
 
     private int avatarSelected = 0;
+
+    class DatabaseThread extends Thread {
+
+        private final Task<AuthResult> task;
+        private final String username;
+        private final String email;
+
+        DatabaseThread(Task<AuthResult> task, String username, String email) {
+            this.task = task;
+            this.username = username;
+            this.email = email;
+        }
+
+        public void run() {
+            // create object of DatabaseReference class which gives access to firebase realtime database
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Users");
+
+            // grabbing the user's UID as our unique identity
+            FirebaseUser user = auth.getCurrentUser();
+            String uid = user.getUid();
+
+            updateUserInfo(user, username);
+
+            // sending to the database
+            updateDatabase(databaseReference.child(uid), email, username);
+            updateFirestore(email, uid, username);
+
+            sendVerifyEmail();
+        }
+    }
 
     @Override
     public View onCreateView(
@@ -100,20 +130,8 @@ public class RegisterPageFragment extends Fragment {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    // create object of DatabaseReference class which gives access to firebase realtime database
-                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Users");
-
-                    // grabbing the user's UID as our unique identity
-                    FirebaseUser user = auth.getCurrentUser();
-                    String uid = user.getUid();
-
-                    updateUserInfo(user, username);
-
-                    // sending to the database
-                    updateDatabase(databaseReference.child(uid), emailAddress, username);
-                    updateFirestore(emailAddress, uid, username);
-
-                    sendVerifyEmail();
+                    DatabaseThread dbThread = new DatabaseThread(task, username, emailAddress);
+                    dbThread.start();
                 } else {
                     Toast.makeText(requireContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
