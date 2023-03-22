@@ -7,6 +7,7 @@ import com.google.firebase.firestore.auth.User;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -78,6 +79,14 @@ public class MainActivity extends AppCompatActivity {
 
     protected void updateBackground() {
         backgroundImageView.setImageURI(UserAccount.getUriBackground());
+    }
+
+    protected void checkDarkMode(String bgName) {
+        if (bgName.equals("Background Dark")) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
     }
 
     @Override

@@ -56,11 +56,7 @@ public class MainMenuFragment extends Fragment {
                 @Override
                 public void run() {
                     binding.tomatoesMenuText.setText(String.valueOf(UserAccount.getTomatoes()));
-                    if (currentBg.equals("Background Dark")) {
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                    } else {
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                    }
+                    ((MainActivity)requireActivity()).checkDarkMode(currentBg);
                 }
             });
         }
