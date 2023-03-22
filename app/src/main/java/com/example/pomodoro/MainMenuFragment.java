@@ -13,6 +13,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentResultListener;
 import androidx.navigation.fragment.NavHostFragment;
@@ -50,10 +51,16 @@ public class MainMenuFragment extends Fragment {
             LoginPageFragment.retrieveUserCustom(snapshot);
             LoginPageFragment.retrieveUserInventory(snapshot);
 
+            String currentBg = ShopFragment.getFileName(UserAccount.getUriBackground().toString());
             mainHandler.post(new Runnable() {
                 @Override
                 public void run() {
                     binding.tomatoesMenuText.setText(String.valueOf(UserAccount.getTomatoes()));
+                    if (currentBg.equals("Background Dark")) {
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    } else {
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    }
                 }
             });
         }

@@ -269,7 +269,6 @@ public class ProfilePageFragment extends Fragment {
         TooltipCompat.setTooltipText(binding.badgeFourInitial, "Create an account!");
         TooltipCompat.setTooltipText(binding.badgeFiveInitial, "Try out and create your own custom session");
         TooltipCompat.setTooltipText(binding.badgeSixInitial, "Unlock the rarest legendary icon");
-        TooltipCompat.setTooltipText(binding.backgroundFourImage, "Turn on dark mode on phone for full effects");
     }
 
     private void updateBadges() {

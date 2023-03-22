@@ -208,7 +208,7 @@ public class ShopFragment extends Fragment {
      * @param itemImage - image of the file name needed
      * @return - String of the file name
      */
-    private String getFileName(String itemImage) {
+    protected static String getFileName(String itemImage) {
         StringBuilder output = new StringBuilder();
         String[] filenames = itemImage.split("/");
         String[] filenameSplit = filenames[filenames.length-1].split("_");
