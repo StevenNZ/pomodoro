@@ -86,6 +86,9 @@ public class ProfilePageFragment extends Fragment {
                 if (!currentBackground.isEmpty()) {
                     UserAccount.setUriBackground(Uri.parse(currentBackground));
                     ((MainActivity) requireActivity()).updateBackground();
+
+                    String currentBg = ShopFragment.getFileName(currentBackground);
+                    ((MainActivity)requireActivity()).checkDarkMode(currentBg);
                 }
                 UserAccount.setUriImage(currentUri);
                 if (FirebaseAuth.getInstance().getCurrentUser() != null) {
