@@ -35,10 +35,13 @@ public class MainMenuFragment extends Fragment {
 
         private final Task<DataSnapshot> task;
         private final String uid;
+        private FragmentMainMenuBinding binding;
 
-        RealTimeThread(Task<DataSnapshot> task, String uid) {
+
+        RealTimeThread(Task<DataSnapshot> task, String uid, FragmentMainMenuBinding binding) {
             this.task = task;
             this.uid = uid;
+            this.binding = binding;
         }
 
         public void run() {
@@ -54,7 +57,9 @@ public class MainMenuFragment extends Fragment {
             mainHandler.post(new Runnable() {
                 @Override
                 public void run() {
-                    binding.tomatoesMenuText.setText(String.valueOf(UserAccount.getTomatoes()));
+                    if (binding != null) {
+                        binding.tomatoesMenuText.setText(String.valueOf(UserAccount.getTomatoes()));
+                    }
                 }
             });
         }
@@ -185,7 +190,7 @@ public class MainMenuFragment extends Fragment {
         databaseReference.child("Users").child(uid).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
-                RealTimeThread rtThread = new RealTimeThread(task, uid);
+                RealTimeThread rtThread = new RealTimeThread(task, uid, binding);
                 rtThread.start();
             }
         });
