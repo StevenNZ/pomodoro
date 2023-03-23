@@ -129,6 +129,8 @@ public class LoginPageFragment extends Fragment {
                     auth.signOut();
                     UserAccount.resetGuest();
                     updateCurrentUserText();
+                    ((MainActivity)requireActivity()).updateBackground();
+                    ((MainActivity)requireActivity()).checkDarkMode("");
                 }
             }
         });
