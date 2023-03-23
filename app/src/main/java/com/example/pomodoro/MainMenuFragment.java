@@ -51,12 +51,10 @@ public class MainMenuFragment extends Fragment {
             LoginPageFragment.retrieveUserCustom(snapshot);
             LoginPageFragment.retrieveUserInventory(snapshot);
 
-            String currentBg = ShopFragment.getFileName(UserAccount.getUriBackground().toString());
             mainHandler.post(new Runnable() {
                 @Override
                 public void run() {
                     binding.tomatoesMenuText.setText(String.valueOf(UserAccount.getTomatoes()));
-                    ((MainActivity)requireActivity()).checkDarkMode(currentBg);
                 }
             });
         }
@@ -77,10 +75,12 @@ public class MainMenuFragment extends Fragment {
                 DocumentSnapshot document = task.getResult();
                 if (document.exists()) {
                     LoginPageFragment.retrieveBackground(document);
+                    String currentBg = ShopFragment.getFileName(UserAccount.getUriBackground().toString());
                     mainHandler.post(new Runnable() {
                         @Override
                         public void run() {
                             ((MainActivity) requireActivity()).updateBackground();
+                            ((MainActivity)requireActivity()).checkDarkMode(currentBg);
                         }
                     });
                 }
