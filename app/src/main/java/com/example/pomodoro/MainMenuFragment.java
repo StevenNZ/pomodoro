@@ -206,7 +206,8 @@ public class MainMenuFragment extends Fragment {
     }
 
     private void updateUserProfile() {
-        binding.usernameText.setText(auth.getCurrentUser().getDisplayName());
+        String username = binding.usernameText.getText() + " " + auth.getCurrentUser().getDisplayName();
+        binding.usernameText.setText(username);
         binding.mainIcon.setImageURI(auth.getCurrentUser().getPhotoUrl());
     }
 
