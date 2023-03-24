@@ -34,7 +34,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
         android:text="@string/pomodoro"
-        android:textColor="@color/black"
         android:textSize="60sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
