@@ -1,5 +1,6 @@
 package com.example.pomodoro;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 
 import com.example.pomodoro.databinding.ActivityMainBinding;
@@ -75,6 +76,11 @@ public class MainActivity extends AppCompatActivity {
         });
 
         updateBackground();
+
+        MediaPlayer music = MediaPlayer.create(MainActivity.this, R.raw.music);
+        music.start();
+        music.setLooping(true);
+
     }
 
     protected void updateBackground() {
