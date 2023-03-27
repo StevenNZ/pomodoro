@@ -378,10 +378,21 @@
                 app:layout_constraintTop_toBottomOf="@id/rareOneImage"
                 app:srcCompat="@drawable/epic_three" />
 
+            <ImageView
+                android:id="@+id/legendaryImage"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_marginTop="30dp"
+                android:alpha="0.25"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/epicOneImage"
+                app:srcCompat="@drawable/legendary" />
+
             <LinearLayout
                 android:id="@+id/maskLayout"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="400dp"
                 android:background="@android:color/transparent"
                 android:clickable="true"
                 android:visibility="visible"
