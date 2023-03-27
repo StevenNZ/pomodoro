@@ -32,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     private ConstraintLayout shopInfoLayout;
     private ImageView backgroundImageView;
 
+    private MediaPlayer music;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
 
         updateBackground();
 
-        MediaPlayer music = MediaPlayer.create(MainActivity.this, R.raw.music);
+        music = MediaPlayer.create(MainActivity.this, R.raw.music);
         music.start();
         music.setLooping(true);
 
@@ -124,6 +126,15 @@ public class MainActivity extends AppCompatActivity {
                 shopInfoLayout.setVisibility(View.VISIBLE);
             } else {
                 navHostFrag.setAlpha(1f);
+            }
+        }
+
+        if (item.getItemId() == R.id.action_music) {
+            if (music.isPlaying()) {
+                music.stop();
+            } else {
+                music.start();
+                music.setLooping(true);
             }
         }
 
