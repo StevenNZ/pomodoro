@@ -6,6 +6,7 @@ import android.os.Bundle;
 import com.example.pomodoro.databinding.ActivityMainBinding;
 import com.google.firebase.firestore.auth.User;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.appcompat.app.AppCompatDelegate;
@@ -21,6 +22,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
+import java.util.Arrays;
+
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
@@ -32,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private ConstraintLayout shopInfoLayout;
     private ImageView backgroundImageView;
 
-    private MediaPlayer music;
+    protected static MediaPlayer music;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,9 +83,6 @@ public class MainActivity extends AppCompatActivity {
         updateBackground();
 
         music = MediaPlayer.create(MainActivity.this, R.raw.music);
-        music.start();
-        music.setLooping(true);
-
     }
 
     protected void updateBackground() {
@@ -130,15 +130,19 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (item.getItemId() == R.id.action_music) {
-            if (music.isPlaying()) {
-                music.stop();
-            } else {
-                music.start();
-                music.setLooping(true);
-            }
+            toggleMusic();
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    protected static void toggleMusic() {
+        if (music.isPlaying()) {
+            music.pause();
+        } else {
+            music.start();
+            music.setLooping(true);
+        }
     }
 
     @Override
