@@ -6,7 +6,7 @@
         android:id="@+id/action_music"
         android:orderInCategory="100"
         android:icon="@drawable/music_note"
-        android:iconTint="@color/white"
+        app:iconTint="@color/white"
         android:title="@string/action_settings"
         app:showAsAction="always" />
     <item
