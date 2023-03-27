@@ -4,6 +4,8 @@ import static com.example.pomodoro.LoginPageFragment.databaseReference;
 import static com.example.pomodoro.LoginPageFragment.db;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentResultListener;
 import androidx.navigation.fragment.NavHostFragment;
@@ -27,6 +30,68 @@ public class MainMenuFragment extends Fragment {
     private FragmentMainMenuBinding binding;
 
     private FirebaseAuth auth = FirebaseAuth.getInstance();
+
+    class RealTimeThread extends Thread {
+
+        private final Task<DataSnapshot> task;
+        private final String uid;
+        private FragmentMainMenuBinding binding;
+
+
+        RealTimeThread(Task<DataSnapshot> task, String uid, FragmentMainMenuBinding binding) {
+            this.task = task;
+            this.uid = uid;
+            this.binding = binding;
+        }
+
+        public void run() {
+            Handler mainHandler = new Handler(Looper.getMainLooper());
+            DataSnapshot snapshot = task.getResult();
+
+            UserAccount.setUID(uid);
+            LoginPageFragment.retrieveUserInfo(snapshot);
+            LoginPageFragment.retrieveUserStats(snapshot);
+            LoginPageFragment.retrieveUserCustom(snapshot);
+            LoginPageFragment.retrieveUserInventory(snapshot);
+
+            mainHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    if (binding != null) {
+                        binding.tomatoesMenuText.setText(String.valueOf(UserAccount.getTomatoes()));
+                    }
+                }
+            });
+        }
+    }
+
+    class FirestoreThread extends Thread {
+
+        private final Task<DocumentSnapshot> task;
+
+        FirestoreThread(Task<DocumentSnapshot> task) {
+            this.task = task;
+        }
+
+        public void run() {
+            Handler mainHandler = new Handler(Looper.getMainLooper());
+
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                if (document.exists()) {
+                    LoginPageFragment.retrieveBackground(document);
+                    String currentBg = ShopFragment.getFileName(UserAccount.getUriBackground().toString());
+                    mainHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            ((MainActivity) requireActivity()).updateBackground();
+                            ((MainActivity)requireActivity()).checkDarkMode(currentBg);
+                        }
+                    });
+                }
+            }
+        }
+    }
 
     @Override
     public View onCreateView(
@@ -125,35 +190,24 @@ public class MainMenuFragment extends Fragment {
         databaseReference.child("Users").child(uid).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
-                DataSnapshot snapshot = task.getResult();
-
-                UserAccount.setUID(uid);
-                LoginPageFragment.retrieveUserInfo(snapshot);
-                LoginPageFragment.retrieveUserStats(snapshot);
-                LoginPageFragment.retrieveUserCustom(snapshot);
-                LoginPageFragment.retrieveUserInventory(snapshot);
-
-                binding.tomatoesMenuText.setText(String.valueOf(UserAccount.getTomatoes()));
+                RealTimeThread rtThread = new RealTimeThread(task, uid, binding);
+                rtThread.start();
             }
         });
 
         db.collection("Users").document(auth.getCurrentUser().getEmail()).get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        LoginPageFragment.retrieveBackground(document);
-                        ((MainActivity)requireActivity()).updateBackground();
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        FirestoreThread fsThread = new FirestoreThread(task);
+                        fsThread.start();
                     }
-                }
-            }
-        });
+                });
     }
 
     private void updateUserProfile() {
-        binding.usernameText.setText(auth.getCurrentUser().getDisplayName());
+        String username = "Welcome " + auth.getCurrentUser().getDisplayName();
+        binding.usernameText.setText(username);
         binding.mainIcon.setImageURI(auth.getCurrentUser().getPhotoUrl());
     }
 

@@ -26,7 +26,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.auth.User;
 
 public class LoginPageFragment extends Fragment {
 
@@ -36,6 +35,48 @@ public class LoginPageFragment extends Fragment {
     private FragmentLoginPageBinding binding;
 
     private static FirebaseAuth auth = FirebaseAuth.getInstance();
+
+    class DatabaseThread extends Thread {
+
+        private final Task<DataSnapshot> task;
+        private final String uid;
+        private final String email;
+
+        DatabaseThread(Task<DataSnapshot> task, String uid, String email) {
+            this.task = task;
+            this.uid = uid;
+            this.email = email;
+        }
+
+        public void run() {
+            DataSnapshot dataSnapshot = task.getResult();
+
+            UserAccount.setUID(uid);
+            retrieveUserInfo(dataSnapshot);
+            retrieveUserStats(dataSnapshot);
+            retrieveUserCustom(dataSnapshot);
+            retrieveUserInventory(dataSnapshot);
+            retrieveFirestore(email);
+        }
+    }
+
+    class FirestoreThread extends Thread {
+
+        private final Task<DocumentSnapshot> task;
+
+        FirestoreThread(Task<DocumentSnapshot> task) {
+            this.task = task;
+        }
+
+        public void run() {
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                if (document.exists()) {
+                    retrieveBackground(document);
+                }
+            }
+        }
+    }
 
     @Override
     public View onCreateView(
@@ -88,6 +129,8 @@ public class LoginPageFragment extends Fragment {
                     auth.signOut();
                     UserAccount.resetGuest();
                     updateCurrentUserText();
+                    ((MainActivity)requireActivity()).updateBackground();
+                    ((MainActivity)requireActivity()).checkDarkMode("");
                 }
             }
         });
@@ -131,23 +174,13 @@ public class LoginPageFragment extends Fragment {
                     databaseUsers.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DataSnapshot> task) {
-                            // retrieve data from firebase
-                            retrieveData(task);
+                            // retrieve data from firebase through a thread
+                            DatabaseThread databaseThread = new DatabaseThread(task, uid, email);
+                            databaseThread.start();
 
                             updateMainMenu();
 
                             requireActivity().getOnBackPressedDispatcher().onBackPressed();
-                        }
-
-                        private void retrieveData(Task<DataSnapshot> task) {
-                            DataSnapshot dataSnapshot = task.getResult();
-
-                            UserAccount.setUID(uid);
-                            retrieveUserInfo(dataSnapshot);
-                            retrieveUserStats(dataSnapshot);
-                            retrieveUserCustom(dataSnapshot);
-                            retrieveUserInventory(dataSnapshot);
-                            retrieveFirestore(email);
                         }
                     });
 
@@ -155,12 +188,8 @@ public class LoginPageFragment extends Fragment {
                             .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                 @Override
                                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                    if (task.isSuccessful()) {
-                                        DocumentSnapshot document = task.getResult();
-                                        if (document.exists()) {
-                                            retrieveBackground(document);
-                                        }
-                                    }
+                                    FirestoreThread fsThread = new FirestoreThread(task);
+                                    fsThread.start();
                                 }
                             });
                 } else {
@@ -193,11 +222,7 @@ public class LoginPageFragment extends Fragment {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
-                        UserAccount.setUriBackground(Uri.parse(String.valueOf(document.get("bgUri"))));
-                        UserAccount.setIsBackgroundCyan(Boolean.parseBoolean(String.valueOf(document.get("bgOne"))));
-                        UserAccount.setIsBackgroundBlue(Boolean.parseBoolean(String.valueOf(document.get("bgTwo"))));
-                        UserAccount.setIsBackgroundPurple(Boolean.parseBoolean(String.valueOf(document.get("bgThree"))));
-                        UserAccount.setIsBackgroundDark(Boolean.parseBoolean(String.valueOf(document.get("bgFour"))));
+                        retrieveBackground(document);
                     }
                 }
             }
@@ -218,6 +243,7 @@ public class LoginPageFragment extends Fragment {
 
     /**
      * Retrieve's the user's data from firebase in this case it's inventory
+     *
      * @param dataSnapshot - a snapshot of the user's database state
      */
     protected static void retrieveUserInventory(DataSnapshot dataSnapshot) {
@@ -235,6 +261,7 @@ public class LoginPageFragment extends Fragment {
         boolean epicOne = Boolean.parseBoolean(String.valueOf(inventorySnapShot.child("Epic One").getValue()));
         boolean epicTwo = Boolean.parseBoolean(String.valueOf(inventorySnapShot.child("Epic Two").getValue()));
         boolean epicThree = Boolean.parseBoolean(String.valueOf(inventorySnapShot.child("Epic Three").getValue()));
+        boolean legendary = Boolean.parseBoolean(String.valueOf(inventorySnapShot.child("Legendary").getValue()));
 
         UserAccount.setTomatoes(tomatoes);
         UserAccount.setCommonOne(commonOne);
@@ -248,6 +275,7 @@ public class LoginPageFragment extends Fragment {
         UserAccount.setEpicOne(epicOne);
         UserAccount.setEpicTwo(epicTwo);
         UserAccount.setEpicThree(epicThree);
+        UserAccount.setLegendary(legendary);
     }
 
     protected static void retrieveUserCustom(DataSnapshot dataSnapshot) {

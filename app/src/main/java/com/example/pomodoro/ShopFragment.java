@@ -101,7 +101,8 @@ public class ShopFragment extends Fragment {
         String tier;
 
         if (randFloat >= 0.99) {
-            itemImage = "android.resource://com.example.pomodoro/drawable/common";
+            itemImage = "android.resource://com.example.pomodoro/drawable/legendary";
+            UserAccount.setLegendary(true);
             tier = "Legendary";
             confetti.explode();
             confetti.parade();
@@ -208,7 +209,7 @@ public class ShopFragment extends Fragment {
      * @param itemImage - image of the file name needed
      * @return - String of the file name
      */
-    private String getFileName(String itemImage) {
+    protected static String getFileName(String itemImage) {
         StringBuilder output = new StringBuilder();
         String[] filenames = itemImage.split("/");
         String[] filenameSplit = filenames[filenames.length-1].split("_");

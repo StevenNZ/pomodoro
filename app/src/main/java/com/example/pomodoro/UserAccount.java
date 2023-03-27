@@ -43,6 +43,7 @@ public class UserAccount {
     protected static boolean epicOne;
     protected static boolean epicTwo;
     protected static boolean epicThree;
+    protected static boolean legendary;
     protected static boolean isBackgroundBlue;
     protected static boolean isBackgroundCyan;
     protected static boolean isBackgroundPurple;
@@ -315,13 +316,20 @@ public class UserAccount {
         UserAccount.epicThree = epicThree;
     }
 
+    public static boolean isLegendary() {
+        return legendary;
+    }
+
+    public static void setLegendary(boolean legendary) {
+        UserAccount.legendary = legendary;
+    }
+
     public static boolean getIsBackgroundBlue() {
         return isBackgroundBlue;
     }
 
     public static void setIsBackgroundBlue(boolean isBackgroundBlue) {
         UserAccount.isBackgroundBlue = isBackgroundBlue;
-        updateFirestore("bgTwo", true);
     }
 
     public static boolean getIsBackgroundCyan() {
@@ -330,7 +338,6 @@ public class UserAccount {
 
     public static void setIsBackgroundCyan(boolean isBackgroundCyan) {
         UserAccount.isBackgroundCyan = isBackgroundCyan;
-        updateFirestore("bgOne", true);
     }
 
     public static boolean getIsBackgroundPurple() {
@@ -339,7 +346,6 @@ public class UserAccount {
 
     public static void setIsBackgroundPurple(boolean isBackgroundPurple) {
         UserAccount.isBackgroundPurple = isBackgroundPurple;
-        updateFirestore("bgThree", true);
     }
 
     public static boolean getIsBackgroundDark() {
@@ -348,7 +354,6 @@ public class UserAccount {
 
     public static void setIsBackgroundDark(boolean isBackgroundDark) {
         UserAccount.isBackgroundDark = isBackgroundDark;
-        updateFirestore("bgFour", true);
     }
 
     protected static void updateFirestore(String key, Object value) {
@@ -391,6 +396,7 @@ public class UserAccount {
         epicOne = false;
         epicTwo = false;
         epicThree = false;
+        legendary = false;
         isBackgroundCyan = false;
         isBackgroundBlue = false;
         isBackgroundPurple = false;

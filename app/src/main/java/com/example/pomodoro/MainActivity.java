@@ -1,12 +1,15 @@
 package com.example.pomodoro;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 
 import com.example.pomodoro.databinding.ActivityMainBinding;
 import com.google.firebase.firestore.auth.User;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -19,6 +22,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
+import java.util.Arrays;
+
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
@@ -29,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
     private ConstraintLayout pomodoroInfoLayout;
     private ConstraintLayout shopInfoLayout;
     private ImageView backgroundImageView;
+
+    protected static MediaPlayer music;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,10 +81,20 @@ public class MainActivity extends AppCompatActivity {
         });
 
         updateBackground();
+
+        music = MediaPlayer.create(MainActivity.this, R.raw.music);
     }
 
     protected void updateBackground() {
         backgroundImageView.setImageURI(UserAccount.getUriBackground());
+    }
+
+    protected void checkDarkMode(String bgName) {
+        if (bgName.equals("Background Dark")) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
     }
 
     @Override
@@ -112,7 +129,20 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+        if (item.getItemId() == R.id.action_music) {
+            toggleMusic();
+        }
+
         return super.onOptionsItemSelected(item);
+    }
+
+    protected static void toggleMusic() {
+        if (music.isPlaying()) {
+            music.pause();
+        } else {
+            music.start();
+            music.setLooping(true);
+        }
     }
 
     @Override

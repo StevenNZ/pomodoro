@@ -30,6 +30,21 @@ public class ProfilePageFragment extends Fragment {
     private Uri currentUri;
     private String currentBackground = "";
 
+    class DatabaseThread extends Thread {
+
+        DatabaseThread() {
+        }
+
+        public void run() {
+            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setPhotoUri(currentUri).build();
+            FirebaseAuth.getInstance().getCurrentUser().updateProfile(profileUpdates);
+            if (!currentBackground.isEmpty()) {
+                UserAccount.updateFirestore("bgUri", String.valueOf(currentBackground));
+                currentBackground = "";
+            }
+        }
+    }
+
     @Override
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container,
@@ -71,13 +86,14 @@ public class ProfilePageFragment extends Fragment {
                 if (!currentBackground.isEmpty()) {
                     UserAccount.setUriBackground(Uri.parse(currentBackground));
                     ((MainActivity) requireActivity()).updateBackground();
-                }
 
+                    String currentBg = ShopFragment.getFileName(currentBackground);
+                    ((MainActivity)requireActivity()).checkDarkMode(currentBg);
+                }
                 UserAccount.setUriImage(currentUri);
                 if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setPhotoUri(currentUri).build();
-                    FirebaseAuth.getInstance().getCurrentUser().updateProfile(profileUpdates);
-                    UserAccount.updateFirestore("bgUri", String.valueOf(currentBackground));
+                    DatabaseThread dThread = new DatabaseThread();
+                    dThread.start();
                 }
             }
         });
@@ -202,6 +218,14 @@ public class ProfilePageFragment extends Fragment {
             }
         });
 
+        binding.legendaryImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentUri = Uri.parse("android.resource://com.example.pomodoro/drawable/legendary");
+                binding.iconProfileImage.setImageURI(currentUri);
+            }
+        });
+
         binding.profilePageLayout.setBackground(null);
 
         updateProfile();
@@ -227,6 +251,7 @@ public class ProfilePageFragment extends Fragment {
         checkHasAvatar(binding.backgroundTwoImage, UserAccount.getIsBackgroundBlue());
         checkHasAvatar(binding.backgroundThreeImage, UserAccount.getIsBackgroundPurple());
         checkHasAvatar(binding.backgroundFourImage, UserAccount.getIsBackgroundDark());
+        checkHasAvatar(binding.legendaryImage, UserAccount.isLegendary());
     }
 
     /**
@@ -256,7 +281,6 @@ public class ProfilePageFragment extends Fragment {
         TooltipCompat.setTooltipText(binding.badgeFourInitial, "Create an account!");
         TooltipCompat.setTooltipText(binding.badgeFiveInitial, "Try out and create your own custom session");
         TooltipCompat.setTooltipText(binding.badgeSixInitial, "Unlock the rarest legendary icon");
-        TooltipCompat.setTooltipText(binding.backgroundFourImage, "Turn on dark mode on phone for full effects");
     }
 
     private void updateBadges() {

@@ -142,11 +142,7 @@ public class PomodoroTimerFragment extends Fragment {
         int minutes = (int) (remainingTime / 1000) / 60;
         int seconds = (int) (remainingTime / 1000) % 60;
 
-        if (isNewGame) {
-            seconds--;
-        }
-
-        String remainingTimeText = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds + 1);
+        String remainingTimeText = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
         binding.textTimer.setText(remainingTimeText);
         binding.textSession.setText(workSession);
 
