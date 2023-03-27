@@ -3,6 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.pomodoro.MainActivity">
     <item
+        android:id="@+id/action_music"
+        android:orderInCategory="100"
+        android:icon="@drawable/music_note"
+        android:iconTint="@color/white"
+        android:title="@string/action_settings"
+        app:showAsAction="always" />
+    <item
         android:id="@+id/action_info"
         android:orderInCategory="100"
         android:icon="@drawable/info_icon"
