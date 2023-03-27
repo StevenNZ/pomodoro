@@ -261,6 +261,7 @@ public class LoginPageFragment extends Fragment {
         boolean epicOne = Boolean.parseBoolean(String.valueOf(inventorySnapShot.child("Epic One").getValue()));
         boolean epicTwo = Boolean.parseBoolean(String.valueOf(inventorySnapShot.child("Epic Two").getValue()));
         boolean epicThree = Boolean.parseBoolean(String.valueOf(inventorySnapShot.child("Epic Three").getValue()));
+        boolean legendary = Boolean.parseBoolean(String.valueOf(inventorySnapShot.child("Legendary").getValue()));
 
         UserAccount.setTomatoes(tomatoes);
         UserAccount.setCommonOne(commonOne);
@@ -274,6 +275,7 @@ public class LoginPageFragment extends Fragment {
         UserAccount.setEpicOne(epicOne);
         UserAccount.setEpicTwo(epicTwo);
         UserAccount.setEpicThree(epicThree);
+        UserAccount.setLegendary(legendary);
     }
 
     protected static void retrieveUserCustom(DataSnapshot dataSnapshot) {

@@ -218,6 +218,14 @@ public class ProfilePageFragment extends Fragment {
             }
         });
 
+        binding.legendaryImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentUri = Uri.parse("android.resource://com.example.pomodoro/drawable/legendary");
+                binding.iconProfileImage.setImageURI(currentUri);
+            }
+        });
+
         binding.profilePageLayout.setBackground(null);
 
         updateProfile();
@@ -243,6 +251,7 @@ public class ProfilePageFragment extends Fragment {
         checkHasAvatar(binding.backgroundTwoImage, UserAccount.getIsBackgroundBlue());
         checkHasAvatar(binding.backgroundThreeImage, UserAccount.getIsBackgroundPurple());
         checkHasAvatar(binding.backgroundFourImage, UserAccount.getIsBackgroundDark());
+        checkHasAvatar(binding.legendaryImage, UserAccount.isLegendary());
     }
 
     /**

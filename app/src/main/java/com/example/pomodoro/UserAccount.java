@@ -43,6 +43,7 @@ public class UserAccount {
     protected static boolean epicOne;
     protected static boolean epicTwo;
     protected static boolean epicThree;
+    protected static boolean legendary;
     protected static boolean isBackgroundBlue;
     protected static boolean isBackgroundCyan;
     protected static boolean isBackgroundPurple;
@@ -315,6 +316,14 @@ public class UserAccount {
         UserAccount.epicThree = epicThree;
     }
 
+    public static boolean isLegendary() {
+        return legendary;
+    }
+
+    public static void setLegendary(boolean legendary) {
+        UserAccount.legendary = legendary;
+    }
+
     public static boolean getIsBackgroundBlue() {
         return isBackgroundBlue;
     }
@@ -387,6 +396,7 @@ public class UserAccount {
         epicOne = false;
         epicTwo = false;
         epicThree = false;
+        legendary = false;
         isBackgroundCyan = false;
         isBackgroundBlue = false;
         isBackgroundPurple = false;

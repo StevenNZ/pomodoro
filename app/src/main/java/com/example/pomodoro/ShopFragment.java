@@ -101,7 +101,8 @@ public class ShopFragment extends Fragment {
         String tier;
 
         if (randFloat >= 0.99) {
-            itemImage = "android.resource://com.example.pomodoro/drawable/common";
+            itemImage = "android.resource://com.example.pomodoro/drawable/legendary";
+            UserAccount.setLegendary(true);
             tier = "Legendary";
             confetti.explode();
             confetti.parade();

@@ -217,6 +217,7 @@ public class RegisterPageFragment extends Fragment {
         databaseReference.child("Epic One").setValue(false);
         databaseReference.child("Epic Two").setValue(false);
         databaseReference.child("Epic Three").setValue(false);
+        databaseReference.child("Legendary").setValue(false);
     }
 
     private void updateCustomDatabase(DatabaseReference databaseReference) {
